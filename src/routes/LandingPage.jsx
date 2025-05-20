@@ -4,6 +4,7 @@ import CtaSection from '@/components/CtaSection'
 import FeaturedCourse from '@/components/FeaturedCourse'
 import Hero from '@/components/Hero'
 import { HowItWorks } from '@/components/HowItWorks'
+import OverViewOfUsers from '@/components/OverViewOfUsers'
 import { Testimonials } from '@/components/Testimonial'
 import React from 'react'
 
@@ -13,8 +14,10 @@ export default function LandingPage() {
        <div className="relative">
      <Hero />
      <Communities />
+     <OverViewOfUsers />
      <BrowseCategories />
      <FeaturedCourse />
+
      <HowItWorks />
      <Testimonials />
      <CtaSection />

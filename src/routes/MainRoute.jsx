@@ -5,6 +5,7 @@ import LoginPage from "./Auth";
 import Search from "./Search";
 import WishList from "./WishList";
 import CartPage from "./CartPage";
+import LecturePage from "./lecture/LecturePage";
 
 const routers = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const routers = createBrowserRouter([
       },
       {
         path: "wishlist",
-        Element: <WishList />
+        element: <WishList />
+      },
+      {
+        path: "/teach-on-ct",
+        element: <LecturePage />
       }
     ]
   },

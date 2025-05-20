@@ -14,7 +14,7 @@ export function Testimonials() {
         <p className="text-gray-500 mt-2">Hear from our community of learners</p>
       </div>
 
-      <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8 pb-15">
+      <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8 pb-15">
         {testimonials.map((testimonial) => (
           <Card key={testimonial.id} className="border-1 border-gray-50">
             <CardContent className="p-6">

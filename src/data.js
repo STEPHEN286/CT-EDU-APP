@@ -12,7 +12,8 @@ import {
   Shield,
   Home,
   Heart,
-  User
+  User,
+  GraduationCap
 } from "lucide-react"
 
 import { Search, BookOpen, Award } from "lucide-react";
@@ -78,7 +79,10 @@ export const courses = [
     icon: Shield,
   },
 ]
-
+export const languages = [
+    { code: "en", name: "English" },
+    { code: "fr", name: "Français" },
+  ]
 
 // export const navItems = [
 //   {
@@ -415,4 +419,38 @@ export const howItWorks = [
       "Complete courses and earn certificates to showcase your new skills to employers and advance your career.",
     icon: Award,
   },
+];
+
+
+export const userRolesCards = [
+  {
+    role: "Students",
+    icon: GraduationCap, // Lucide icon
+    features: [
+      "Learn at your own pace",
+      "Track your progress",
+      "Interact with instructors",
+      "Earn verified certificates"
+    ]
+  },
+  {
+    role: "Lecturers",
+    icon: "Presentation", // Lucide icon
+    features: [
+      "Upload courses easily",
+      "Engage with students",
+      "Track student performance",
+      "Earn revenue from your expertise"
+    ]
+  },
+  {
+    role: "Admins",
+    icon: "ShieldCheck", // Lucide icon
+    features: [
+      "Manage users and courses",
+      "Access detailed analytics",
+      "Oversee site operations",
+      "Optimize platform functionality"
+    ]
+  }
 ];

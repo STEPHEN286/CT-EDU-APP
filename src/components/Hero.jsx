@@ -4,7 +4,7 @@ import { containerClass } from "@/utils/css-utils";
 
 export default function Hero() {
   return (
-    <section className=" relative bg-red-100  w-full md:h-[500px] ">
+    <section className=" relative bg-red-100  w-full h-[400px] md:h-[500px] ">
       {/* <div className="absolute inset-0 h-full w-full z-0">
         <img src={heroimage} alt="banner-image" className="h-full object-cover w-full" />
         <div className="absolute h-full inset-0 bg-gradient-to-r from-red-600/70   to-transparent "></div>
@@ -27,17 +27,17 @@ export default function Hero() {
 
       <div className={`${containerClass} grid grid-cols-1 md:grid-cols-2  py-5   items-center place-items-center   w-full h-full`} >
         <div className=" flex flex-col space-y-8">
-          <h1 className=" text-md text-center  md:text-5xl font-[500] line whitespace-pre-line">Transform the Way You Learn—Interactive, Engaging, Effective</h1>
-          <p>Sign up for our innovative e-learning platform to enhance your learning experience with customized courses tailored to your needs!</p>
+          <h1 className=" text-3xl  text-center md:text-left  md:text-3xl lg:text-5xl font-[500] line whitespace-pre-line">Transform the Way You Learn—Interactive, Engaging, Effective</h1>
+          <p className="text-center md:text-left">Sign up for our innovative e-learning platform to enhance your learning experience with customized courses tailored to your needs!</p>
           <div>
-             <div className="flex gap-2 ">
+          <div className="flex gap-2 w-full justify-center md:justify-start ">
           <button className=" h-10  px-2 text-sm  rounded-md w-fit  bg-red-600 text-white">Explore Courses</button>
           <button className=" text-sm rounded-md w-fit h-10  px-2 border border-red-600 text-red-600">Enroll now</button>
         </div>
           </div>
         </div>
        
-        <div className=" hidden   h-full overflow-hidden md:flex w-full justify-center  ">
+        <div className="  hidden   h-full  w-full overflow-hidden md:flex justify-center  ">
           <img src={heroimage} alt="hero-image"  className="object-fit-contain h-full"/>
         </div>
       </div>

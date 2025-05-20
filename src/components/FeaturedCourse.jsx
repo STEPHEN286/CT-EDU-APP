@@ -13,28 +13,32 @@ export default function FeaturedCourse() {
         </div>
 
      
-        <div
-  className="
-    grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6
-    overflow-x-auto md:overflow-x-visible
-    flex 
-    flex-nowrap md:grid
-    snap-x snap-mandatory md:snap-none
-    scroll-px-0
-    pb-4 md:pb-0
-    scroll-smooth
-  "
->
-  {coursesData.map(course => (
-    <div 
-      key={course.id} 
-      className="snap-start min-w-[80%] sm:min-w-[60%] md:min-w-0 px-2 md:px-0 first:pl-0 md:first:pl-0 last:pr-4 md:last:pr-0"
-    >
-      <CourseCard course={course} />
-    </div>
-  ))}
+
+
+  <div
+    className="
+      flex 
+      flex-nowrap 
+      gap-6 
+      overflow-x-auto 
+      snap-x snap-mandatory 
+      scroll-px-0 
+      pb-4 
+      scroll-smooth
+    "
+  >
+    {coursesData.map((course) => (
+      <div
+        key={course.id}
+        className="snap-start min-w-[80%] sm:min-w-[60%] lg:min-w-[40%] px-2 first:pl-0 last:pr-4"
+      >
+        <CourseCard course={course} />
+      </div>
+    ))}
+  </div>
 </div>
+
       
-    </div>
+  
   )
 }

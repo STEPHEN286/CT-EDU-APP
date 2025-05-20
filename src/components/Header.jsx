@@ -20,14 +20,18 @@ import {
   ChevronUp,
   Languages,
   SearchIcon,
+  ShoppingCart,
   ShoppingCartIcon,
   User,
 } from "lucide-react";
 import SearchInput from "./SearchInput";
 import { useState } from "react";
-import { courses } from "@/data";
+import { courses} from "@/data";
 import CategoryDropdown from "./CategoryDropdown";
 
+import { Link } from "react-router-dom";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,49 +40,64 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
 
 export default function Header() {
+  const { t } = useTranslation('navbar');
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const handleCategoryDropdown = () => {
     setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
   };
   return (
     <Disclosure as="nav" className="bg-white border-b border-gray-200">
+      <div className="bg-white md:hidden  h-12 ">
+        <div className="flex  justify-between h-full items-center mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <Link to="teach-on-ct" className="text-gray-700 hover:text-gray-600">
+            {/* Teach on CT EDU */}
+            {t('teachOnCtEdu')}
+          </Link>
+
+          <button className=" p-2 text-gray-600 rounded-full">
+            <LanguageSwitcher />
+          </button>
+        </div>
+      </div>
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between ">
           <div className="absolute inset-y-0 right-0 flex gap-2 items-center sm:hidden">
-            <button className="bg-gray-100 p-2 text-muted rounded-full">
+            <button className="bg-gray-100 p-2  rounded-full">
               <ShoppingCartIcon />
             </button>
             {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset">
-              <span className="absolute -inset-0.5" />
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-50 hover:text-gray-500">
+              <span className="absolute -inset-0.5 pointer-events-none" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
-                className="block size-6 group-data-open:hidden"
+                className="block size-6 "
               />
               <XMarkIcon
                 aria-hidden="true"
-                className="hidden size-6 group-data-open:block"
+                className="hidden size-6 "
               />
             </DisclosureButton>
           </div>
 
           <div className="flex shrink-0 items-center">
-            <h1 className="text-red-600 font-bold">CT EDU</h1>
+            <Link to='/' className="text-red-600 font-bold">CT EDU</Link>
           </div>
           <div>
             <div className="hidden md:flex ml-8 items-center space-x-6">
               <CategoryDropdown />
 
               <a href="#" className="text-gray-700 hover:text-gray-600">
-                Roadmap
+             {t('roadmap')}
               </a>
-              <a href="#" className="text-gray-700 hover:text-gray-600">
-                Teach on CT EDU
-              </a>
+              <Link
+                to="teach-on-ct"
+                className="text-gray-700 hover:text-gray-600"
+              >
+              {t('teachOnCtEdu')}
+              </Link>
             </div>
           </div>
           <SearchInput />
@@ -96,16 +115,14 @@ export default function Header() {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                
-                <DropdownMenuItem>Register</DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to='/auth-login'>Login</Link></DropdownMenuItem>
-               
+                <DropdownMenuItem>{t('signup')}</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/auth-login">{t('login')}</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <button className=" p-2 text-gray-600 rounded-full">
-              <Languages />
-            </button>
+            <LanguageSwitcher />
           </div>
         </div>
       </div>
@@ -120,7 +137,7 @@ export default function Header() {
                   onClick={() => handleCategoryDropdown()}
                   className="flex  items-center justify-between w-full py-2 text-gray-700 !rounded-button whitespace-nowrap cursor-pointer"
                 >
-                  <span>Categories</span>
+                  <span>{t('categories')}</span>
 
                   <div>
                     {isCategoryDropdownOpen ? (

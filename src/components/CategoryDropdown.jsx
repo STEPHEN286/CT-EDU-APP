@@ -3,20 +3,18 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/compon
 import { ChevronDown, ChevronRight } from "lucide-react"
 import categoriesData from "@/data"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 const CategoryDropdown = () => {
-/**
- * A dropdown menu that displays categories and their subcategories.
- * When a category/subcategory is clicked, it navigates to the relevant
- * category/subcategory page.
- */
+  const {t} =  useTranslation('navbar')
+
   const navigate = useNavigate()
 
   return (
     <DropdownMenu className="">
      <DropdownMenuTrigger asChild className="mt-0 p-0">
   <Button variant="ghost" className="text-gray-700 hover:text-gray-600 flex items-center gap-1">
-    Categories <ChevronDown className="h-4 w-4" />
+  <span>{t('categories')}</span> <ChevronDown className="h-4 w-4" />
   </Button>
 </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 p-0 overflow-visible">
@@ -32,7 +30,6 @@ const CategoryDropdown = () => {
               )}
             </div>
 
-            {/* Subcategories appear beside on hover */}
             {category.subcategories.length > 0 && (
               <div className="absolute hidden left-full overflow-hidden top-0 ml-1 group-hover:block bg-background border rounded-md shadow-lg w-56 z-50">
                 {category.subcategories.map((sub) => (
