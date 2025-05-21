@@ -1,8 +1,8 @@
 import { coursesData } from '@/data'
 import { containerClass } from '@/utils/css-utils'
 import React from 'react'
-import CourseCard from './Cards/CourseCard'
-import TestimonialCard from './Cards/TestimonialCard'
+import CourseCard from '../Cards/CourseCard'
+import TestimonialCard from '../Cards/TestimonialCard'
 
 export default function FeaturedCourse() {
   return (

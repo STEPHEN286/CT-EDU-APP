@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "./RootLayout";
+import RootLayout from "./layout/RootLayout";
 import LandingPage from "./LandingPage";
 import LoginPage from "./Auth";
 import Search from "./Search";
 import WishList from "./WishList";
 import CartPage from "./CartPage";
 import LecturePage from "./lecture/LecturePage";
+import LecturesLayout from "./layout/LecturesLayout";
 
 const routers = createBrowserRouter([
   {
@@ -32,10 +33,17 @@ const routers = createBrowserRouter([
         path: "wishlist",
         element: <WishList />
       },
-      {
-        path: "/teach-on-ct",
-        element: <LecturePage />
-      }
+      // {
+      //   path: "/teach-on-ct",
+      //   element: <LecturePage />
+      // }
+    ]
+  },
+  {
+    path: "teach-on-ct",
+    element: <LecturesLayout />,
+    children: [
+      {index: true, element:<LecturePage />}
     ]
   },
   {

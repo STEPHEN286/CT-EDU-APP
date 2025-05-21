@@ -1,24 +1,27 @@
-import BrowseCategories from '@/components/BrowseCategories'
-import Communities from '@/components/Communitie'
-import CtaSection from '@/components/CtaSection'
-import FeaturedCourse from '@/components/FeaturedCourse'
+import BrowseCategories from '@/components/landing-page-contents/BrowseCategories'
+import Communities from '@/components/landing-page-contents/Communitie'
+import CtaSection from '@/components/landing-page-contents/CtaSection'
+import FeaturedCourse from '@/components/landing-page-contents/FeaturedCourse'
 import Hero from '@/components/Hero'
-import { HowItWorks } from '@/components/HowItWorks'
-import OverViewOfUsers from '@/components/OverViewOfUsers'
-import { Testimonials } from '@/components/Testimonial'
+import { HowItWorks } from '@/components/landing-page-contents/HowItWorks'
+import OverViewOfUsers from '@/components/landing-page-contents/OverViewOfUsers'
+import { Testimonials } from '@/components/landing-page-contents/Testimonial'
 import React from 'react'
 import heroimage from "@/assets/hero-image2.png";
+import { useTranslation } from 'react-i18next'
 
 export default function LandingPage() {
+   const{t} = useTranslation('hero')
+   const baseText = "landingPagehero"
   return (
     
        <div className="relative">
      <Hero 
-     title="Transform the Way You Learn—Interactive, Engaging, Effective"
-     subtitle="Sign up for our innovative e-learning platform to enhance your learning experience with customized courses tailored to your needs!"
+     title={t(`${baseText}.title`)}
+     subtitle={t(`${baseText}.subtitle`)}
     //  primaryBtnLink=''
-    primaryBtnText="Explore Courses"
-    secondaryBtnText="Enroll now"
+    primaryBtnText={t(`${baseText}.primaryBtn`)}
+    secondaryBtnText={t(`${baseText}.secondaryBtn`)}
     image={heroimage}
       />
       

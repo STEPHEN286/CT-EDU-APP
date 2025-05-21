@@ -7,17 +7,19 @@ import SuccessStories from "@/components/lecture-page-contents/SuccessStories";
 import hero from '@/assets/lect.png'
 import WhyTeach from "@/components/lecture-page-contents/WhyTeach";
 import Tools from "@/components/lecture-page-contents/Tools";
+import { useTranslation } from "react-i18next";
 
 const LecturePage = () => {
+  const {t} = useTranslation('hero')
   return (
     <div className=" bg-gray-50">
       <main className="">
         {/* Hero Section */}
         <Hero image={hero} 
-        title={"Share your knowledge.Inspire learners worldwide."}
-       subtitle="Join thousands of instructors who are transforming lives through education and building successful teaching careers on CT EDU."
-        
-        primaryBtnText="Start teaching today"
+      
+      title={t("lecturesHero.title")}
+      subtitle={t("lecturesHero.subtitle")}
+      primaryBtnText={t("lecturesHero.primaryBtn")}
         
           />
           <WhyTeach />

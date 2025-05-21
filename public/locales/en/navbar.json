@@ -9,5 +9,14 @@
   "shoppingCart": "Shopping Cart",
   "login": "Log in",
   "signup": "Sign up",
-  "openMainMenu": "Open main menu"
+  "openMainMenu": "Open main menu",
+  "home": "Home",
+  "howItworks": "How it Works",
+  "tools": "Tools",
+  "startTeachingToday": "Start Teaching today" ,
+  "testimonials" : "Testimonials",
+  "whyTeachOnCtEdu": "Why teach On CT EDU",
+  "whyTeach" : "Why Teach",
+  "requirement": "Requirement"
+
 }

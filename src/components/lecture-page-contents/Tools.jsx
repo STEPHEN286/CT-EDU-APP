@@ -3,7 +3,7 @@ import dash from "@/assets/dash.png"
 
 export default function Tools() {
   return (
- <section className="bg-red-50/9 min-h-screen w-full flex items-center">
+ <section id='tools' className="bg-red-50/9 min-h-screen w-full flex items-center">
   <div className={`${containerClass} w-full h-full`}>
     <div className="grid grid-cols-1 gap-10 md:gap-5  md:grid-cols-2 h-full items-center">
       

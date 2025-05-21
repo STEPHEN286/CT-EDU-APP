@@ -4,10 +4,18 @@
   "roadmap": "Feuille de route",
   "categories": "Catégories",
   "viewAllCategories": "Voir toutes les catégories",
-  "business": "Affaires",
+  "business": "Entreprise",
   "teachOnLearnHub": "Enseigner sur LearnHub",
   "shoppingCart": "Panier",
-  "login": "Connexion",
+  "login": "Se connecter",
   "signup": "S'inscrire",
-  "openMainMenu": "Ouvrir le menu principal"
+  "openMainMenu": "Ouvrir le menu principal",
+  "home": "Accueil",
+  "howItworks": "Comment ça marche",
+  "tools": "Outils",
+  "startTeachingToday": "Commencer à enseigner aujourd'hui",
+  "testimonials": "Témoignages",
+  "whyTeachOnCtEdu": "Pourquoi enseigner sur CT EDU",
+  "whyTeach": "Pourquoi enseigner",
+  "requirement": "Exigence"
 }

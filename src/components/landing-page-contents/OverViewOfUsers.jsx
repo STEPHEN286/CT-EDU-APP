@@ -1,8 +1,9 @@
 import { containerClass } from '@/utils/css-utils'
 import { CheckCircle, GraduationCap, Section } from 'lucide-react'
 import React from 'react'
-import { Card, CardContent, CardHeader } from './ui/card'
+import { Card, CardContent, CardHeader } from '../ui/card'
 import { userRolesCards } from '@/data'
+// import { Card } from '../ui/card'
 
 export default function OverViewOfUsers() {
   return (

@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { containerClass } from "@/utils/css-utils"
+// import { containerClass } from "@/utils/css-utils"
 import { Star } from "lucide-react"
 
 import { testimonials } from "@/data"
-import CustomSwiper from './CustomSwiper';
+// import CustomSwiper from './CustomSwiper';
 import { SwiperSlide } from 'swiper/react';
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import CustomSwiper from "../CustomSwiper";
 
 
 export function Testimonials() {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { containerClass } from '@/utils/css-utils'
 import { courses } from '@/data'
-import SmallCard from './Cards/SmallCard'
+import SmallCard from '../Cards/SmallCard'
 
 export default function BrowseCategories() {
   return (

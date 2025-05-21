@@ -5,14 +5,19 @@ import HttpBackend from  'i18next-http-backend'
 
 import enNavbar from "../public/locales/en/navbar.json"
 import frNavbar from "../public/locales/fr/navbar.json"
+import enHero from "../public/locales/en/hero.json"
+import frHero from "../public/locales/fr/hero.json"
+// import enHero from './components/Hero';
 // Translation resources
 const resources = {
   en: {
   
-    navbar: enNavbar
+    navbar: enNavbar,
+    hero: enHero
   },
   fr: {
-    navbar: frNavbar
+    navbar: frNavbar,
+    hero : frHero
 
   }
  
