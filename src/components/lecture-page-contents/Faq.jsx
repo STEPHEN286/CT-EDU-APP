@@ -1,4 +1,10 @@
 import React, { useState } from 'react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const faqItems = [
     {
@@ -31,11 +37,7 @@ const faqItems = [
 
 export default function Faq() {
 
-     const [activeAccordion, setActiveAccordion] = useState(null);
-
-  const toggleAccordion = (index) => {
-    setActiveAccordion(activeAccordion === index ? null : index);
-  };
+    
   return (
      <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
@@ -43,33 +45,17 @@ export default function Faq() {
               Frequently Asked Questions
             </h2>
             <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible>
               {faqItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="mb-4 border border-gray-200 rounded-lg overflow-hidden"
-                >
-                  <button
-                    className="w-full text-left p-4 bg-gray-50 flex justify-between items-center focus:outline-none !rounded-button whitespace-nowrap cursor-pointer"
-                    onClick={() => toggleAccordion(index)}
-                  >
-                    <span className="font-semibold text-lg">
-                      {item.question}
-                    </span>
-                    <i
-                      className={`fas ${activeAccordion === index ? "fa-chevron-up" : "fa-chevron-down"} text-red-600`}
-                    ></i>
-                  </button>
-                  <div
-                    className={`px-4 overflow-hidden transition-all duration-300 ${
-                      activeAccordion === index
-                        ? "max-h-96 py-4"
-                        : "max-h-0 py-0"
-                    }`}
-                  >
-                    <p className="text-gray-700">{item.answer}</p>
-                  </div>
-                </div>
-              ))}
+  <AccordionItem key={index} value={`item-${index}`}>
+    <AccordionTrigger>{item.question}</AccordionTrigger>
+    <AccordionContent>
+     {item.answer}
+    </AccordionContent>
+  </AccordionItem>
+
+))}
+</Accordion>
             </div>
           </div>
         </section>

@@ -19,23 +19,30 @@ export default function FeaturedCourse() {
     className="
       flex 
       flex-nowrap 
-      gap-6 
+      
       overflow-x-auto 
       snap-x snap-mandatory 
       scroll-px-0 
       pb-4 
       scroll-smooth
+      scrollbar-hidden
     "
   >
     {coursesData.map((course) => (
       <div
         key={course.id}
-        className="snap-start min-w-[80%] sm:min-w-[60%] lg:min-w-[40%] px-2 first:pl-0 last:pr-4"
+        className=" snap-start px-2 first:pl-0 last:pr-4"
       >
-        <CourseCard course={course} />
+      <CourseCard course={course} />
       </div>
     ))}
+    
   </div>
+
+
+
+<div className='w-full flex justify-center'><button className='text-center bg-black text-white p-3 rounded-md font-semibold'>view More</button></div>
+
 </div>
 
       

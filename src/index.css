@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 
 @custom-variant dark (&:is(.dark *));
 
@@ -113,13 +115,16 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+     font-family: 'Inter', sans-serif;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-
+.swiper-pagination-bullet-active {
+  background-color: #eb2525 !important; /* blue-600 */
+}
 .swiper {
   width: 100%;
   height: 100%;
@@ -134,4 +139,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hidden {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
