@@ -1,31 +1,40 @@
-// components/CustomSwiper.js
 
-import { Swiper } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/navigation"
+// import Swiper from "swiper"
+import {Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Swiper } from "swiper/react";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-export default function CustomSwiper({ children, swiperProps = {}, className = '' }) {
+export default function CustomSwiper({ children, swiperProps = {}, className = "" }) {
   return (
     <Swiper
-      spaceBetween={30}
-      centeredSlides={true}
-      // slidesPerView={'auto'}
+      loop={true}
+      slidesPerView={1}
+      spaceBetween={20}
+      breakpoints={{
+        0: {
+          slidesPerView: 1,
+        },
+        1024: {
+          slidesPerView: 2,
+        },
+        1280: {
+          slidesPerView: 2,
+        },
+      }}
       autoplay={{
-        delay: 5500,
+        delay: 9500,
         disableOnInteraction: false,
         ...(swiperProps.autoplay || {}),
       }}
       pagination={{ clickable: true, ...(swiperProps.pagination || {}) }}
-      navigation={false}
+      navigation={swiperProps.navigation}
       modules={[Autoplay, Pagination, Navigation]}
-      className={`mySwiper  ${className}`}
+      className={`testimonial-swiper ${className}`}
       {...swiperProps}
-      
     >
       {children}
     </Swiper>
-  );
+  )
 }

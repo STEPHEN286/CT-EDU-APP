@@ -9,17 +9,19 @@ import { Testimonials } from '@/components/landing-page-contents/Testimonial'
 import React from 'react'
 import heroimage from "@/assets/hero-image2.png";
 import { useTranslation } from 'react-i18next'
+import BecomeTeacher from '@/components/landing-page-contents/BecomeTeacher'
+import Pricing from '@/components/landing-page-contents/Pricing'
 
 export default function LandingPage() {
    const{t} = useTranslation('hero')
    const baseText = "landingPagehero"
   return (
     
-       <div className="relative">
+       <div className="">
      <Hero 
      title={t(`${baseText}.title`)}
      subtitle={t(`${baseText}.subtitle`)}
-    //  primaryBtnLink=''
+     primaryBtnLink='/courses'
     primaryBtnText={t(`${baseText}.primaryBtn`)}
     secondaryBtnText={t(`${baseText}.secondaryBtn`)}
     image={heroimage}
@@ -27,8 +29,10 @@ export default function LandingPage() {
       
      <Communities />
      <OverViewOfUsers />
-     <BrowseCategories />
      <FeaturedCourse />
+<BecomeTeacher />
+<Pricing />
+     <BrowseCategories />
 
      <HowItWorks />
      <Testimonials />

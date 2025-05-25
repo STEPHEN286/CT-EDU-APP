@@ -1,3 +1,9 @@
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+
+import { Upload, X } from 'lucide-react'
 import React, { useState } from 'react'
 
 export default function PersonalInfo() {
@@ -25,7 +31,7 @@ export default function PersonalInfo() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <Label htmlFor="fullName">Full Name *</Label>
-            <Input id="fullName" placeholder="Enter your full name" required />
+            <Input   id="fullName" placeholder="Enter your full name" required />
           </div>
 
           <div className="space-y-2">
@@ -106,7 +112,7 @@ export default function PersonalInfo() {
         </div>
       </div>
     </div>
-  )
+  
     </div>
   )
 }

@@ -8,8 +8,8 @@ import { containerClass } from '@/utils/css-utils'
 export default function WhyTeach() {
   return (
     <section id="why-teach" className={`${containerClass}  py-20 space-y-3 `}>
-        <div className='md:w-1/2 mx-auto space-y-2' >
-            <h3 className='text-center text-2xl md:text-4xl font-bold'>Why teach on LearnHub?</h3>
+        <div className='lg:w-1/2 mx-auto space-y-2' >
+            <h3 className='text-center text-2xl lg:text-4xl font-bold'>Why teach on LearnHub?</h3>
             <p className='text-center'>Our platform gives you the tools and support you need to create engaging courses and build a successful teaching business.</p>
         </div>
 

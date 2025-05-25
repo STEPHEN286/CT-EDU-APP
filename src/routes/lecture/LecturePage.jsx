@@ -4,7 +4,7 @@ import Faq from "@/components/lecture-page-contents/Faq";
 import HowItWorks from "@/components/lecture-page-contents/HowItWorks";
 import Requirements from "@/components/lecture-page-contents/Requirements";
 import SuccessStories from "@/components/lecture-page-contents/SuccessStories";
-import hero from '@/assets/lect.png'
+import hero from '@/assets/lecture.png'
 import WhyTeach from "@/components/lecture-page-contents/WhyTeach";
 import Tools from "@/components/lecture-page-contents/Tools";
 import { useTranslation } from "react-i18next";
@@ -12,14 +12,15 @@ import { useTranslation } from "react-i18next";
 const LecturePage = () => {
   const {t} = useTranslation('hero')
   return (
-    <div className=" bg-gray-50">
-      <main className="">
+  
+      <>
         {/* Hero Section */}
         <Hero image={hero} 
       
       title={t("lecturesHero.title")}
       subtitle={t("lecturesHero.subtitle")}
       primaryBtnText={t("lecturesHero.primaryBtn")}
+      primaryBtnLink="/teach-on-ct/register-instructor"
         
           />
           <WhyTeach />
@@ -39,8 +40,8 @@ const LecturePage = () => {
 
         {/* Application CTA */}
         <Application />
-      </main>
-    </div>
+      </>
+   
   );
 };
 

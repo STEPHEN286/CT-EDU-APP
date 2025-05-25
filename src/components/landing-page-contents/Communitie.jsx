@@ -22,7 +22,7 @@ export default function Communities() {
             key={index} 
             src={image} 
             alt='company logo' 
-            className='w-40   object-fill  hover:grayscale-0 transition-all duration-300'
+            className='w-20 h-20   object-fill  hover:grayscale-0 transition-all duration-300'
           />
         ))}
       </div>

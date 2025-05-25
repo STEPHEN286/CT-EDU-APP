@@ -141,6 +141,27 @@
   align-items: center;
 }
 
+.swiper-button-prev, .swiper-button-next {
+  background-color: #374151;
+  color: #ffffff !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.swiper-button-prev:hover, .swiper-button-next:hover {
+  background-color: #4b5563;
+  color: #ffffff !important;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-button-prev::after, .swiper-button-next::after {
+  font-size: 18px !important;
+  font-weight: bold;
+}
 
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;

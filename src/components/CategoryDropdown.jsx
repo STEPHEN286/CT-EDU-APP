@@ -1,56 +1,87 @@
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ChevronDown, ChevronRight } from "lucide-react"
-import categoriesData from "@/data"
-import { useNavigate } from "react-router-dom"
-import { useTranslation } from "react-i18next"
+// import { useNavigate } from "react-router-dom";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { navMenu } from "@/data";
+
+const slugify = (text) =>
+  text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
 
 const CategoryDropdown = () => {
-  const {t} =  useTranslation('navbar')
+  const { t } = useTranslation("navbar");
+  // const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const navigate = useNavigate()
+  const containerWidth = activeCategory ? "w-[600px]" : "w-[300px]";
 
   return (
-    <DropdownMenu className="">
-     <DropdownMenuTrigger asChild className="mt-0 p-0">
-  <Button variant="ghost" className="text-gray-700 hover:text-gray-600 flex items-center gap-1">
-  <span>{t('categories')}</span> <ChevronDown className="h-4 w-4" />
-  </Button>
-</DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 p-0 overflow-visible">
-        {categoriesData.map((category) => (
-          <div key={category.slug} className="relative group">
-            <div
-              onClick={() => navigate(`/categories/${category.slug}`)}
-              className="flex justify-between items-center px-3 py-2 cursor-pointer hover:bg-muted transition"
-            >
-              <span>{category.name}</span>
-              {category.subcategories.length > 0 && (
-                <ChevronRight className="w-4 h-4" />
-              )}
-            </div>
+    <div
+      className="relative"
+      onMouseLeave={() => {
+        setDropdownOpen(false);
+        setActiveCategory(null);
+      }}
+    >
+      {/* Trigger Button */}
+      <Button
+        variant="ghost"
+        className="text-gray-700 hover:text-gray-900 flex items-center gap-1"
+        onMouseEnter={() => setDropdownOpen(true)}
+      >
+        <span>{t("categories")}</span>
+        <ChevronDown className="h-4 w-4" />
+      </Button>
 
-            {category.subcategories.length > 0 && (
-              <div className="absolute hidden left-full overflow-hidden top-0 ml-1 group-hover:block bg-background border rounded-md shadow-lg w-56 z-50">
-                {category.subcategories.map((sub) => (
-                  <div
-                    key={sub.slug}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      navigate(`/categories/${category.slug}/${sub.slug}`)
-                    }}
-                    className="px-3 py-2 hover:bg-muted cursor-pointer transition"
-                  >
-                    {sub.name}
-                  </div>
-                ))}
+      {/* Dropdown Panel */}
+      {dropdownOpen && (
+        <div
+          className={`absolute top-full left-0 z-50 bg-white border shadow-xl flex transition-all duration-200 ease-in-out ${containerWidth}`}
+        >
+          {/* Left Column (Always shown while dropdownOpen) */}
+          <div className="w-[300px] border-r max-h-[400px] overflow-y-auto">
+            {navMenu.map((category) => (
+              <div
+                key={category.title}
+                onMouseEnter={() => setActiveCategory(category)}
+                className={`px-4 py-3 cursor-pointer hover:bg-purple-50 ${
+                  activeCategory?.title === category.title
+                    ? "bg-gray-100 text-red-600"
+                    : ""
+                }`}
+              >
+                <div className="flex justify-between items-center">
+                  <span>{category.title}</span>
+                  {category.modules.length > 0 && <ChevronRight className="w-4 h-4" />}
+                </div>
               </div>
-            )}
+            ))}
           </div>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
 
-export default CategoryDropdown
+          {/* Right Column (Only shown when hovering a category) */}
+          {activeCategory && (
+            <div className="w-[300px] p-3 max-h-[400px] overflow-y-auto">
+              {activeCategory.modules.map((sub) => (
+                <div
+                  key={sub.code}
+                  onClick={() =>
+                    navigate(
+                      `/categories/${slugify(activeCategory.title)}/${slugify(sub.name)}`
+                    )
+                  }
+                  className="px-3 py-2 rounded hover:bg-gray-100 hover:text-red-600 cursor-pointer"
+                >
+                  <div className="font-medium">{sub.name}</div>
+                  <div className="text-xs text-gray-500">{sub.topics}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CategoryDropdown;

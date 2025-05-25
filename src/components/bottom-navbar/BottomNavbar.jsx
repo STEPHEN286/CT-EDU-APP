@@ -11,7 +11,7 @@ const navItems = [
 
 export default function BottomNavbar() {
   return (
-    <div className="w-full md:hidden h-16 mt-5 bg-white border-t fixed bottom-0 left-0 z-50 flex items-center justify-around text-white">
+    <div className="w-full  sm:hidden h-16 mt-5 bg-white border-t fixed bottom-0 left-0 z-50 flex items-center justify-around text-white">
       {navItems.map((item) => (
         <NavItem
           key={item.key}
