@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { navMenu } from "@/data";
+import { useNavigate } from "react-router-dom";
+import { toSlug } from "@/utils/actions";
+import { NavigationMenuTrigger } from "./ui/navigation-menu";
 
 const slugify = (text) =>
   text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
@@ -15,6 +18,17 @@ const CategoryDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const containerWidth = activeCategory ? "w-[600px]" : "w-[300px]";
+const navigate = useNavigate()
+const handleCategoryClick = (category) => {
+  navigate(`/categories/${toSlug(category.title)}`);
+  console.log("isActive" , category.slug)
+  setDropdownOpen(false);
+};
+
+const handleModuleClick = (category, module) => {
+  navigate(`/categories/${toSlug(category.title)}/${toSlug(module.name)}`);
+  setDropdownOpen(false);
+};
 
   return (
     <div
@@ -24,16 +38,8 @@ const CategoryDropdown = () => {
         setActiveCategory(null);
       }}
     >
-      {/* Trigger Button */}
-      <Button
-        variant="ghost"
-        className="text-gray-700 hover:text-gray-900 flex items-center gap-1"
-        onMouseEnter={() => setDropdownOpen(true)}
-      >
-        <span>{t("categories")}</span>
-        <ChevronDown className="h-4 w-4" />
-      </Button>
-
+   
+      <NavigationMenuTrigger onMouseEnter={() => setDropdownOpen(true)} className="text-black hover:text-red-600">Categories</NavigationMenuTrigger>
       {/* Dropdown Panel */}
       {dropdownOpen && (
         <div
@@ -43,6 +49,7 @@ const CategoryDropdown = () => {
           <div className="w-[300px] border-r max-h-[400px] overflow-y-auto">
             {navMenu.map((category) => (
               <div
+              onClick={() => handleCategoryClick(category)}
                 key={category.title}
                 onMouseEnter={() => setActiveCategory(category)}
                 className={`px-4 py-3 cursor-pointer hover:bg-purple-50 ${

@@ -1,8 +1,7 @@
-"use client"
-
 
 
 import { useState } from "react"
+import { useFormContext, Controller } from "react-hook-form"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -11,13 +10,28 @@ import { Upload, Video } from "lucide-react"
 
 export default function VideoAgreement() {
   const [videoUploaded, setVideoUploaded] = useState(false)
+  const [videoFile, setVideoFile] = useState(null)
+
+  const {
+    register,
+    control,
+    setValue,
+    formState: { errors },
+  } = useFormContext()
 
   const handleVideoUpload = (e) => {
     const file = e.target.files?.[0]
     if (file) {
-     
+      setValue("sampleVideo", file, { shouldValidate: true })
+      setVideoFile(file)
       setVideoUploaded(true)
     }
+  }
+
+  const handleReplaceVideo = () => {
+    setValue("sampleVideo", null)
+    setVideoUploaded(false)
+    setVideoFile(null)
   }
 
   return (
@@ -26,6 +40,7 @@ export default function VideoAgreement() {
       <p className="text-gray-600 mb-8">Upload a sample teaching video and review our platform agreements.</p>
 
       <div className="space-y-8">
+        {/* Sample Video Upload */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Sample Video Upload</h3>
 
@@ -36,8 +51,8 @@ export default function VideoAgreement() {
                   <Video className="h-8 w-8" />
                 </div>
                 <p className="text-green-600 font-medium">Video uploaded successfully!</p>
-                <p className="text-sm text-gray-600 mt-1">Your video is ready for review</p>
-                <Button variant="outline" size="sm" className="mt-4" onClick={() => setVideoUploaded(false)}>
+                <p className="text-sm text-gray-600 mt-1">{videoFile?.name}</p>
+                <Button variant="outline" size="sm" className="mt-4" onClick={handleReplaceVideo}>
                   Replace Video
                 </Button>
               </div>
@@ -54,11 +69,14 @@ export default function VideoAgreement() {
                   Select Video File
                   <input
                     type="file"
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     accept="video/mp4"
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     onChange={handleVideoUpload}
                   />
                 </Button>
+                {errors.sampleVideo && (
+                  <p className="text-red-500 text-sm mt-2">{errors.sampleVideo.message}</p>
+                )}
               </div>
             )}
           </div>
@@ -75,13 +93,21 @@ export default function VideoAgreement() {
           </div>
         </div>
 
+        {/* Agreements */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Platform Agreements</h3>
 
           <div className="space-y-6">
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
-                <Checkbox id="termsAgreement" className="mt-1" required />
+                <Controller
+                  name="termsAgreement"
+                  control={control}
+                  rules={{ required: "You must agree to the terms and conditions" }}
+                  render={({ field }) => (
+                    <Checkbox id="termsAgreement" className="mt-1" checked={field.value} onCheckedChange={field.onChange} />
+                  )}
+                />
                 <div>
                   <Label htmlFor="termsAgreement" className="font-medium">
                     Terms & Conditions Agreement *
@@ -93,13 +119,23 @@ export default function VideoAgreement() {
                     </a>
                     , including revenue sharing, intellectual property rights, and platform policies.
                   </p>
+                  {errors.termsAgreement && (
+                    <p className="text-red-500 text-sm mt-1">{errors.termsAgreement.message }</p>
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
-                <Checkbox id="instructorGuidelines" className="mt-1" required />
+                <Controller
+                  name="instructorGuidelines"
+                  control={control}
+                  rules={{ required: "You must agree to follow the instructor guidelines" }}
+                  render={({ field }) => (
+                    <Checkbox id="instructorGuidelines" className="mt-1" checked={field.value} onCheckedChange={field.onChange} />
+                  )}
+                />
                 <div>
                   <Label htmlFor="instructorGuidelines" className="font-medium">
                     Instructor Guidelines Agreement *
@@ -111,6 +147,9 @@ export default function VideoAgreement() {
                     </a>
                     , including content quality standards, engagement requirements, and code of conduct.
                   </p>
+                  {errors.instructorGuidelines && (
+                    <p className="text-red-500 text-sm mt-1">{errors.instructorGuidelines.message }</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -119,6 +158,7 @@ export default function VideoAgreement() {
               <Label htmlFor="additionalComments">Additional Comments (Optional)</Label>
               <Textarea
                 id="additionalComments"
+                {...register("additionalComments")}
                 placeholder="Any additional information you'd like to share with our review team"
                 className="min-h-[100px]"
               />

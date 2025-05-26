@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Application() {
   return (
@@ -11,11 +12,11 @@ export default function Application() {
               Join our community of instructors and start creating courses that
               change lives. Begin your teaching journey today.
             </p>
-            <button className="bg-white text-red-600 px-8 py-3 rounded-md text-lg font-medium hover:bg-gray-100 !rounded-button whitespace-nowrap cursor-pointer">
+            <Link to="/teach-on-ct/register-instructor" className="bg-white text-red-600 px-8 py-3 rounded-md text-lg font-medium hover:bg-gray-100 !rounded-button whitespace-nowrap cursor-pointer">
               Start Teaching Today
-            </button>
+            </Link>
             <div className="mt-8 flex justify-center space-x-6">
-              <a href="#" className="text-white hover:text-red-200 underline">
+              {/* <a href="#" className="text-white hover:text-red-200 underline">
                 Teaching Resources
               </a>
               <a href="#" className="text-white hover:text-red-200 underline">
@@ -23,7 +24,7 @@ export default function Application() {
               </a>
               <a href="#" className="text-white hover:text-red-200 underline">
                 Support Center
-              </a>
+              </a> */}
             </div>
           </div>
         </section>

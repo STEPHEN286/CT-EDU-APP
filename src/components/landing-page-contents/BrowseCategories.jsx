@@ -1,7 +1,25 @@
 import React from 'react'
 import { containerClass } from '@/utils/css-utils'
-import { courses } from '@/data'
+import {  navMenu } from '@/data'
 import SmallCard from '../Cards/SmallCard'
+import { toSlug } from '@/utils/actions'
+import { Link } from 'react-router-dom'
+import { Bot, Brain, GraduationCap, Factory, LineChart, DollarSign, LayoutDashboard, Users, Briefcase, Target } from 'lucide-react'
+
+const categoryIcons = {
+  'AI Tracks': Bot,
+  'Specialized AI Training': Brain,
+  'Foundation Level': GraduationCap,
+  'Manufacturing Analytics': Factory,
+  'Advanced Analytics': LineChart,
+  'Financial Services Analytics': DollarSign,
+  'Dashboard Development': LayoutDashboard,
+  'Executive Development': Users,
+  'Tech Leadership': Briefcase,
+  'Sales Training': Target,
+  'Sales Development': Target,
+  'Interim Management': Briefcase
+}
 
 export default function BrowseCategories() {
   return (
@@ -12,9 +30,22 @@ export default function BrowseCategories() {
       </div>
       <div className='w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
         {
-            courses.map(course => (
-                <SmallCard key={course.id} title={course.title} icon={course.icon} count={course.courseCount} />
+           
+              navMenu.map(category => (
+              <Link
+                key={category.title} 
+                to={`/categories/${toSlug(category.title)}`}
+                className="block "
+              >
+                <SmallCard
+                  title={category.title} 
+                  icon={categoryIcons[category.title]} 
+                  // count={`${category.modules.length} modules`} 
+                />
+              </Link>
             ))
+        
+       
         }
       </div>
     </div>

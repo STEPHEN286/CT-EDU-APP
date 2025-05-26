@@ -16,6 +16,8 @@ import Profile from "./Profile";
 import Roadmap from "@/components/Roadmap";
 import CoursesPage from "@/components/courses/Courses";
 import CourseDetailsPage from "@/components/course-detail/ProductDetails";
+import CategoryPage from "@/components/category/categories";
+import path from "path";
 
 
 const routers = createBrowserRouter([
@@ -27,20 +29,7 @@ const routers = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-      {
-        path: "auth",
-        element: <AuthPage />,
-        children: [
-          {
-            path: "login",
-            element: <LoginForm />,
-          },
-          {
-            path: "signup",
-            element: <SignUpForm />,
-          },
-        ]
-      },
+     
       {
         path: "courses",
         element: <CoursesPage />
@@ -58,6 +47,13 @@ const routers = createBrowserRouter([
         element: <Roadmap />,
       },
       {
+        path: "categories/:slug",
+        element: <CategoryPage />,
+        children:[
+         { path: ":module", element: <CategoryPage />}
+        ]
+      },
+      {
         path: "contact",
         element: <h1>Contact</h1>,
       },
@@ -68,6 +64,20 @@ const routers = createBrowserRouter([
       {
         path: "wishlist",
         element: <WishList />
+      },
+    ]
+  },
+  {
+    path: "auth",
+    element: <AuthPage />,
+    children: [
+      {
+        path: "login",
+        element: <LoginForm />,
+      },
+      {
+        path: "signup",
+        element: <SignUpForm />,
       },
     ]
   },

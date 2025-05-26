@@ -14,13 +14,18 @@ export default function FeaturedCourse() {
       </div>
 
       <Tabs defaultValue="top" className="w-full">
-        <TabsList className="grid w-full grid-cols-5 mb-8">
-          <TabsTrigger value="top">Top Courses</TabsTrigger>
-          <TabsTrigger value="popular">Popular</TabsTrigger>
-          <TabsTrigger value="new">New Release</TabsTrigger>
-          <TabsTrigger value="trending">Trending</TabsTrigger>
-          <TabsTrigger value="recommended">Recommended</TabsTrigger>
-        </TabsList>
+      <div className="relative">
+          <div className="overflow-x-auto scrollbar-hidden">
+            <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-500 min-w-full">
+              <TabsTrigger value="top" className="whitespace-nowrap">Top Courses</TabsTrigger>
+              <TabsTrigger value="popular" className="whitespace-nowrap">Popular</TabsTrigger>
+              <TabsTrigger value="new" className="whitespace-nowrap">New Release</TabsTrigger>
+              <TabsTrigger value="trending" className="whitespace-nowrap">Trending</TabsTrigger>
+              <TabsTrigger value="recommended" className="whitespace-nowrap">Recommended</TabsTrigger>
+            </TabsList>
+          </div>
+          <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+        </div>
 
         <TabsContent value="top">
           <CourseSlider courses={coursesData.filter(course => course.isTop)} />
@@ -52,12 +57,16 @@ export default function FeaturedCourse() {
 
 function CourseSlider({ courses }) {
   return (
-    <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scroll-px-0 pb-4 scroll-smooth scrollbar-hidden">
-      {courses.map((course) => (
-        <div key={course.id} className="snap-start px-2 first:pl-0 last:pr-4">
-          <CourseCard course={course} />
-        </div>
-      ))}
-    </div>
+    <div className="relative">
+  <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scroll-px-0 pb-4 scroll-smooth scrollbar-hidden gap-4">
+    {courses.map((course) => (
+      <div key={course.id} className="snap-start  max-w-[270px] md:min-w-[350px] md:max-w-[300px] flex-shrink-0">
+        <CourseCard course={course} />
+      </div>
+    ))}
+  </div>
+  {/* <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
+  <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none"></div> */}
+</div>
   )
 }

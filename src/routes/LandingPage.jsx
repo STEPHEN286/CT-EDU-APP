@@ -17,14 +17,14 @@ export default function LandingPage() {
    const baseText = "landingPagehero"
   return (
     
-       <div className="">
+       <>
      <Hero 
      title={t(`${baseText}.title`)}
      subtitle={t(`${baseText}.subtitle`)}
      primaryBtnLink='/courses'
     primaryBtnText={t(`${baseText}.primaryBtn`)}
     secondaryBtnText={t(`${baseText}.secondaryBtn`)}
-    image={heroimage}
+    image="https://i.imgur.com/YKu5Vrb.png"
       />
       
      <Communities />
@@ -38,6 +38,6 @@ export default function LandingPage() {
      <Testimonials />
      <CtaSection />
      {/* <Footer /> */}
-    </div>
+    </>
   )
 }

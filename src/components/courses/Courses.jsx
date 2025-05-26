@@ -9,10 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import CourseCard from "../Cards/CourseCard"
 import { coursesData, navMenu } from "@/data"
+import { containerClass } from "@/utils/css-utils"
 
 export default function CoursesPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className={`${containerClass} container mx-auto px-4 py-8`}>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold">All Courses</h1>
@@ -33,7 +34,7 @@ export default function CoursesPage() {
           </Select>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" className="md:hidden">
+              <Button variant="outline" className="lg:hidden">
                 <Filter className="h-4 w-4 mr-2" />
                 Filters
               </Button>
@@ -51,14 +52,14 @@ export default function CoursesPage() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="hidden md:block w-64 flex-shrink-0">
+        <div className="hidden lg:block w-64 flex-shrink-0">
           <FilterSidebar />
         </div>
         <div className="flex-1">
           <div className="mb-6">
             <Input type="search" placeholder="Search courses..." className="w-full" />
           </div>
-          <div className="grid grid-cols-1 place-self-center lg:grid-cols-2 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 place-self-center lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {coursesData.map((course, i) => (
               // <CourseCard key={i} />
               <CourseCard course={course}   key={i}  />

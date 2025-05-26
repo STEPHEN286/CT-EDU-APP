@@ -1,239 +1,193 @@
-import {
-  Button,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from "@headlessui/react";
-import {
-  Bars3Icon,
-  BellIcon,
-  LanguageIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ArrowBigDownIcon,
-  ChevronDown,
-  ChevronUp,
-  Languages,
-  SearchIcon,
-  ShoppingCart,
-  ShoppingCartIcon,
-  User,
-} from "lucide-react";
-import SearchInput from "./SearchInput";
-import { useState } from "react";
-import { courses, navMenu} from "@/data";
-import CategoryDropdown from "./CategoryDropdown";
-
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Search,
+  ShoppingCart,
+  User,
+  Menu,
+
+} from "lucide-react";
+import { navMenu } from "@/data";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { containerClass } from "@/utils/css-utils";
+import CategoryDropdown from "./CategoryDropdown";
+
+
 
 export default function Header() {
   const { t } = useTranslation('navbar');
-  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
-  const handleCategoryDropdown = () => {
-    setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
-  };
+  const [isOpen, setIsOpen] = useState (false)
+
+    const handleCloseSheet = () =>{
+      setIsOpen(false)
+    }
   return (
-    <>
-      <div className="h-[88px] md:h-[64px]" /> {/* Spacer for fixed header */}
-      <Disclosure as="nav" className="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-        {({ close }) => (
-          <>
-            {/* <div className="bg-white md:hidden h-12">
-              <div className="flex justify-between h-full items-center mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                <Link 
-                  to="teach-on-ct" 
-                  className="text-gray-700 hover:text-gray-600"
-                  onClick={() => close()}
-                >
-                  {t('teachOnCtEdu')}
-                </Link>
+    <nav className="sticky top-0 z-50 w-full border-b bg-white ">
+      <div className={`${containerClass}`}>
+        <div className="flex h-16 items-center  justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center space-x-2">
+              
+              <span className="text-xl font-bold text-red-600 ">CT EDU HUB</span>
+            </Link>
+          </div>
 
-                <button 
-                  className="p-2 text-gray-600 rounded-full"
-                  onClick={() => close()}
-                  
-                >
-                  <LanguageSwitcher />
-                </button>
-              </div>
-            </div> */}
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-              <div className="relative flex h-16 items-center justify-between">
-                <div className="absolute inset-y-0 right-0 flex gap-2 items-center sm:hidden">
-               
-                  <button 
-                    className="bg-gray-100 p-2 rounded-full"
-                    onClick={() => close()}
-                  >
-                    <ShoppingCartIcon />
-                  </button>
-                  <button 
-                  className="p-2 text-gray-600 rounded-full"
-                  onClick={() => close()}
-                  
-                >
-                  <LanguageSwitcher />
-                </button>
-                  <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-red-50 hover:text-gray-500">
-                    <span className="absolute -inset-0.5 pointer-events-none" />
-                    <span className="sr-only">Open main menu</span>
-                    <Bars3Icon
-                      aria-hidden="true"
-                      className="block size-6"
-                    />
-                    <XMarkIcon
-                      aria-hidden="true"
-                      className="hidden size-6"
-                    />
-                  </DisclosureButton>
-                </div>
+          {/* Desktop Navigation */}
+          <div className="hidden  lg:flex    items-center ">
+            <NavigationMenu className="">
+              <NavigationMenuList className=" !flex gap-4">
 
-                <div className="flex shrink-0 items-center">
-                  <Link 
-                    to='/' 
-                    className="text-red-600 font-bold"
-                    onClick={() => close()}
-                  >
-                    CT EDU HUB
+                <NavigationMenuItem>
+                  <CategoryDropdown />
+                </NavigationMenuItem>
+
+              
+
+                <NavigationMenuItem>
+                  <Link to="/roadmap" className="text-black hover:text-red-600 font-medium">
+                    Roadmap
                   </Link>
-                </div>
-                <div>
-                  <div className="hidden sm:flex ml-8 items-center space-x-6">
-                    <CategoryDropdown />
-                    <Link  to="roadmap" className="text-gray-700 hover:text-gray-600">
-                      {t('roadmap')}
-                    </Link>
-                    <Link
-                      to="teach-on-ct"
-                      className="text-gray-700 hover:text-gray-600"
-                      onClick={() => close()}
-                    >
-                      {t('teachOnCtEdu')}
-                    </Link>
-                  </div>
-                </div>
-                <SearchInput />
-                <div className="hidden sm:flex gap-2">
-                  <button className="p-2 text-gray-600 rounded-full hidden md:block lg:hidden">
-                    <SearchIcon />
-                  </button>
-                  <Link to="carts" className="p-2 text-gray-600 rounded-full">
-                    <ShoppingCartIcon />
-                  </Link>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <button className="p-2 text-gray-600 rounded-full">
-                        <User />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem asChild>
-                        <Link to="/auth/signup">{t('signup')}</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/auth/login">{t('login')}</Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                </NavigationMenuItem>
 
-                  <LanguageSwitcher />
-                </div>
-              </div>
+                <NavigationMenuItem>
+                  <Link to="/teach-on-ct" className="text-black hover:text-red-600 font-medium">
+                    {t('teachOnCtEdu')}
+                  </Link>
+                </NavigationMenuItem>
+
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
+          {/* Search Bar */}
+          <div className="hidden md:flex flex-1 max-w-xs ">
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                type="search"
+                placeholder="Search courses, modules, topics..."
+                className="pl-10 pr-4 w-full border-gray-200 focus:border-red-500 focus:ring-red-500"
+              />
             </div>
+          </div>
 
-            <DisclosurePanel className="sm:hidden">
-              <div className="md:hidden bg-white border-t border-gray-200 py-2">
-                <div className="container mx-auto px-4">
-                  <div className="mb-4"></div>
-                  <nav className="space-y-3">
-                    <div>
-                      <button
-                        onClick={() => handleCategoryDropdown()}
-                        className="flex items-center justify-between w-full py-2 text-gray-700 !rounded-button whitespace-nowrap cursor-pointer"
-                      >
-                        <span>{t('categories')}</span>
-                        <div>
-                          {isCategoryDropdownOpen ? (
-                            <ChevronUp className="text-xs" />
-                          ) : (
-                            <ChevronDown className="text-xs" />
-                          )}
-                        </div>
-                      </button>
-                      {isCategoryDropdownOpen && (
-                        <div className="pl-4 mt-2 space-y-2">
-                          {navMenu.slice(0, 5).map((category, index) => (
-                            <Link
-                              key={index}
-                              to={`/categories/${category.title.toLowerCase().replace(/\s+/g, '-')}`}
-                              className="block py-1 text-gray-700"
-                              onClick={() => close()}
+          {/* Right Side Actions */}
+          <div className="flex items-center space-x-4">
+           
+
+            {/* Cart */}
+            <Link to="/carts">
+              <Button variant="ghost" size="sm" className="relative">
+                <ShoppingCart className="h-5 w-5" />
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-600 text-xs flex items-center justify-center">
+                  2
+                </Badge>
+              </Button>
+            </Link>
+
+            {/* User Menu */}
+            <DropdownMenu >
+              <DropdownMenuTrigger className="hidden md:block" asChild>
+                <Button variant="ghost" size="sm">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link to="/auth/signup">{t('signup')}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/auth/login">{t('login')}</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+
+            {/* Mobile Menu */}
+            <Sheet  open={isOpen} onOpenChange={setIsOpen}>
+             
+                  <SheetTrigger asChild>
+                    <Button variant="ghost"  size="sm" className="lg:hidden">
+                      <Menu className="h-5 w-5" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-80 overflow-auto py-5">
+                    <SheetHeader>
+                      <SheetTitle className="flex items-center space-x-2">
+                        <span>CT EDU HUB</span>
+                      </SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-6 space-y-6">
+                      {/* Mobile Navigation */}
+                      <div className="space-y-4 px-5">
+                      <Link to="/courses" onClick={handleCloseSheet} className="block text-lg font-medium text-black hover:text-red-600">
+  All Courses
+</Link>
+<Link to="/roadmap" onClick={handleCloseSheet} className="block text-lg font-medium text-black hover:text-red-600">
+  Roadmap
+</Link>
+<Link to="/teach-on-ct" onClick={handleCloseSheet} className="block text-lg font-medium text-black hover:text-red-600">
+  {t('teachOnCtEdu')}
+</Link>
+
+                        <div className="border-t py-2">
+                          <h3 className="text-lg font-medium text-black mb-3">Categories</h3>
+                          {
+                            navMenu.slice(0, 8).map((category) => (
+                              <Link
+                              key={category.slug}
+                              to={`/categories/${category.slug}`}
+                              onClick={handleCloseSheet}
+                              className="flex items-center p-2 rounded-lg hover:bg-red-50"
                             >
-                              {category.title}
-                            </Link>
-                          ))}
-                          <Link 
-                            to="/categories" 
-                            className="block py-1 text-blue-600"
-                            onClick={() => close()}
-                          >
-                            {t('viewAllCategories')}
-                          </Link>
+                                <div className="flex-1">
+                                  <span className="text-sm font-medium">{category.title}</span>
+                                  <p className="text-xs text-gray-500">{category.modules.length} modules</p>
+                                </div>
+                              </Link>
+                            ))
+                          }
                         </div>
-                      )}
+                      </div>
+
+                      {/* Mobile User Actions */}
+                      <div className="border-t pt-6 space-y-3">
+                       
+                          <Link   to="/auth/login"  className="block py-3 text-center  w-full bg-red-600 hover:bg-red-700 text-white" onClick={handleCloseSheet}>{t('login')}</Link>
+                        
+                        
+                          <Link to="/auth/signup" className="w-full  block text-center border-red-600 text-red-600 hover:bg-red-50"  onClick={handleCloseSheet}>{t('signup')}</Link>
+                        
+                      </div>
                     </div>
-                    <a 
-                      href="#" 
-                      className="block py-2 text-gray-700"
-                      onClick={() => close()}
-                    >
-                      Business
-                    </a>
-                    <a 
-                      href="#" 
-                      className="block py-2 text-gray-700"
-                      onClick={() => close()}
-                    >
-                      Teach on LearnHub
-                    </a>
-                    <div className="pt-2 flex space-x-2">
-                      <Link 
-                        to="/auth/login" 
-                        className="flex-1 bg-white text-red-600 border border-red-600 py-2 px-4 rounded-full hover:bg-red-50 transition-colors duration-200 text-center font-medium !rounded-button whitespace-nowrap cursor-pointer"
-                        onClick={() => close()}
-                      >
-                        {t('login')}
-                      </Link>
-                      <Link 
-                        to="/auth/signup" 
-                        className="flex-1 bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition-colors duration-200 text-center font-medium !rounded-button whitespace-nowrap cursor-pointer"
-                        onClick={() => close()}
-                      >
-                        {t('signup')}
-                      </Link>
-                    </div>
-                  </nav>
-                </div>
-              </div>
-            </DisclosurePanel>
-          </>
-        )}
-      </Disclosure>
-    </>
+                  </SheetContent>
+             
+            </Sheet>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }

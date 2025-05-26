@@ -68,7 +68,7 @@ export default function Header() {
               {/* Logo */}
               <div className="flex-shrink-0 flex items-center">
                 <Link to="/" className="text-red-600 text-xl sm:text-2xl font-bold">
-                  CT EDU
+                  CT EDU HUB
                 </Link>
               </div>
 
@@ -85,33 +85,33 @@ export default function Header() {
                       spy={true}
                       offset={-70}
                       to={link.to}
-                      className="hidden md:hidden bg-black  text-gray-700 hover:text-gray-600 px-3 py-2 text-sm lg:text-base font-medium"
+                      className=" hidden lg:block   text-gray-700 hover:text-gray-600 px-3 py-2 text-sm lg:text-base font-medium"
                       onClick={() => close()}
                     >
                       {t(link.label)}
                     </ScrolLink>
                   ))}
 
-                  <span><SearchInput /></span>
+                  {/* <span><SearchInput /></span> */}
                 </div>
               </div>
 
              
               <div className="hidden sm:flex items-center space-x-4 lg:space-x-6">
-                <button className="p-2 text-gray-600 rounded-full md:block lg:hidden">
+                <button className="p-2  text-gray-600 rounded-full  md:hidden">
                   <SearchIcon className="h-5 w-5" />
                 </button>
 
-                <Link 
+                {/* <Link 
                   to="../auth/login"
                   className="text-gray-700 hidden border border-red-600 lg:block hover:text-gray-600 px-3 py-2 text-sm lg:text-base font-medium"
                 >
                   {t("login")}
-                </Link>
+                </Link> */}
                 
                 <Link
                   to="/teach-on-ct/register-instructor"
-                  className="bg-red-600 text-white hidden sm:block px-4 py-2 rounded-full text-sm lg:text-base font-medium hover:bg-red-700 transition-colors"
+                  className="bg-red-600 text-white  sm:block px-4 py-2 rounded-full text-sm lg:text-base font-medium hover:bg-red-700 transition-colors"
                 >
                   {t("startTeachingToday")}
                 </Link>
@@ -135,7 +135,7 @@ export default function Header() {
           </div>
 
           {/* Mobile menu panel */}
-          <DisclosurePanel className="md:hidden">
+          <DisclosurePanel className="">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to="/"
@@ -159,26 +159,10 @@ export default function Header() {
                 </ScrolLink>
               ))} 
 
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="flex flex-col space-y-3 px-3">
-                  <button
-                    className="w-full py-2 px-4 border border-red-600 rounded-full text-red-600 hover:bg-red-50 text-base font-medium"
-                    onClick={() => close()}
-                  >
-                    {t("login")}
-                  </button>
-                  <button
-                    className="w-full py-2 px-4 bg-red-600 rounded-full text-white hover:bg-red-700 text-base font-medium"
-                    onClick={() => close()}
-                  >
-                    {t("startTeachingToday")}
-                  </button>
-                </div>
-              </div>
             </div>
           </DisclosurePanel>
 
-      <div className="hidden sm:flex justify-center space-x-4">
+      {/* <div className="hidden sm:flex justify-center space-x-4">
     {navLinks.map((link) => (
       <ScrolLink
         key={link.to}
@@ -192,7 +176,7 @@ export default function Header() {
         {t(link.label)}
       </ScrolLink>
     ))}
-  </div> 
+  </div>  */}
         </>
       )}
     </Disclosure>

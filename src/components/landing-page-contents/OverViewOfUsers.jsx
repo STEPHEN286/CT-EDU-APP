@@ -22,8 +22,8 @@ export default function OverViewOfUsers() {
       </div>
 
       {/* Centered Card + Image */}
-      <div className="flex justify-center items-center min-h-[60vh]  w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+      <div className="flex justify-center items-center     min-h-[60vh]  w-full">
+        <div className="flex flex-col-reverse md:flex-row justify-between   items-center gap-10">
           {/* Card */}
           <Card className="max-w-sm shadow-none border-0">
             <CardHeader>

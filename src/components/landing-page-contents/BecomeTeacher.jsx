@@ -15,16 +15,16 @@ const features = [
 
 
   return (
-    <section className={`${containerClass} py-20 `}>
+    <section className={`${containerClass} py-20  `}>
       
 
       {/* Centered Card + Image */}
-      <div className="flex justify-center items-center min-h-[60vh]  w-full">
-        <div className="grid grid-row- grid-cols-1 md:grid-cols-2 items-center gap-10">
+      <div className="flex justify-center items-center min-h-full  w-full">
+        <div className="flex flex-col-reverse gap-5 md:flex-row items-center justify-center  md:justify-between">
           {/* Card */}
-        <div className='max-w-sm'>
+        <div className='max-w-md'>
           <div className='mb-3'>
-                <h1 className=' text-2xl md:text-4xl font-bold text-center md:text-left'>Become a Instructors on <span className='text-red-600 '>CT EDU Hub</span></h1>
+                <h1 className=' text-2xl md:text-4xl font-bold text-center md:text-left'>Become an Instructors on <span className='text-red-600 '>CT EDU Hub</span></h1>
                 <p className='text-center md:text-left text-xs'>Join a growing community of passionate instructors and share your expertise with eager learners</p>
              
           </div>
@@ -45,7 +45,7 @@ const features = [
 
           {/* Image */}
           <div className="flex justify-center ">
-            <img src="https://i.imgur.com/rnW9A6F.png" alt="Learning" className="max-w-[350px]  w-full h-auto" />
+            <img src="https://i.imgur.com/rnW9A6F.png" alt="Learning" className="max-w-[650px]  w-full h-auto" />
           </div>
         </div>
       </div>

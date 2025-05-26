@@ -15,11 +15,12 @@ const LecturePage = () => {
   
       <>
         {/* Hero Section */}
-        <Hero image={hero} 
+        <Hero image={"https://i.imgur.com/wbKdZE8.png"} 
       
       title={t("lecturesHero.title")}
       subtitle={t("lecturesHero.subtitle")}
       primaryBtnText={t("lecturesHero.primaryBtn")}
+      // secondaryBtnText="lecturesHero.primaryBtn"
       primaryBtnLink="/teach-on-ct/register-instructor"
         
           />

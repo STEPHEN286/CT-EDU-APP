@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '../ui/button'
+import { Link } from 'react-router-dom'
 
 export default function CtaSection() {
   return (
@@ -9,9 +10,9 @@ export default function CtaSection() {
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
             Join thousands of students who are already advancing their careers with LearnHub.
           </p>
-          <Button size="lg" className="bg-red-600 hover:bg-red-700">
+          <Link to= "/auth/signup" size="lg" className="  p-4 bg-red-600 hover:bg-red-700">
             Sign Up Now
-          </Button>
+          </Link>
         </div>
       </section>
   )

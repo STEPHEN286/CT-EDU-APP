@@ -4,32 +4,85 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { inputClass } from "@/utils/css-utils";
 
 export function LoginForm({ className, ...props }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      // Handle form submission
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+      <Card className="overflow-hidden shadow-none p-0">
+        <CardContent className="grid p-0 md:grid-cols-2 max-w-6xl">
+          <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your Acme Inc account
+                  Log in to resume your learning experience
                 </p>
               </div>
+              {/* email  */}
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
-                  required
+                  className={inputClass(errors.email)}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                      message: "Enter a valid email",
+                    },
+                  })}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-600">{errors.email.message}</p>
+                )}
               </div>
               <div className="grid gap-3">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder='.......'
+                  className={inputClass(errors.password)}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-sm text-red-600">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
                   <Link
                     to="#"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
@@ -37,9 +90,12 @@ export function LoginForm({ className, ...props }) {
                     Forgot your password?
                   </Link>
                 </div>
-                <Input id="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full">
+
+              <Button
+                type="submit"
+                className="w-full bg-red-600 hover:bg-red-700"
+              >
                 Login
               </Button>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -78,26 +134,22 @@ export function LoginForm({ className, ...props }) {
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <Link to="/auth/signup" className="underline underline-offset-4">
+                <Link
+                  to="/auth/signup"
+                  className="text-red-600 hover:text-red-700 underline underline-offset-4"
+                >
                   Sign up
                 </Link>
               </div>
             </div>
           </form>
-          <div className="hidden lg:flex items-center justify-center bg-red-600 rounded-lg shadow-md overflow-hidden">
+          <div className="hidden md:flex items-center justify-center  rounded-lg shadow-none overflow-hidden">
             <div className="p-8 text-white text-center">
-              <h2 className="text-3xl font-bold mb-4">
-                Welcome to Our Platform
-              </h2>
-              <p className="mb-6">
-                Join thousands of learners and educators in our innovative
-                e-learning community.
-              </p>
               <div className="flex justify-center">
                 <img
-                  src="https://images.pexels.com/photos/4144144/pexels-photo-4144144.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  src="https://i.imgur.com/uK0iQkW.png"
                   alt="E-learning platform"
-                  className="rounded-md object-cover h-64 w-full"
+                  className="rounded-md object-cover h-full w-full"
                 />
               </div>
             </div>
@@ -105,8 +157,9 @@ export function LoginForm({ className, ...props }) {
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <Link to="#">Terms of Service</Link>{" "}
-        and <Link to="#">Privacy Policy</Link>.
+        By clicking continue, you agree to our{" "}
+        <Link to="#">Terms of Service</Link> and{" "}
+        <Link to="#">Privacy Policy</Link>.
       </div>
     </div>
   );
