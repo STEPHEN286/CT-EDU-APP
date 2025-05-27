@@ -52,7 +52,7 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop  */}
           <div className="hidden  lg:flex    items-center ">
             <NavigationMenu className="">
               <NavigationMenuList className=" !flex gap-4">
@@ -91,7 +91,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Right Side Actions */}
+          {/* sheey */}
           <div className="flex items-center space-x-4">
            
 
@@ -172,7 +172,7 @@ export default function Header() {
                         </div>
                       </div>
 
-                      {/* Mobile User Actions */}
+                   
                       <div className="border-t pt-6 space-y-3">
                        
                           <Link   to="/auth/login"  className="block py-3 text-center  w-full bg-red-600 hover:bg-red-700 text-white" onClick={handleCloseSheet}>{t('login')}</Link>

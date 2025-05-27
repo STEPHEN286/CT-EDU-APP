@@ -62,14 +62,14 @@ export default function Hero({
             <div className="relative order-1 lg:order-2">
               <div className="relative aspect-square lg:aspect-auto lg:h-[500px] xl:h-[600px] rounded-2xl overflow-hidden ">
                 <img src={image} alt="Hero" className="w-full h-full object-cover" />
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div> */}
+              
                 
                
 
                
               </div>
 
-              {/* Background decoration */}
+             
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-red-200 rounded-full opacity-20 blur-xl"></div>
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-200 rounded-full opacity-20 blur-xl"></div>
             </div>
@@ -77,7 +77,7 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Background pattern */}
+      
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-20 w-64 h-64 bg-red-500 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>

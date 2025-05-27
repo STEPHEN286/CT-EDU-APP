@@ -7,7 +7,7 @@ const LanguageSelector = () => {
   const changeLanguage = (e) => {
     const lang = e.target.value;
     i18n.changeLanguage(lang);
-    localStorage.setItem('language', lang); // optional: persist selection
+    localStorage.setItem('language', lang); 
   };
 
   const languages = [
