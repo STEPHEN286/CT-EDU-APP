@@ -24,7 +24,7 @@ const features = [
           {/* Card */}
         <div className='max-w-md'>
           <div className='mb-3'>
-                <h1 className=' text-2xl md:text-4xl font-bold text-center md:text-left'>Become an Instructors on <span className='text-red-600 '>CT EDU Hub</span></h1>
+                <h1 className=' text-2xl md:text-4xl font-bold text-center md:text-left'>Become an Instructors on <span className='text-red-600 '>CT EDU HUB</span></h1>
                 <p className='text-center md:text-left text-xs'>Join a growing community of passionate instructors and share your expertise with eager learners</p>
              
           </div>

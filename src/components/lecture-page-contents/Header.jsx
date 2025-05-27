@@ -40,11 +40,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link as ScrolLink } from "react-scroll";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { t } = useTranslation("navbar");
-
+  const loccation = useLocation()
+  const navigate = useNavigate()
   const navLinks = [
     { to: "why-teach", label: "whyTeach" },
     { to: "how-it-works", label: "howItworks" },
@@ -53,6 +54,12 @@ export default function Header() {
     { to: "requirement", label: "requirement" }
   ];
 
+  const handleScrolNavLink = (id) =>{
+    if (location.pathname ==="/teach-on-ct/register-instructor"){
+      navigate( `/#${id}`)
+      }
+  }
+ 
   return (
     <Disclosure
       as="nav" 
@@ -84,8 +91,9 @@ export default function Header() {
                       smooth={true}
                       spy={true}
                       offset={-70}
+                      // onClick={() =>handleScrolNavLink(link.to)}
                       to={link.to}
-                      className=" hidden lg:block   text-gray-700 hover:text-gray-600 px-3 py-2 text-sm lg:text-base font-medium"
+                      className=" hidden cursor-pointer lg:block   text-gray-700 hover:text-gray-600 px-3 py-2 text-sm lg:text-base font-medium"
                       onClick={() => close()}
                     >
                       {t(link.label)}

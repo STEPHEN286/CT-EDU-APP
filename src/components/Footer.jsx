@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <a href="/" className="flex items-center gap-2 text-xl font-bold">
-              <span className="text-red-500">Learn</span>Hub
+              <span className="text-red-500">CT EDU HUB</span>
             </a>
             <p className="mt-4 text-gray-400">
               Empowering learners worldwide with quality education and personalized learning paths.
@@ -112,7 +112,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-400">
-          <p>© {new Date().getFullYear()} LearnHub. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} CT EDU HUB. All rights reserved.</p>
         </div>
       </div>
     </footer>
