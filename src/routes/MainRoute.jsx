@@ -17,8 +17,17 @@ import Roadmap from "@/components/Roadmap";
 import CoursesPage from "@/components/courses/Courses";
 import CourseDetailsPage from "@/components/course-detail/ProductDetails";
 import CategoryPage from "@/components/category/categories";
-import path from "path";
+// import path from "path";
 
+
+import { InstructorDashboardOverview } from "@/components/lecture-page-contents/lecture-dashboard/InstructorDashboardOverview";
+import { ManageCourses } from "@/components/lecture-page-contents/lecture-dashboard/ManageCourses";
+import { CreateCourse } from "@/components/lecture-page-contents/lecture-dashboard/CreateCourse";
+import { ManageStudents } from "@/components/lecture-page-contents/lecture-dashboard/ManageStudents";
+import { ManageMessages } from "@/components/lecture-page-contents/lecture-dashboard/ManageMessages";
+import { ManageIncomes } from "@/components/lecture-page-contents/lecture-dashboard/ManageIncomes";
+import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-dashboard/ManageAnnouncement";
+import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
 
 const routers = createBrowserRouter([
   {
@@ -93,6 +102,44 @@ const routers = createBrowserRouter([
     path: "search",
     element: <Search />,
   },
+  {
+    path: "dashboard",
+    element: <InstructorDashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <InstructorDashboardOverview />
+      },
+      {
+        path: "my-courses",
+        element: <ManageCourses />
+      },
+      {
+        path: "create-course",
+        element: <CreateCourse />
+      },
+      {
+        path: "students",
+        element: <ManageStudents />
+      },
+      {
+        path: "messages",
+        element: <ManageMessages />
+      },
+      {
+        path: "earnings",
+        element: <ManageIncomes />
+      },
+      {
+        path: "announcements",
+        element: <ManageAnnouncements />
+      },
+      {
+        path: "profile",
+        element: <h1>Profile</h1>
+      }
+    ]
+  }
 ]);
 
 export default routers;

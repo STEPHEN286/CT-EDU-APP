@@ -6,8 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { inputClass } from "@/utils/css-utils";
+import usePostData from "@/hooks/useAuthOperation";
 
 export function LoginForm({ className, ...props }) {
+  const {mutate} = usePostData("loginapi.php")
   const {
     register,
     handleSubmit,
@@ -21,7 +23,8 @@ export function LoginForm({ className, ...props }) {
 
   const onSubmit = async (data) => {
     try {
-      // Handle form submission
+
+    mutate(data)
       console.log(data);
     } catch (error) {
       console.error(error);
