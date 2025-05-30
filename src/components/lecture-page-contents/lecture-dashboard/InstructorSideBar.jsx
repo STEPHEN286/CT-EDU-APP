@@ -42,14 +42,14 @@ const menuItems = [
   },
   {
     id: "messages",
-    label: "Messages & Q&A",
+    label: "Messages",
     icon: MessageSquare,
     path: "/dashboard/messages",
   },
   {
     id: "earnings",
-    label: "Earnings",
-    icon: DollarSign,
+    label: "Q & A",
+    icon: BookOpen,
     path: "/dashboard/earnings",
   },
   {
@@ -77,18 +77,12 @@ export function InstructorSidebar({
   return (
     <div
       className={cn(
-        "bg-card border-r transition-all duration-300 flex flex-col",
-        isOpen ? "w-64" : "w-16"
+        "bg-card border-r  transition-all duration-300 flex flex-col",
+        isOpen ? "w-64" : "w-16 overflow-hidden"
       )}
     >
-      <div className="p-4 border-b">
-        <div className="flex items-center justify-between">
-          {isOpen && (
-            <h2 className="text-lg font-semibold text-primary">
-              Instructor Portal
-            </h2>
-          )}
-          <Button
+      <div className="">
+      <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
@@ -100,10 +94,9 @@ export function InstructorSidebar({
               <ChevronRight className="h-4 w-4" />
             )}
           </Button>
-        </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-2">
+      <nav className="flex-1  space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon
           const isActive = currentPath === item.path || (item.id === "dashboard" && currentPath === "/dashboard")
@@ -115,8 +108,9 @@ export function InstructorSidebar({
                 "w-full",
                 !isOpen && "px-2"
               )}
+              
             >
-              <Button
+             <Button
                 variant={isActive ? "default" : "ghost"}
                 className="w-full justify-start"
               >

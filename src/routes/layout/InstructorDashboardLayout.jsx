@@ -17,17 +17,19 @@ export function InstructorDashboardLayout() {
  
 
   return (
-    <div className="flex h-screen bg-background">
-      <InstructorSidebar
+    <div className="h-screen bg-background">
+      
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <InstructorTopBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <main className="flex overflow-auto ">
+        <InstructorSidebar
         // activePage={activePage}
         // setActivePage={setActivePage}
         isOpen={sidebarOpen}
         setIsOpen={setSidebarOpen}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <InstructorTopBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main className="flex-1 overflow-auto p-6">
-          <Outlet />
+        <div className="flex-1 p-5">  <Outlet /></div>
+         
         </main>
       </div>
     </div>

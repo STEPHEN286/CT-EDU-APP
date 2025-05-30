@@ -11,18 +11,18 @@ export default function CustomSwiper({ children, swiperProps = {}, className = "
     <Swiper
       loop={true}
       slidesPerView={1}
-      spaceBetween={20}
-      breakpoints={{
-        0: {
-          slidesPerView: 1,
-        },
-        1024: {
-          slidesPerView: 2,
-        },
-        1280: {
-          slidesPerView: 2,
-        },
-      }}
+      // spaceBetween={20}
+      // breakpoints={{
+      //   0: {
+      //     slidesPerView: 1,
+      //   },
+      //   1024: {
+      //     slidesPerView: 2,
+      //   },
+      //   1280: {
+      //     slidesPerView: 2,
+      //   },
+      // }}
       autoplay={{
         delay: 9500,
         disableOnInteraction: false,

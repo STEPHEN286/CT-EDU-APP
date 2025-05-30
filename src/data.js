@@ -93,30 +93,6 @@ export const languages = [
   { code: "fr", name: "Français" },
 ];
 
-// export const navItems = [
-//   {
-//     label: 'Home',
-//     icon: <Home size={24} />,
-//     key: 'home'
-//   },
-//   {
-//     label: 'Search',
-//     icon: <Search size={24} />,
-//     key: 'search'
-//   },
-//   {
-//     label: 'Wishlist',
-//     icon: <Heart size={24} />,
-//     key: 'wishlist'
-//   },
-//   {
-//     label: 'Profile',
-//     icon: <User size={24} />,
-//     key: 'profile'
-//   }
-// ];
-
-// ... existing code ...
 
 export const coursesData = [
   {
@@ -957,3 +933,43 @@ export const navMenu = [
   ...item,
   slug: toSlug(item.title)
 }));
+
+
+export const stepsData = [
+  {
+    id: 1,
+    step: "Step 1: Enroll",
+    // title: "Choose Your Path",
+    description: "Choose a course that fits your interests and goals",
+    image: "https://i.imgur.com/tcbXvJS.jpeg",
+    bgColor: "bg-orange-100",
+    stepBg: "bg-red-500"
+  },
+  {
+    id: 2,
+    step: "Step 2: Learn",
+    // title: "Engage & Grow",
+    description: "Engage with course material, instructors, and peers",
+    image: "https://i.imgur.com/6rsA9GM.jpeg",
+    bgColor: "bg-blue-100",
+    stepBg: "bg-blue-500"
+  },
+  {
+    id: 3,
+    step: "Step 3: Interact",
+    // title: "Connect & Collaborate",
+    description: "Participate in discussions and get certified",
+    image: "https://i.imgur.com/TSKcYTY.jpeg",
+    bgColor: "bg-green-100",
+    stepBg: "bg-green-500"
+  },
+  {
+    id: 4,
+    step: "Step 4: Succeed",
+    // title: "Achieve Your Goals",
+    description: "Earn certificates or revenue from your courses",
+    image: "https://i.imgur.com/de4dAU9.jpeg",
+    bgColor: "bg-purple-100",
+    stepBg: "bg-purple-500"
+  }
+]

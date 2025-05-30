@@ -4,13 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Clock, Users, PlayCircle, CheckCircle, BookOpen, Award, Globe } from "lucide-react"
+import CustomVideoPlayer from "./VideoPlayer"
+import { courseSections, learningOutcomes } from "./data"
+import {  useState } from "react"
 
 export default function CourseDetailsPage() {
+
+  const [videoUrlChange,setVideoUrl] = useState (" https://i.imgur.com/bkz3hIJ.mp4 ")
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
+         
           <div className="lg:col-span-2">
             {/* Course Header */}
             <div className="mb-8">
@@ -44,24 +49,15 @@ export default function CourseDetailsPage() {
 
             {/* Video Player */}
             <div className="mb-8">
-              <div className="aspect-video w-full overflow-hidden rounded-lg bg-black relative">
-                <img
-                  src="/placeholder.svg?height=400&width=800"
-                  alt="Course preview"
-                  className="h-full w-full object-cover opacity-70"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Button size="lg" className="rounded-full w-20 h-20 bg-red-600 hover:bg-red-700">
-                    <PlayCircle className="h-10 w-10" />
-                  </Button>
-                </div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <p className="text-sm font-medium bg-black/50 px-3 py-1 rounded-full">
-                    Preview: Introduction to Web Development
-                  </p>
-                </div>
-              </div>
-            </div>
+  <div className=" w-full overflow-hidden rounded-lg  relative">
+    <CustomVideoPlayer src={videoUrlChange} />
+    <div className="absolute bottom-4 left-4 text-white">
+      <p className="text-sm font-medium bg-black/50 px-3 py-1 rounded-full">
+        Preview: Introduction to Web Development
+      </p>
+    </div>
+  </div>
+</div>
 
             {/* What You'll Learn */}
             <Card className="mb-8">
@@ -70,16 +66,7 @@ export default function CourseDetailsPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                    "Build responsive websites with HTML5 & CSS3",
-                    "Create interactive apps with JavaScript",
-                    "Develop modern UIs with React",
-                    "Build APIs with Node.js & Express",
-                    "Work with databases (MongoDB & SQL)",
-                    "Deploy applications to production",
-                    "Implement user authentication",
-                    "Write clean, maintainable code",
-                  ].map((item, index) => (
+                {learningOutcomes.map((item, index) => (
                     <div key={index} className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-red-600 mr-3 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">{item}</span>
@@ -97,64 +84,8 @@ export default function CourseDetailsPage() {
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
-                  {[
-                    {
-                      title: "Getting Started with Web Development",
-                      lectures: 8,
-                      duration: "2h 30m",
-                      lessons: [
-                        "Introduction to Web Development",
-                        "Setting Up Your Environment",
-                        "How the Web Works",
-                        "Your First Web Page",
-                      ],
-                    },
-                    {
-                      title: "HTML Fundamentals",
-                      lectures: 12,
-                      duration: "4h 15m",
-                      lessons: [
-                        "HTML Document Structure",
-                        "Working with Text",
-                        "Links and Images",
-                        "Forms and Input Elements",
-                      ],
-                    },
-                    {
-                      title: "CSS Styling & Layout",
-                      lectures: 15,
-                      duration: "6h 20m",
-                      lessons: [
-                        "CSS Basics and Selectors",
-                        "Box Model and Layout",
-                        "Flexbox and Grid",
-                        "Responsive Design",
-                      ],
-                    },
-                    {
-                      title: "JavaScript Programming",
-                      lectures: 18,
-                      duration: "8h 45m",
-                      lessons: [
-                        "Variables and Data Types",
-                        "Functions and Scope",
-                        "DOM Manipulation",
-                        "Async JavaScript",
-                      ],
-                    },
-                    {
-                      title: "React Development",
-                      lectures: 20,
-                      duration: "12h 30m",
-                      lessons: [
-                        "Introduction to React",
-                        "Components and Props",
-                        "State Management",
-                        "Building a Complete App",
-                      ],
-                    },
-                  ].map((section, index) => (
-                    <AccordionItem key={index} value={`section-${index}`}>
+                  {courseSections.map((section) => (
+                    <AccordionItem key={section.id} value={`section-${section.id}`}>
                       <AccordionTrigger className="hover:no-underline">
                         <div className="flex justify-between items-center w-full text-left">
                           <span className="font-semibold text-black">{section.title}</span>
@@ -165,16 +96,16 @@ export default function CourseDetailsPage() {
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-2 pt-2">
-                          {section.lessons.map((lesson, lessonIndex) => (
+                          {section.lessons.map((lesson) => (
                             <div
-                              key={lessonIndex}
+                              key={lesson.id}
                               className="flex items-center justify-between py-2 px-3 hover:bg-gray-50 rounded"
                             >
                               <div className="flex items-center">
                                 <PlayCircle className="h-4 w-4 text-gray-400 mr-3" />
-                                <span className="text-gray-700">{lesson}</span>
+                                <span className="text-gray-700">{lesson.title}</span>
                               </div>
-                              <span className="text-sm text-gray-500">15:30</span>
+                              <span className="text-sm text-gray-500">{lesson.duration}</span>
                             </div>
                           ))}
                         </div>
@@ -186,15 +117,15 @@ export default function CourseDetailsPage() {
             </Card>
           </div>
 
-          {/* Sidebar */}
+         
           <div className="lg:col-span-1">
             <div className="sticky top-8 space-y-6">
               {/* Enrollment Card */}
               <Card className="border-2 border-red-100">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <div className="text-3xl font-bold text-black mb-2">$89.99</div>
-                    <div className="text-gray-500 line-through">$199.99</div>
+                    <div className="text-3xl font-bold text-black mb-2">£89.99</div>
+                    <div className="text-gray-500 line-through">£199.99</div>
                     <Badge className="bg-red-600 text-white mt-2">55% OFF</Badge>
                   </div>
 

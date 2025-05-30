@@ -2,7 +2,7 @@ import axios from "axios";
 // import {AUTH_BASE_URL} from "../utils/constants.jsx";
 import { useMutation } from "@tanstack/react-query";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "@/utils/constants";
 
 
@@ -24,7 +24,7 @@ const postData = async(endpoint, loginData) => {
 };
 
 
-const usePostData = (endpoint, navigateTo, ) => {
+const usePostData = (endpoint) => {
     // const dispatch = useDispatch();
     // const navigate = useNavigate()
    
@@ -51,7 +51,7 @@ const usePostData = (endpoint, navigateTo, ) => {
             // }
         },
         onError: (error) => {
-            console.log("❌ Error:", error);
+            // console.log("❌ Error:", error);
             throw new Error(error.response.data.error);
         }
     });

@@ -10,8 +10,26 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import CourseCard from "../Cards/CourseCard"
 import { coursesData, navMenu } from "@/data"
 import { containerClass } from "@/utils/css-utils"
+import { useMemo, useState } from "react"
 
 export default function CoursesPage() {
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredCourses = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return coursesData;
+    }
+    
+    return coursesData.filter(course => {
+      const searchLower = searchTerm.toLowerCase();
+      return course.title.toLowerCase().includes(searchLower) ||
+             course.instructor.toLowerCase().includes(searchLower) ||
+             course.description.toLowerCase().includes(searchLower) ||
+             course.category.toLowerCase().includes(searchLower);
+    });
+  }, [searchTerm]);
+
+  console.log("cart",filteredCourses)
   return (
     <div className={`${containerClass} container mx-auto px-4 py-8`}>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
@@ -57,13 +75,14 @@ export default function CoursesPage() {
         </div>
         <div className="flex-1">
           <div className="mb-6">
-            <Input type="search" placeholder="Search courses..." className="w-full" />
+            <Input type="search" placeholder="Search courses..." value={searchTerm}
+              onChange={(e) => setSearchTerm(prev => ({ ...prev, search: e.target.value }))} className="w-full" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 place-self-center lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {coursesData.map((course, i) => (
-              // <CourseCard key={i} />
-              <CourseCard course={course}   key={i}  />
-            ))}
+          {(filteredCourses.length > 0 ? filteredCourses : coursesData).map((course, i) => (
+          <CourseCard course={course} key={i} />
+))}
+
           </div>
           <div className="mt-8 flex justify-center">
             <Button variant="outline" className="mr-2">

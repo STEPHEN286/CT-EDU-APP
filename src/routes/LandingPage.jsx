@@ -11,6 +11,8 @@ import heroimage from "@/assets/hero-image2.png";
 import { useTranslation } from 'react-i18next'
 import BecomeTeacher from '@/components/landing-page-contents/BecomeTeacher'
 import Pricing from '@/components/landing-page-contents/Pricing'
+import TailoredExperience from '@/components/landing-page-contents/TailoredExperience'
+import Team from '@/components/landing-page-contents/Team'
 
 export default function LandingPage() {
    const{t} = useTranslation('hero')
@@ -31,9 +33,10 @@ export default function LandingPage() {
      <OverViewOfUsers />
      <FeaturedCourse />
 <BecomeTeacher />
+<TailoredExperience />
 <Pricing />
      <BrowseCategories />
-
+<Team />
      <HowItWorks />
      <Testimonials />
      <CtaSection />

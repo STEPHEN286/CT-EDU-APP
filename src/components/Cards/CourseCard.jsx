@@ -48,7 +48,7 @@ export default function CourseCard({ course }) {
           </div>
         </CardContent>
         <CardFooter className="p-4 pt-0 flex justify-between items-center flex-none">
-          <div className="font-bold text-lg text-black">${course.price}</div>
+          <div className="font-bold text-lg text-black">£{course.price}</div>
           <Button className="bg-red-600 hover:bg-red-700 text-white"><ShoppingCart /></Button>
         </CardFooter>
       </Card>

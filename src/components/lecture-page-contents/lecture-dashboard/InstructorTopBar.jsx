@@ -27,7 +27,11 @@ export function InstructorTopBar({ sidebarOpen, setSidebarOpen }) {
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setSidebarOpen(!sidebarOpen)}>
             <Menu className="h-4 w-4" />
           </Button>
-
+          <div>
+          <h2 className="text-lg font-semibold text-primary">
+              Instructor Portal
+            </h2>
+          </div>
           <div className="relative w-96 max-w-sm">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
@@ -42,20 +46,24 @@ export function InstructorTopBar({ sidebarOpen, setSidebarOpen }) {
         <div className="flex items-center space-x-4">
           {/* Quick Stats */}
           <div className="hidden lg:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 px-3 py-1 bg-green-100 text-green-800 rounded-full">
+            {/* <div className="flex items-center space-x-2 px-3 py-1 bg-green-100 text-green-800 rounded-full">
               <DollarSign className="h-4 w-4" />
               <span className="text-sm font-medium">$2,450</span>
-            </div>
-            <div className="flex items-center space-x-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full">
-              <MessageSquare className="h-4 w-4" />
-              <span className="text-sm font-medium">3 new</span>
-            </div>
+            </div> */}
+            
           </div>
 
+
+
+          <Button variant="ghost" size="icon" className="relative">
+          <MessageSquare className="h-4 w-4" />
+            <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">5</Badge>
+          </Button>
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-4 w-4" />
             <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">5</Badge>
           </Button>
+        
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

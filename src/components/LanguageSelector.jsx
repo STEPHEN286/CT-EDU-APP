@@ -17,8 +17,8 @@ const LanguageSelector = () => {
   ];
 
   return (
-    <div>
-      <label htmlFor="language-select">{t('selectLanguage')}:</label>{' '}
+    <div >
+      <label htmlFor="language-select">{t('selectLanguage')}:</label>
       <select id="language-select" onChange={changeLanguage} value={i18n.language}>
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>

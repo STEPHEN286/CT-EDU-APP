@@ -9,7 +9,6 @@ import { navMenu } from "@/data"
 import CourseCard from "../Cards/CourseCard"
 import { containerClass } from "@/utils/css-utils"
 
-// Create a lookup object by slug
 const categoryData = Object.fromEntries(navMenu.map(cat => [cat.slug, cat]))
 
 export default function CategoryPage() {

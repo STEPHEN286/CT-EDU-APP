@@ -44,7 +44,7 @@ export default function Header() {
     <nav className="sticky top-0 z-50 w-full border-b bg-white ">
       <div className={`${containerClass}`}>
         <div className="flex h-16 items-center  justify-between">
-          {/* Logo */}
+          
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
               

@@ -28,11 +28,12 @@ import { ManageMessages } from "@/components/lecture-page-contents/lecture-dashb
 import { ManageIncomes } from "@/components/lecture-page-contents/lecture-dashboard/ManageIncomes";
 import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-dashboard/ManageAnnouncement";
 import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
+import VerifyEmail from "@/components/VerifyEmail";
 
 const routers = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <VerifyEmail />,
     children: [
       {
         index: true,
