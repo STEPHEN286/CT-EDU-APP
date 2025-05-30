@@ -101,7 +101,7 @@ export function InstructorSidebar({
           const Icon = item.icon
           const isActive = currentPath === item.path || (item.id === "dashboard" && currentPath === "/dashboard")
           return (
-            <Link
+            <Link 
               key={item.id}
               to={item.path}
               className={cn(
