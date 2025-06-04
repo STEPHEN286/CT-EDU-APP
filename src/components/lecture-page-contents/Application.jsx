@@ -9,11 +9,11 @@ export default function Application() {
               Ready to Share Your Knowledge?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join our community of instructors and start creating courses that
+              Join our community of instructors and start creating modules that
               change lives. Begin your teaching journey today.
             </p>
             <Link to="/teach-on-ct/register-instructor" className="bg-white text-red-600 px-8 py-3 rounded-md text-lg font-medium hover:bg-gray-100 !rounded-button whitespace-nowrap cursor-pointer">
-              Start Teaching Today
+              Start Teaching 
             </Link>
             <div className="mt-8 flex justify-center space-x-6">
               {/* <a href="#" className="text-white hover:text-red-200 underline">

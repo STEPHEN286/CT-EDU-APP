@@ -13,7 +13,7 @@ const successStories = [
     earnings: "$127,500",
     students: "15,000+",
     quote:
-      "Teaching on LearnHub transformed my career. I've reached students in 137 countries while generating more income than my previous full-time job.",
+      "Teaching on CT EDU HUB transformed my career. I've reached students in 137 countries while generating more income than my previous full-time job.",
     image:
       "https://readdy.ai/api/search-image?query=Professional%2520male%2520data%2520science%2520instructor%2520with%2520glasses%2520and%2520casual%2520professional%2520attire%2520smiling%2520at%2520camera%2520neutral%2520studio%2520background%2520high%2520quality%2520portrait%2520photo%2520realistic%2520confident%2520pose%2520warm%2520lighting&width=150&height=150&seq=101&orientation=squarish",
   },
@@ -33,7 +33,7 @@ const successStories = [
     earnings: "$84,600",
     students: "9,800+",
     quote:
-      "The platform tools make it easy to create professional courses. My design courses now generate more income than my client work, giving me freedom to choose projects I love.",
+      "The platform tools make it easy to create professional modules. My design modules now generate more income than my client work, giving me freedom to choose projects I love.",
     image:
       "https://readdy.ai/api/search-image?query=Professional%2520male%2520design%2520instructor%2520with%2520modern%2520glasses%2520and%2520casual%2520professional%2520attire%2520smiling%2520at%2520camera%2520neutral%2520studio%2520background%2520high%2520quality%2520portrait%2520photo%2520realistic%2520confident%2520pose%2520warm%2520lighting&width=150&height=150&seq=103&orientation=squarish",
   },
@@ -48,7 +48,7 @@ export default function SuccessStories() {
           <h2 className="text-2xl md:text-3xl font-bold text-center">
             Instructor Success Stories
           </h2>
-          <p className="text-center text-gray-400">Join thousands of instructors who have transformed their careers by teaching on LearnHub.</p>
+          <p className="text-center text-gray-400">Join thousands of instructors who have transformed their careers by teaching on CT EDU HUB</p>
         </div>
         <div className="max-w-4xl mx-auto">
           <CustomSwiper className="">

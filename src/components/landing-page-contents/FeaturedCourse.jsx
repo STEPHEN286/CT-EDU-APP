@@ -9,17 +9,17 @@ export default function FeaturedCourse() {
   return (
     <div className={`${containerClass} space-y-4 py-20`}>
       <div>
-        <h2 className="text-3xl font-bold text-center">Featured Courses</h2>
-        <p className="text-gray-500 mt-2 text-center">Explore our most popular courses</p>
+        <h2 className="text-3xl font-bold text-center">Featured Modules</h2>
+        <p className="text-gray-500 mt-2 text-center">Explore our most popular modules</p>
       </div>
 
       <Tabs defaultValue="top" className="w-full">
       <div className="relative">
           <div className="overflow-x-auto scrollbar-hidden">
             <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-500 min-w-full">
-              <TabsTrigger value="top" className="whitespace-nowrap">Top Courses</TabsTrigger>
-              <TabsTrigger value="popular" className="whitespace-nowrap">Popular</TabsTrigger>
-              <TabsTrigger value="new" className="whitespace-nowrap">New Release</TabsTrigger>
+              <TabsTrigger value="top" className="whitespace-nowrap">Top Modules</TabsTrigger>
+              <TabsTrigger value="popular" className="whitespace-nowrap">Popular Modules</TabsTrigger>
+              <TabsTrigger value="new" className="whitespace-nowrap">New Modules</TabsTrigger>
               <TabsTrigger value="trending" className="whitespace-nowrap">Trending</TabsTrigger>
               <TabsTrigger value="recommended" className="whitespace-nowrap">Recommended</TabsTrigger>
             </TabsList>

@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { navMenu } from "@/data";
 // import { useInstructorForm } from "@/hooks/useInstructorForm";
 import { Upload, X } from "lucide-react";
 import React, { useState } from "react";
@@ -22,6 +23,7 @@ export default function PersonalInfo() {
     formState: { errors },
     setValue
   } = useFormContext();
+
   const handlePhotoUpload = (e) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -89,11 +91,11 @@ export default function PersonalInfo() {
               <Input
                 id="fullName"
                 placeholder="Enter your full name"
-                {...register("fullName", { required: "Full name is required" })}
+                {...register("full_name", { required: "Full name is required" })}
               />
-              {errors.fullName && (
+              {errors.full_name && (
                 <p className="text-sm text-red-500">
-                  {errors.fullName.message}
+                  {errors.full_name.message}
                 </p>
               )}
             </div>
@@ -146,22 +148,16 @@ export default function PersonalInfo() {
                   <SelectValue placeholder="Select your field" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="technology">
-                    Technology & Programming
-                  </SelectItem>
-                  <SelectItem value="business">
-                    Business & Management
-                  </SelectItem>
-                  <SelectItem value="design">Design & Creative Arts</SelectItem>
-                  <SelectItem value="marketing">
-                    Marketing & Communications
-                  </SelectItem>
-                  <SelectItem value="science">Science & Mathematics</SelectItem>
-                  <SelectItem value="humanities">
-                    Humanities & Social Sciences
-                  </SelectItem>
-                  <SelectItem value="health">Health & Wellness</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  {
+                    navMenu.map(module =>(
+                      <SelectItem key={module.title} value={module.title}>
+                     {module.title}
+                    </SelectItem>
+                    ))
+                  }
+                 
+                 
+                  
                 </SelectContent>
               </Select>
               {errors.fieldOfExpertise && (
@@ -172,7 +168,7 @@ export default function PersonalInfo() {
             </div>
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="bio">Professional Bio *</Label>
             <Textarea
               id="bio"
@@ -196,7 +192,7 @@ export default function PersonalInfo() {
             <p className="text-xs text-gray-500">
               This bio will appear on your instructor profile and course pages.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

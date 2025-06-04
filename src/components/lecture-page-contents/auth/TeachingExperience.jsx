@@ -32,25 +32,25 @@ export default function TeachingExperience() {
             <Input
               type="number"
               min="0"
-              {...register("yearsExperience", {
+              {...register("years_experience", {
                 required: "This field is required",
                 min: { value: 0, message: "Cannot be negative" },
               })}
             />
-            {errors.yearsExperience && (
-              <p className="text-red-500 text-sm">{errors.yearsExperience.message}</p>
+            {errors.years_experience && (
+              <p className="text-red-500 text-sm">{errors.years_experience.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="currentOccupation">Current Occupation *</Label>
             <Input
-              {...register("currentOccupation", {
+              {...register("current_occupation", {
                 required: "Current occupation is required",
               })}
             />
-            {errors.currentOccupation && (
-              <p className="text-red-500 text-sm">{errors.currentOccupation.message}</p>
+            {errors.current_occupation && (
+              <p className="text-red-500 text-sm">{errors.current_occupation.message}</p>
             )}
           </div>
         </div>
@@ -58,14 +58,15 @@ export default function TeachingExperience() {
         <div className="space-y-2">
           <Label htmlFor="teachingExperience">Previous Teaching Experience *</Label>
           <Textarea
+          
             className="min-h-[150px]"
-            {...register("teachingExperience", {
+            {...register("previous_experience", {
               required: "Please describe your teaching experience",
               minLength: { value: 10, message: "Too short" },
             })}
           />
-          {errors.teachingExperience && (
-            <p className="text-red-500 text-sm">{errors.teachingExperience.message}</p>
+          {errors.previous_experience && (
+            <p className="text-red-500 text-sm">{errors.previous_experience.message}</p>
           )}
         </div>
 

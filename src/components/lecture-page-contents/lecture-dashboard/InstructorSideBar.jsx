@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,10 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  Upload,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -24,15 +29,23 @@ const menuItems = [
   },
   {
     id: "my-courses",
-    label: "My Courses",
+    label: "Modules",
     icon: BookOpen,
-    path: "/dashboard/my-courses",
-  },
-  {
-    id: "create-course",
-    label: "Create Course",
-    icon: Plus,
-    path: "/dashboard/create-course",
+    hasDropdown: true,
+    children: [
+      {
+        id: "create-course",
+        label: "Upload Module",
+        icon: Upload,
+        path: "/dashboard/create-course",
+      },
+      {
+        id: "view-courses",
+        label: "View Modules",
+        icon: Eye,
+        path: "/dashboard/my-courses",
+      },
+    ],
   },
   {
     id: "students",
@@ -60,65 +73,134 @@ const menuItems = [
   },
   {
     id: "profile",
-    label: "Profile & Settings",
+    label: "Settings",
     icon: Settings,
     path: "/dashboard/profile",
   },
 ];
 
-export function InstructorSidebar({
- 
-  isOpen,
-  setIsOpen,
-}) 
-{
-  const location = useLocation()
-  const currentPath = location.pathname
+export function InstructorSidebar({ isOpen, setIsOpen }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const [openDropdowns, setOpenDropdowns] = useState({});
+
+  const toggleDropdown = (itemId) => {
+    setOpenDropdowns(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId]
+    }));
+  };
+
+  const isChildActive = (children) => {
+    return children?.some(child => currentPath === child.path);
+  };
+
+  const isParentActive = (item) => {
+    if (item.hasDropdown) {
+      return isChildActive(item.children);
+    }
+    return currentPath === item.path || (item.id === "dashboard" && currentPath === "/dashboard");
+  };
+
   return (
     <div
       className={cn(
-        "bg-card border-r  transition-all duration-300 flex flex-col",
+        "bg-card border-r transition-all duration-300 flex flex-col",
         isOpen ? "w-64" : "w-16 overflow-hidden"
       )}
     >
-      <div className="">
-      <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsOpen(!isOpen)}
-            className="h-8 w-8"
-          >
-            {isOpen ? (
-              <ChevronLeft className="h-4 w-4" />
-            ) : (
-              <ChevronRight className="h-4 w-4" />
-            )}
-          </Button>
+      <div className="p-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsOpen(!isOpen)}
+          className="h-8 w-8"
+        >
+          {isOpen ? (
+            <ChevronLeft className="h-4 w-4" />
+          ) : (
+            <ChevronRight className="h-4 w-4" />
+          )}
+        </Button>
       </div>
 
-      <nav className="flex-1  space-y-2">
+      <nav className="flex-1 px-2 space-y-2">
         {menuItems.map((item) => {
-          const Icon = item.icon
-          const isActive = currentPath === item.path || (item.id === "dashboard" && currentPath === "/dashboard")
+          const Icon = item.icon;
+          const isActive = isParentActive(item);
+          const hasChildren = item.hasDropdown && item.children;
+          const isDropdownOpen = openDropdowns[item.id];
+
           return (
-            <Link 
-              key={item.id}
-              to={item.path}
-              className={cn(
-                "w-full",
-                !isOpen && "px-2"
+            <div key={item.id} className="w-full">
+              {hasChildren ? (
+                // Dropdown Menu Item
+                <div>
+                  <Button
+                    variant={isActive ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => {
+                      if (isOpen) {
+                        toggleDropdown(item.id);
+                      }
+                    }}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {isOpen && (
+                      <>
+                        <span className="ml-2 flex-1 text-left">{item.label}</span>
+                        {isDropdownOpen ? (
+                          <ChevronUp className="h-4 w-4" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4" />
+                        )}
+                      </>
+                    )}
+                  </Button>
+
+                  {/* Dropdown Content */}
+                  {isOpen && isDropdownOpen && (
+                    <div className="ml-4 mt-1 space-y-1">
+                      {item.children.map((child) => {
+                        const ChildIcon = child.icon;
+                        const isChildActiveItem = currentPath === child.path;
+                        return (
+                          <Link
+                            key={child.id}
+                            to={child.path}
+                            className="block"
+                          >
+                            <Button
+                              variant={isChildActiveItem ? "default" : "ghost"}
+                              size="sm"
+                              className="w-full justify-start"
+                            >
+                              <ChildIcon className="h-3 w-3" />
+                              <span className="ml-2 text-sm">{child.label}</span>
+                            </Button>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                // Regular Menu Item
+                <Link
+                  to={item.path}
+                  className="block"
+                >
+                  <Button
+                    variant={isActive ? "default" : "ghost"}
+                    className="w-full justify-start"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {isOpen && <span className="ml-2">{item.label}</span>}
+                  </Button>
+                </Link>
               )}
-              
-            >
-             <Button
-                variant={isActive ? "default" : "ghost"}
-                className="w-full justify-start"
-              >
-                <Icon className="h-4 w-4" />
-                {isOpen && <span className="ml-2">{item.label}</span>}
-              </Button>
-            </Link>
-          )
+            </div>
+          );
         })}
       </nav>
     </div>

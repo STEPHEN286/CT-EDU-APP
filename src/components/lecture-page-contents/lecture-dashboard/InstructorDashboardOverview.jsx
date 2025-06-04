@@ -25,13 +25,13 @@ const summaryData = [
     icon: BookOpen,
     color: "text-green-600",
   },
-  {
-    title: "Total Earnings",
-    value: "$12,450",
-    change: "+23.1%",
-    icon: DollarSign,
-    color: "text-yellow-600",
-  },
+  // {
+  //   title: "Total Earnings",
+  //   value: "$12,450",
+  //   change: "+23.1%",
+  //   icon: DollarSign,
+  //   color: "text-yellow-600",
+  // },
   {
     title: "Average Rating",
     value: "4.8",
@@ -88,50 +88,50 @@ const allEnrollmentData = {
   ]
 }
 
-const allEarningsData = {
-  "1-month": [
-    { month: "Jun", earnings: 2450 }
-  ],
-  "3-months": [
-    { month: "Apr", earnings: 2400 },
-    { month: "May", earnings: 2200 },
-    { month: "Jun", earnings: 2450 }
-  ],
-  "6-months": [
-    { month: "Jan", earnings: 1800 },
-    { month: "Feb", earnings: 2100 },
-    { month: "Mar", earnings: 1950 },
-    { month: "Apr", earnings: 2400 },
-    { month: "May", earnings: 2200 },
-    { month: "Jun", earnings: 2450 }
-  ],
-  "1-year": [
-    { month: "Jul '23", earnings: 1200 },
-    { month: "Aug '23", earnings: 1350 },
-    { month: "Sep '23", earnings: 1100 },
-    { month: "Oct '23", earnings: 1400 },
-    { month: "Nov '23", earnings: 1250 },
-    { month: "Dec '23", earnings: 1600 },
-    { month: "Jan", earnings: 1800 },
-    { month: "Feb", earnings: 2100 },
-    { month: "Mar", earnings: 1950 },
-    { month: "Apr", earnings: 2400 },
-    { month: "May", earnings: 2200 },
-    { month: "Jun", earnings: 2450 }
-  ],
-  "all-time": [
-    { month: "Q1 '22", earnings: 800 },
-    { month: "Q2 '22", earnings: 1100 },
-    { month: "Q3 '22", earnings: 1300 },
-    { month: "Q4 '22", earnings: 1200 },
-    { month: "Q1 '23", earnings: 1400 },
-    { month: "Q2 '23", earnings: 1600 },
-    { month: "Q3 '23", earnings: 1350 },
-    { month: "Q4 '23", earnings: 1500 },
-    { month: "Q1 '24", earnings: 1950 },
-    { month: "Q2 '24", earnings: 2400 }
-  ]
-}
+// const allEarningsData = {
+//   "1-month": [
+//     { month: "Jun", earnings: 2450 }
+//   ],
+//   "3-months": [
+//     { month: "Apr", earnings: 2400 },
+//     { month: "May", earnings: 2200 },
+//     { month: "Jun", earnings: 2450 }
+//   ],
+//   "6-months": [
+//     { month: "Jan", earnings: 1800 },
+//     { month: "Feb", earnings: 2100 },
+//     { month: "Mar", earnings: 1950 },
+//     { month: "Apr", earnings: 2400 },
+//     { month: "May", earnings: 2200 },
+//     { month: "Jun", earnings: 2450 }
+//   ],
+//   "1-year": [
+//     { month: "Jul '23", earnings: 1200 },
+//     { month: "Aug '23", earnings: 1350 },
+//     { month: "Sep '23", earnings: 1100 },
+//     { month: "Oct '23", earnings: 1400 },
+//     { month: "Nov '23", earnings: 1250 },
+//     { month: "Dec '23", earnings: 1600 },
+//     { month: "Jan", earnings: 1800 },
+//     { month: "Feb", earnings: 2100 },
+//     { month: "Mar", earnings: 1950 },
+//     { month: "Apr", earnings: 2400 },
+//     { month: "May", earnings: 2200 },
+//     { month: "Jun", earnings: 2450 }
+//   ],
+//   "all-time": [
+//     { month: "Q1 '22", earnings: 800 },
+//     { month: "Q2 '22", earnings: 1100 },
+//     { month: "Q3 '22", earnings: 1300 },
+//     { month: "Q4 '22", earnings: 1200 },
+//     { month: "Q1 '23", earnings: 1400 },
+//     { month: "Q2 '23", earnings: 1600 },
+//     { month: "Q3 '23", earnings: 1350 },
+//     { month: "Q4 '23", earnings: 1500 },
+//     { month: "Q1 '24", earnings: 1950 },
+//     { month: "Q2 '24", earnings: 2400 }
+//   ]
+// }
 
 const allCourses = [
   {
@@ -267,9 +267,9 @@ export function InstructorDashboardOverview() {
     return allEnrollmentData[timeFilter] || allEnrollmentData["6-months"]
   }, [timeFilter])
 
-  const currentEarningsData = useMemo(() => {
-    return allEarningsData[timeFilter] || allEarningsData["6-months"]
-  }, [timeFilter])
+  // const currentEarningsData = useMemo(() => {
+  //   return allEarningsData[timeFilter] || allEarningsData["6-months"]
+  // }, [timeFilter])
 
   // Filtered data
   const filteredCourses = useMemo(() => {
@@ -367,7 +367,7 @@ export function InstructorDashboardOverview() {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1  gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -389,7 +389,7 @@ export function InstructorDashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card>
+        {/* <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <DollarSign className="h-5 w-5" />
@@ -408,7 +408,7 @@ export function InstructorDashboardOverview() {
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

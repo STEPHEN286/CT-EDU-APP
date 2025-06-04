@@ -22,18 +22,19 @@ import CategoryPage from "@/components/category/categories";
 
 import { InstructorDashboardOverview } from "@/components/lecture-page-contents/lecture-dashboard/InstructorDashboardOverview";
 import { ManageCourses } from "@/components/lecture-page-contents/lecture-dashboard/ManageCourses";
-import { CreateCourse } from "@/components/lecture-page-contents/lecture-dashboard/CreateCourse";
+import CreateCourse  from "@/components/lecture-page-contents/lecture-dashboard/CreateCourse";
 import { ManageStudents } from "@/components/lecture-page-contents/lecture-dashboard/ManageStudents";
 import { ManageMessages } from "@/components/lecture-page-contents/lecture-dashboard/ManageMessages";
 import { ManageIncomes } from "@/components/lecture-page-contents/lecture-dashboard/ManageIncomes";
 import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-dashboard/ManageAnnouncement";
 import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
 import VerifyEmail from "@/components/VerifyEmail";
+import EmailVerification from "@/components/EmailVerification";
 
 const routers = createBrowserRouter([
   {
     path: "/",
-    element: <VerifyEmail />,
+    element: <RootLayout />,
     children: [
       {
         index: true,
@@ -89,6 +90,10 @@ const routers = createBrowserRouter([
         path: "signup",
         element: <SignUpForm />,
       },
+      {
+        path: "verify-email",
+        element: <EmailVerification />
+      }
     ]
   },
   {
@@ -129,7 +134,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "earnings",
-        element: <ManageIncomes />
+        element:<h1>Quiz</h1>
       },
       {
         path: "announcements",

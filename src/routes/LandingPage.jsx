@@ -13,6 +13,7 @@ import BecomeTeacher from '@/components/landing-page-contents/BecomeTeacher'
 import Pricing from '@/components/landing-page-contents/Pricing'
 import TailoredExperience from '@/components/landing-page-contents/TailoredExperience'
 import Team from '@/components/landing-page-contents/Team'
+import ImpactSection from '@/components/landing-page-contents/Impact'
 
 export default function LandingPage() {
    const{t} = useTranslation('hero')
@@ -36,6 +37,7 @@ export default function LandingPage() {
 <TailoredExperience />
 <Pricing />
      <BrowseCategories />
+     <ImpactSection />
 <Team />
      <HowItWorks />
      <Testimonials />

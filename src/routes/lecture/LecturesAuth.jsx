@@ -22,7 +22,7 @@ export default function RegisterInstructor() {
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log("Submitted Data:", data);
-    // Send data to your backend here
+  
   });
 
   const renderStep = () => {
@@ -47,8 +47,8 @@ export default function RegisterInstructor() {
           <div className="container mx-auto px-4 py-8 flex-grow">
             <Stepper currentStep={step} />
 
-            <div className="flex flex-col lg:flex-row gap-6 mt-8">
-              <div className="lg:w-3/4">
+            <div className="flex gap-6 mt-8">
+              <div className="w-full ">
                 <div className="bg-white rounded-lg shadow-md p-6 relative">
                   <div className="mt-8">{renderStep()}</div>
 
@@ -62,9 +62,9 @@ export default function RegisterInstructor() {
                 </div>
               </div>
 
-              <div className="lg:w-1/4">
+              {/* <div className="lg:w-1/4">
                 <HelpSection currentStep={step} />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

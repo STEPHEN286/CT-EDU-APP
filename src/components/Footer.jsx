@@ -1,6 +1,7 @@
 import React from 'react'
 
    import { Facebook, Twitter, Instagram, Youtube, Mail } from "lucide-react"
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
@@ -37,30 +38,30 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Quick as</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <a href="/courses" className="text-gray-400 hover:text-white">
-                  Courses
-                </a>
+                <Link to="/modules" className="text-gray-400 hover:text-white">
+                  Modules
+                </Link>
               </li>
               <li>
-                <a href="/roadmaps" className="text-gray-400 hover:text-white">
+                <Link to="/roadmaps" className="text-gray-400 hover:text-white">
                   Roadmaps
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/instructors" className="text-gray-400 hover:text-white">
+                <Link to="/instructors" className="text-gray-400 hover:text-white">
                   Instructors
-                </a>
+                </Link>
               </li>
-              <li>
-                <a href="/pricing" className="text-gray-400 hover:text-white">
+              {/* <li>
+                <Link to="/pricing" className="text-gray-400 hover:text-white">
                   Pricing
-                </a>
-              </li>
-              <li>
-                <a href="/blog" className="text-gray-400 hover:text-white">
+                </Link>
+              </li> */}
+              {/* <li>
+                <Link to="/blog" className="text-gray-400 hover:text-white">
                   Blog
-                </a>
-              </li>
+                </Link>
+              </li> */}
             </ul>
           </div>
           <div>
@@ -96,7 +97,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold">Subscribe</h3>
             <p className="mt-4 text-gray-400">
-              Subscribe to our newsletter to get updates on new courses and features.
+              Subscribe to our newsletter to get updates on new modules and features.
             </p>
             <div className="mt-4 flex">
               <input

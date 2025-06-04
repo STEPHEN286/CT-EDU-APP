@@ -11,7 +11,7 @@ export default function SmallCard({ title, icon: Icon, count }) {
           <Icon className="h-4 w-4 md:w-6 md:h-6 text-red-600" />
         </div>
         <h3 className="md:text-lg font-medium text-center md:font-semibold text-black">{title}</h3>
-        <p className="text-sm text-gray-500">{count} courses</p>
+        <p className="text-sm text-gray-500">{count} </p>
       </CardContent>
     </Card>
   )

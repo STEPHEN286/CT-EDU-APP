@@ -7,9 +7,13 @@ export default function Tools() {
   <div className={`${containerClass} w-full h-full`}>
     <div className="grid grid-cols-1 gap-10 md:gap-5  md:grid-cols-2 h-full items-center">
       
-      <div className=" w-full h-full">
-        <AspectRatio ratio={16 / 9}>
-          <img src={dash} alt="Image" className="rounded-md object-center md:object-cover w-full h-full" />
+      <div className="w-full h-full bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-2xl  ">
+        <AspectRatio ratio={16 / 9} className="rounded-xl overflow-hidden">
+          <img 
+            src="https://i.imgur.com/IQnkdVR.png" 
+            alt="Dashboard Analytics" 
+            className="object-cover w-full h-full hover:scale-105 transition-transform duration-300" 
+          />
         </AspectRatio>
       </div>
 
@@ -38,18 +42,18 @@ import { AspectRatio } from '../ui/aspect-ratio'
     {
       icon: <LineChart className=" w-5 h-5" />,
       title: "Comprehensive analytics",
-      description: "Track student engagement, course performance, and revenue in real-time with our intuitive dashboard.",
+      description: "Easily see how students are doing, how your modules perform, and what can be improved — all in one simple dashboard   ",
     },
     {
       icon: <MessageCircle className=" w-5 h-5" />,
       title: "Student feedback",
-      description: "Gather insights from student reviews and ratings to continuously improve your courses.",
+      description: "Gather insights from student reviews and ratings to continuously improve your modules.",
     },
-    {
-      icon: <DollarSign className=" w-5 h-5" />,
-      title: "Flexible monetization",
-      description: "Choose from multiple revenue models: one-time purchases, subscriptions, or bundle offerings.",
-    },
+    // {
+    //   icon: <DollarSign className=" w-5 h-5" />,
+    //   title: "Flexible monetization",
+    //     description: "Choose from multiple revenue models: one-time purchases, subscriptions, or bundle offerings.",
+    // },
   ];
 
   return (

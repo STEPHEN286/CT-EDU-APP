@@ -23,6 +23,7 @@ import {
   PenBoxIcon,
   Video,
   Rocket,
+  EuroIcon,
 } from "lucide-react";
 
 import { Search, BookOpen, Award } from "lucide-react";
@@ -770,7 +771,7 @@ export const whyTeach = [
       "Connect with over 50 million students worldwide eager to learn from your expertise and experience.",
   },
   {
-    icon: DollarSign,
+    icon: EuroIcon,
     title: "Monetize your expertise",
     description:
       "Earn revenue through course sales, subscriptions, and our affiliate program. Our top instructors earn six figures annually.",
@@ -787,7 +788,7 @@ export const courseSteps = [
   {
     step: 1,
     icon: PenBoxIcon,
-    title: "Plan Your Course",
+    title: "Plan Your Module",
     description:
       "Define your target audience and outline your curriculum with our planning tools.",
   },
@@ -796,14 +797,14 @@ export const courseSteps = [
     icon: Video,
     title: "Create your content",
     description:
-      "Record videos, create assignments, and design quizzes with our easy-to-use course builder.",
+      "Record videos, create assignments, and design quizzes with our easy-to-use module builder.",
   },
   {
     step: 3,
     icon: Rocket,
     title: "Publish and promote",
     description:
-      "Launch your course and leverage our marketing tools to reach your ideal students.",
+      "Launch your module and leverage our marketing tools to reach your ideal students.",
   },
 
   {
@@ -811,7 +812,7 @@ export const courseSteps = [
     icon: Rocket,
     title: "Earn and grow",
     description:
-      "Get paid for your expertise and expand your course offerings based on student feedback..",
+      "Get paid for your expertise and expand your module offerings based on student feedback.",
   },
 ];
 

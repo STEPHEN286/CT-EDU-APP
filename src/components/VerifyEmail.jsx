@@ -7,10 +7,10 @@ import usePostData from "@/hooks/useAuthOperation";
 import { useForm } from "react-hook-form";
 
 export default function VerifyEmail() {
-  const { mutate } = usePostData("verifyapi.php");
+  const { mutate } = usePostData("verifycodeapi.php");
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      otp: ""
+        verification_code: ""
     }
   });
 
@@ -26,7 +26,7 @@ export default function VerifyEmail() {
           <h1>Enter Verification Code</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
-          <InputOTP maxLength={6} {...register("otp", { required: true })}>
+          <InputOTP maxLength={6} {...register("verification_code", { required: true })}>
             <InputOTPSlot index={0} />
             <InputOTPSlot index={1} />
             <InputOTPSlot index={2} />

@@ -39,7 +39,7 @@ const handleModuleClick = (category, module) => {
       }}
     >
    
-      <NavigationMenuTrigger onMouseEnter={() => setDropdownOpen(true)} className="text-black hover:text-red-600">Categories</NavigationMenuTrigger>
+      <NavigationMenuTrigger onMouseEnter={() => setDropdownOpen(true)} className="text-black hover:text-red-600">Modules</NavigationMenuTrigger>
       {/* Dropdown Panel */}
       {dropdownOpen && (
         <div

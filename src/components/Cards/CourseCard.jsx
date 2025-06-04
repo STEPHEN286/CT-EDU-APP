@@ -23,7 +23,7 @@ export default function CourseCard({ course }) {
         <CardHeader className="p-4 flex-none">
           <div className="flex justify-between items-start mb-2">
             <Badge className="bg-red-600 hover:bg-red-700 text-white">{course.category}</Badge>
-            <Badge variant="outline">{course.level}</Badge>
+            {/* <Badge variant="outline">{course.level}</Badge> */}
           </div>
           <h3 className="font-bold text-lg line-clamp-2 text-black">{course.title}</h3>
           <p className="text-sm text-gray-600">by {course.instructor}</p>

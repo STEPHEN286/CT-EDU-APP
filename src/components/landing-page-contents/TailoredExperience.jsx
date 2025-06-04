@@ -15,8 +15,8 @@ export default function TailoredExperience() {
             
             imgUrl="https://i.imgur.com/GayzkEm.png"
                 borderColor="border-red-900"
-                title="Flexible Course Options"
-                description="Select courses that suit your schedule"
+                title="Flexible Modules Options"
+                description="Select modules that suit your schedule"
             />
             <TailoredCard 
                 borderColor="border-blue-500"
@@ -42,7 +42,7 @@ export default function TailoredExperience() {
             <TailoredCard 
                 borderColor="border-pink-400"
                 title="Mobile Compatibility"
-                description="Access courses from any device"
+                description="Access modules from any device"
                 imgUrl="https://i.imgur.com/xjAVQgT.png"
             />
             <TailoredCard 

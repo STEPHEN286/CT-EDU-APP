@@ -25,8 +25,8 @@ export default function BrowseCategories() {
   return (
     <div className={`${containerClass}  py-20 space-y-8`}>
       <div>
-          <h1 className='text-xl font-bold text-center'>Browse Category</h1>
-          <p className='text-sm text-gray-500 text-center'>Explore our wide range of courses across different categories</p>
+          <h1 className='text-xl font-bold text-center'>Browse Modules</h1>
+          <p className='text-sm text-gray-500 text-center'>Explore our wide range of modules across different categories</p>
       </div>
       <div className='w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
         {
@@ -40,7 +40,7 @@ export default function BrowseCategories() {
                 <SmallCard
                   title={category.title} 
                   icon={categoryIcons[category.title]} 
-                  // count={`${category.modules.length} modules`} 
+                  count={`${category.modules.length} modules`} 
                 />
               </Link>
             ))

@@ -94,7 +94,7 @@ export function ManageStudents() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalStudents}</div>
-            <p className="text-xs text-muted-foreground">Across all courses</p>
+            <p className="text-xs text-muted-foreground">Across all module</p>
           </CardContent>
         </Card>
 
@@ -116,7 +116,7 @@ export function ManageStudents() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{avgProgress}%</div>
-            <p className="text-xs text-muted-foreground">Course completion</p>
+            <p className="text-xs text-muted-foreground">Module  completion</p>
           </CardContent>
         </Card>
 
@@ -129,7 +129,7 @@ export function ManageStudents() {
             <div className="text-2xl font-bold">
               {students.reduce((sum, student) => sum + student.completedCourses, 0)}
             </div>
-            <p className="text-xs text-muted-foreground">Total course completions</p>
+            <p className="text-xs text-muted-foreground">Total module completions</p>
           </CardContent>
         </Card>
       </div>
@@ -162,7 +162,7 @@ export function ManageStudents() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Student</TableHead>
-                  <TableHead>Enrolled Courses</TableHead>
+                  <TableHead>Enrolled Modulea</TableHead>
                   <TableHead>Progress</TableHead>
                   <TableHead>Watch Time</TableHead>
                   <TableHead>Last Active</TableHead>

@@ -10,7 +10,7 @@ export default function WhyTeach() {
     <section id="why-teach" className={`${containerClass}  py-20 space-y-3 `}>
         <div className='lg:w-1/2 mx-auto space-y-2' >
             <h3 className='text-center text-2xl lg:text-4xl font-bold'>Why teach on CT EDU HUB?</h3>
-            <p className='text-center'>Our platform gives you the tools and support you need to create engaging courses and build a successful teaching business.</p>
+            <p className='text-center'>Our platform gives you the tools and support you need to create engaging modules and build a successful teaching business.</p>
         </div>
 
        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center  w-full'>

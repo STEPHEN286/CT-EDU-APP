@@ -65,7 +65,7 @@ export default function Pricing() {
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4 ">Choose Your Learning Plan</h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Flexible options for every learner — start for free or unlock more with our Personal and Pro plans.
+          Flexible options for every learner —  unlock more with our Personal and Pro plans.
         </p>
       </div>
 

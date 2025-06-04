@@ -17,7 +17,7 @@ export default function OverViewOfUsers() {
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold">Unlock Your Learning Potential</h2>
         <p className="text-gray-500 mt-2 max-w-2xl mx-auto">
-          Explore highly-rated courses from expert instructors around the globe
+          Explore highly-rated modules from expert instructors around the globe
         </p>
       </div>
 

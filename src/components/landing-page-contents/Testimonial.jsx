@@ -12,7 +12,7 @@ export function Testimonials() {
       <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Success Stories</h2>
-          <p className="text-base md:text-lg text-gray-600">Hear from our learners and educators</p>
+          <p className="text-base md:text-lg text-gray-600">Hear from our learners </p>
         </div>
         <TestimonialSlider />
       </div>

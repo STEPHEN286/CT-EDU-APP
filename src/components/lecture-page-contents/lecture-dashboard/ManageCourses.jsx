@@ -1,14 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Progress } from "@/components/ui/progress"
-import { Search, MoreHorizontal, Eye, Edit, BarChart3, Users, Star, DollarSign, Play, Pause } from "lucide-react"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Progress } from "@/components/ui/progress";
+import {
+  Search,
+  MoreHorizontal,
+  Eye,
+  Edit,
+  BarChart3,
+  Users,
+  Star,
+  DollarSign,
+  Play,
+  Pause,
+  Plus,
+} from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+// import { CreateCourse } from "./CreateCourse";
 
 const coursesData = [
   {
@@ -76,100 +108,120 @@ const coursesData = [
     thumbnail: "/placeholder.svg?height=120&width=200",
     progress: 100,
   },
-]
+];
 
 export function ManageCourses() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [courses, setCourses] = useState(coursesData)
+  const [searchTerm, setSearchTerm] = useState("");
+  const [courses, setCourses] = useState(coursesData);
+  const [dialogOpen, setDialogOpen] = useState(false)
 
-  const filteredCourses = courses.filter((course) => course.title.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredCourses = courses.filter((course) =>
+    course.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const getStatusBadge = (status) => {
     switch (status) {
       case "published":
-        return <Badge className="bg-green-100 text-green-800">Published</Badge>
+        return <Badge className="bg-green-100 text-green-800">Published</Badge>;
       case "draft":
-        return <Badge variant="secondary">Draft</Badge>
+        return <Badge variant="secondary">Draft</Badge>;
       case "under-review":
         return (
-          <Badge variant="outline" className="border-yellow-500 text-yellow-700">
+          <Badge
+            variant="outline"
+            className="border-yellow-500 text-yellow-700"
+          >
             Under Review
           </Badge>
-        )
+        );
       case "rejected":
-        return <Badge variant="destructive">Rejected</Badge>
+        return <Badge variant="destructive">Rejected</Badge>;
       default:
-        return <Badge variant="secondary">{status}</Badge>
+        return <Badge variant="secondary">{status}</Badge>;
     }
-  }
+  };
 
   const handleToggleStatus = (courseId) => {
     setCourses(
       courses.map((course) =>
-        course.id === courseId ? { ...course, status: course.status === "published" ? "draft" : "published" } : course,
-      ),
-    )
-  }
+        course.id === courseId
+          ? {
+              ...course,
+              status: course.status === "published" ? "draft" : "published",
+            }
+          : course
+      )
+    );
+  };
 
-  const totalStudents = courses.reduce((sum, course) => sum + course.students, 0)
-  const totalEarnings = courses.reduce((sum, course) => sum + course.earnings, 0)
-  const publishedCourses = courses.filter((course) => course.status === "published").length
+  const totalStudents = courses.reduce(
+    (sum, course) => sum + course.students,
+    0
+  );
+  // const totalEarnings = courses.reduce(
+  //   (sum, course) => sum + course.earnings,
+  //   0
+  // );
+  const publishedCourses = courses.filter(
+    (course) => course.status === "published"
+  ).length;
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">My Courses</h1>
-        <p className="text-muted-foreground">Manage and track your course performance</p>
+        <h1 className="text-3xl font-bold">My Modules</h1>
+        <p className="text-muted-foreground">
+          Manage and track your module performance
+        </p>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Courses</CardTitle>
+            <CardTitle className="text-sm font-medium">My Modules</CardTitle>
             <Play className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{courses.length}</div>
-            <p className="text-xs text-muted-foreground">{publishedCourses} published</p>
+            <p className="text-xs text-muted-foreground">
+              {publishedCourses} published
+            </p>
           </CardContent>
         </Card>
-
+         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
+              <CardTitle className="text-sm font-medium">My Students</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalStudents.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Across all courses</p>
+            <div className="text-2xl font-bold">
+              {totalStudents.toLocaleString()}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Enrolled in your modules
+            </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Earnings</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">${totalEarnings.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Lifetime earnings</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Rating</CardTitle>
+            <CardTitle className="text-sm font-medium">Module Rating</CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {(
-                courses.filter((c) => c.rating > 0).reduce((sum, c) => sum + c.rating, 0) /
+                courses
+                  .filter((c) => c.rating > 0)
+                  .reduce((sum, c) => sum + c.rating, 0) /
                   courses.filter((c) => c.rating > 0).length || 0
               ).toFixed(1)}
             </div>
-            <p className="text-xs text-muted-foreground">From student reviews</p>
+            <p className="text-xs text-muted-foreground">
+              Average from your students
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -179,10 +231,12 @@ export function ManageCourses() {
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>
-              <CardTitle>Course Management</CardTitle>
-              <CardDescription>View and manage all your courses</CardDescription>
+              <CardTitle>Module Management</CardTitle>
+              <CardDescription>
+                View and manage all your modules
+              </CardDescription>
             </div>
-            <Button>Create New Course</Button>
+            {/* {link to add} */}
           </div>
         </CardHeader>
         <CardContent>
@@ -190,7 +244,7 @@ export function ManageCourses() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
-                placeholder="Search your courses..."
+                placeholder="Search your modules..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -202,11 +256,11 @@ export function ManageCourses() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Course</TableHead>
+                  <TableHead>Module</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Students</TableHead>
                   <TableHead>Rating</TableHead>
-                  <TableHead>Earnings</TableHead>
+                  {/* <TableHead>Earnings</TableHead> */}
                   <TableHead>Progress</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -223,7 +277,9 @@ export function ManageCourses() {
                         />
                         <div>
                           <div className="font-medium">{course.title}</div>
-                          <div className="text-sm text-muted-foreground">{course.category}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {course.category}
+                          </div>
                         </div>
                       </div>
                     </TableCell>
@@ -239,21 +295,28 @@ export function ManageCourses() {
                         <div className="flex items-center gap-1">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                           <span>{course.rating}</span>
-                          <span className="text-muted-foreground text-sm">({course.reviews})</span>
+                          <span className="text-muted-foreground text-sm">
+                            ({course.reviews})
+                          </span>
                         </div>
                       ) : (
-                        <span className="text-muted-foreground">No ratings</span>
+                        <span className="text-muted-foreground">
+                          No ratings
+                        </span>
                       )}
                     </TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <div className="flex items-center gap-1">
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />${course.earnings.toLocaleString()}
+                        <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        ${course.earnings.toLocaleString()}
                       </div>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Progress value={course.progress} className="w-16" />
-                        <span className="text-sm text-muted-foreground">{course.progress}%</span>
+                        <span className="text-sm text-muted-foreground">
+                          {course.progress}%
+                        </span>
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
@@ -266,17 +329,19 @@ export function ManageCourses() {
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem>
                             <Eye className="mr-2 h-4 w-4" />
-                            View Course
+                            View Module
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <Edit className="mr-2 h-4 w-4" />
-                            Edit Course
+                            Edit Module
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <BarChart3 className="mr-2 h-4 w-4" />
                             View Analytics
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleToggleStatus(course.id)}>
+                          <DropdownMenuItem
+                            onClick={() => handleToggleStatus(course.id)}
+                          >
                             {course.status === "published" ? (
                               <>
                                 <Pause className="mr-2 h-4 w-4" />
@@ -300,5 +365,5 @@ export function ManageCourses() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
