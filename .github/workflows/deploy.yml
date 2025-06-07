@@ -1,0 +1,35 @@
+name: Deploy React app to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # Replace "main" if your branch name is different
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name:  Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name:  Install dependencies
+        run: npm install
+
+      - name:  Build the app
+        run: npm run build
+
+      - name: Deploy to Hostinger via SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 191.101.13.49
+          port: 65002
+          username: u890055708
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          source: "dist/*"
+          target: "public_html"
