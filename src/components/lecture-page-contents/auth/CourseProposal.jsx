@@ -26,11 +26,11 @@ export default function CourseProposal() {
           <Label htmlFor="courseTitle">Course Title *</Label>
           <Input
             id="courseTitle"
-            {...register("courseTitle", { required: "Course title is required" })}
+            {...register("course_title", { required: "Course title is required" })}
             placeholder="Enter a clear, descriptive title for your course"
           />
           {errors.courseTitle && (
-            <p className="text-red-500 text-sm">{errors.courseTitle.message}</p>
+            <p className="text-red-500 text-sm">{errors.course_title.message}</p>
           )}
         </div>
 
@@ -39,7 +39,7 @@ export default function CourseProposal() {
             <Label htmlFor="courseCategory">Course Category *</Label>
             <Controller
               control={control}
-              name="courseCategory"
+              name="course_category"
               rules={{ required: "Course category is required" }}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
@@ -64,7 +64,7 @@ export default function CourseProposal() {
             )}
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label>Course Level *</Label>
             <Controller
               control={control}
@@ -96,14 +96,14 @@ export default function CourseProposal() {
             {errors.courseLevel && (
               <p className="text-red-500 text-sm">{errors.courseLevel.message}</p>
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="courseDescription">Course Description *</Label>
           <Textarea
             id="courseDescription"
-            {...register("courseDescription", {
+            {...register("course_description", {
               required: "Course description is required",
               minLength: {
                 value: 20,
@@ -114,7 +114,7 @@ export default function CourseProposal() {
             className="min-h-[150px]"
           />
           {errors.courseDescription && (
-            <p className="text-red-500 text-sm">{errors.courseDescription.message}</p>
+            <p className="text-red-500 text-sm">{errors.course_description.message}</p>
           )}
         </div>
 
@@ -122,7 +122,7 @@ export default function CourseProposal() {
           <Label htmlFor="courseOutline">Course Outline *</Label>
           <Textarea
             id="courseOutline"
-            {...register("courseOutline", {
+            {...register("course_outline", {
               required: "Course outline is required",
               minLength: {
                 value: 20,
@@ -133,7 +133,7 @@ export default function CourseProposal() {
             className="min-h-[200px]"
           />
           {errors.courseOutline && (
-            <p className="text-red-500 text-sm">{errors.courseOutline.message}</p>
+            <p className="text-red-500 text-sm">{errors.course_outline.message}</p>
           )}
           <p className="text-xs text-gray-500">
             A well-structured outline helps us understand the scope and organization of your course.

@@ -126,9 +126,9 @@ export default function PersonalInfo() {
               <Input
                 id="professionalTitle"
                 placeholder="e.g. Software Engineer, Data Scientist"
-                {...register("professionalTitle", {
-                  required: "Professional title is required",
-                })}
+                // {...register("professionalTitle", {
+                //   required: "Professional title is required",
+                // })}
               />
               {errors.professionalTitle && (
                 <p className="text-sm text-red-500">
@@ -140,9 +140,9 @@ export default function PersonalInfo() {
             <div className="space-y-2">
               <Label htmlFor="fieldOfExpertise">Field of Expertise *</Label>
               <Select
-                onValueChange={(value) =>
-                  register("fieldOfExpertise").onChange({ target: { value } })
-                }
+                // onValueChange={(value) =>
+                //   register("fieldOfExpertise").onChange({ target: { value } })
+                // }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select your field" />
@@ -168,7 +168,7 @@ export default function PersonalInfo() {
             </div>
           </div>
 
-          {/* <div className="space-y-2">
+          <div className="space-y-2">
             <Label htmlFor="bio">Professional Bio *</Label>
             <Textarea
               id="bio"
@@ -192,7 +192,7 @@ export default function PersonalInfo() {
             <p className="text-xs text-gray-500">
               This bio will appear on your instructor profile and course pages.
             </p>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

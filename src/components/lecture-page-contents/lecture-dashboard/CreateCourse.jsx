@@ -1,298 +1,261 @@
-"use client"
+import React, { useState } from 'react';
+import { Video, FileText, File, Presentation, Table, Upload, X, HelpCircle } from 'lucide-react';
 
-import React, { useState } from "react"
-import {
-  BookOpen,
-  Upload,
-  Plus,
-  Trash2,
-  Video,
-  FileText,
-  ChevronRight,
-  Play,
-  X,
-  Edit,
-  Eye,
-} from "lucide-react"
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { navMenu } from "@/data"
-import LectureInput from "./modules/LectureInput"
-
-
-export default function CreateCourse() {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [previewVideo, setPreviewVideo] = useState(null)
-  const [courseData, setCourseData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    category: "",
-    level: "",
-    language: "",
-    price: "",
-    thumbnail: null,
-    promoVideo: null,
-    learningObjectives: [""],
-    requirements: [""],
-    targetAudience: "",
-    curriculum: [
-      {
-        id: 1,
-        title: "",
-        lectures: [{ id: 1, title: "", type: "video", duration: "", videoFile: null, videoUrl: null }],
-      },
-    ],
-  })
-
-  const totalSteps = 2
-
-  const handleInputChange = (field, value) => {
-    setCourseData((prev) => ({ ...prev, [field]: value }))
-  }
-
-  const addSection = () => {
-    const newSection = {
-      id: Date.now(),
-      title: "",
-      lectures: [{ id: Date.now(), title: "", type: "video", duration: "", videoFile: null, videoUrl: null }],
+const LectureInput = () => {
+  const [sections, setSections] = useState([
+    {
+      id: 1,
+      title: "Section 1",
+      lectures: [
+        { id: 1, title: "", type: "video", file: null }
+      ]
     }
-    setCourseData((prev) => ({
-      ...prev,
-      curriculum: [...prev.curriculum, newSection],
-    }))
-  }
+  ]);
 
-  const addLecture = (sectionIndex) => {
-    const newLecture = { id: Date.now(), title: "", type: "video", duration: "", videoFile: null, videoUrl: null }
-    setCourseData((prev) => ({
-      ...prev,
-      curriculum: prev.curriculum.map((section, index) =>
-        index === sectionIndex ? { ...section, lectures: [...section.lectures, newLecture] } : section,
-      ),
-    }))
-  }
+  const getIconForType = (type) => {
+    const icons = {
+      video: <Video className="h-4 w-4 text-gray-500" />,
+      pdf: <FileText className="h-4 w-4 text-red-500" />,
+      word: <File className="h-4 w-4 text-blue-500" />,
+      excel: <Table className="h-4 w-4 text-green-500" />,
+      powerpoint: <Presentation className="h-4 w-4 text-orange-500" />,
+      quiz: <HelpCircle className="h-4 w-4 text-purple-500" />
+    };
+    return icons[type] || <File className="h-4 w-4 text-gray-500" />;
+  };
 
-  const removeLecture = (sectionIndex, lectureId) => {
-    setCourseData((prev) => ({
-      ...prev,
-      curriculum: prev.curriculum.map((section, index) =>
-        index === sectionIndex 
-          ? { ...section, lectures: section.lectures.filter(lecture => lecture.id !== lectureId) }
-          : section
-      ),
-    }))
-  }
+  const getAcceptedFileTypes = (type) => {
+    const fileTypes = {
+      video: ".mp4,.avi,.mov,.wmv,.flv,.webm",
+      pdf: ".pdf",
+      word: ".doc,.docx",
+      excel: ".xls,.xlsx,.csv",
+      powerpoint: ".ppt,.pptx",
+      quiz: ".pdf,.doc,.docx" // Quiz files can be PDF or Word documents
+    };
+    return fileTypes[type] || "";
+  };
 
   const updateLecture = (sectionIndex, lectureId, field, value) => {
-    setCourseData((prev) => ({
-      ...prev,
-      curriculum: prev.curriculum.map((section, index) =>
-        index === sectionIndex
+    setSections(prev => 
+      prev.map((section, idx) => 
+        idx === sectionIndex 
           ? {
               ...section,
-              lectures: section.lectures.map(lecture =>
-                lecture.id === lectureId ? { ...lecture, [field]: value } : lecture
-              ),
+              lectures: section.lectures.map(lecture => 
+                lecture.id === lectureId 
+                  ? { ...lecture, [field]: value }
+                  : lecture
+              )
             }
           : section
-      ),
-    }))
-  }
+      )
+    );
+  };
 
-  const handleVideoSelect = (sectionIndex, lectureId, event) => {
-    const file = event.target.files[0]
-    if (file) {
-      const videoUrl = URL.createObjectURL(file)
-      updateLecture(sectionIndex, lectureId, 'videoFile', file)
-      updateLecture(sectionIndex, lectureId, 'videoUrl', videoUrl)
-    }
-  }
+  const handleFileUpload = (sectionIndex, lectureId, file) => {
+    updateLecture(sectionIndex, lectureId, 'file', file);
+  };
 
-  const handleVideoChange = (sectionIndex, lectureId) => {
-    const fileInput = document.getElementById(`video-input-${sectionIndex}-${lectureId}`)
-    fileInput?.click()
-  }
+  const removeFile = (sectionIndex, lectureId) => {
+    updateLecture(sectionIndex, lectureId, 'file', null);
+  };
 
-  const handleVideoRemove = (sectionIndex, lectureId) => {
-    const lecture = courseData.curriculum[sectionIndex].lectures.find(l => l.id === lectureId)
-    if (lecture?.videoUrl) {
-      URL.revokeObjectURL(lecture.videoUrl)
-    }
-    updateLecture(sectionIndex, lectureId, 'videoFile', null)
-    updateLecture(sectionIndex, lectureId, 'videoUrl', null)
-  }
+  const addLecture = (sectionIndex) => {
+    setSections(prev => 
+      prev.map((section, idx) => 
+        idx === sectionIndex 
+          ? {
+              ...section,
+              lectures: [
+                ...section.lectures,
+                { 
+                  id: Date.now(), 
+                  title: "", 
+                  type: "video", 
+                  file: null 
+                }
+              ]
+            }
+          : section
+      )
+    );
+  };
 
-  const openVideoPreview = (videoUrl, lectureTitle) => {
-    setPreviewVideo({ url: videoUrl, title: lectureTitle })
-  }
-
-  const closeVideoPreview = () => {
-    setPreviewVideo(null)
-  }
+  const addSection = () => {
+    setSections(prev => [
+      ...prev,
+      {
+        id: Date.now(),
+        title: `Section ${prev.length + 1}`,
+        lectures: [{ id: Date.now(), title: "", type: "video", file: null }]
+      }
+    ]);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <div className="flex items-center gap-3">
-            <BookOpen className="h-6 w-6 text-gray-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Create New Module</h1>
-          </div>
-          
-          {/* Progress Tabs */}
-          <div className="mt-6 flex space-x-4">
-            <button
-              onClick={() => setCurrentStep(1)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                currentStep === 1 
-                  ? 'bg-black text-white' 
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Basic Info
-            </button>
-            <button
-              onClick={() => setCurrentStep(2)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                currentStep === 2 
-                  ? 'bg-black text-white' 
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Content
-            </button>
-          </div>
-        </div>
+    <div className="max-w-4xl mx-auto p-6 bg-white">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Course Content</h2>
+        <p className="text-gray-600">Add lectures with various file formats including videos, documents, presentations, and quizzes.</p>
+      </div>
 
-        {/* Step 1: Basic Information */}
-        { currentStep === 1 && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-6">Basic Module Information</h2>
-            
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Module Title *
-                </label>
+      {sections.map((section, sectionIndex) => (
+        <div key={section.id} className="mb-8 border border-gray-200 rounded-lg p-6">
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Section title"
+              value={section.title}
+              onChange={(e) => {
+                setSections(prev => 
+                  prev.map((s, idx) => 
+                    idx === sectionIndex ? { ...s, title: e.target.value } : s
+                  )
+                );
+              }}
+              className="text-lg font-semibold px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+            />
+          </div>
+
+          {section.lectures.map((lecture, lectureIndex) => (
+            <div key={lecture.id} className="mb-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center gap-3 mb-3">
+                {getIconForType(lecture.type)}
                 <input
                   type="text"
-                  placeholder="Enter a compelling module title"
-                  value={courseData.title}
-                  onChange={(e) => handleInputChange("title", e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                  placeholder="Lecture title"
+                  value={lecture.title}
+                  onChange={(e) => updateLecture(sectionIndex, lecture.id, 'title', e.target.value)}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
+                <select
+                  value={lecture.type}
+                  onChange={(e) => {
+                    updateLecture(sectionIndex, lecture.id, 'type', e.target.value);
+                    updateLecture(sectionIndex, lecture.id, 'file', null); // Clear file when type changes
+                  }}
+                  className="w-36 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="video">Video</option>
+                  <option value="pdf">PDF</option>
+                  <option value="word">Word Doc</option>
+                  <option value="excel">Excel</option>
+                  <option value="powerpoint">PowerPoint</option>
+                  <option value="quiz">Quiz</option>
+                </select>
               </div>
-        
 
-             
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Module Description *
-                </label>
-                <textarea
-                  placeholder="Provide a detailed description of your module"
-                  rows={6}
-                  value={courseData.description}
-                  onChange={(e) => handleInputChange("description", e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                />
+              {/* File upload section for all types */}
+              <div className="mt-3">
+                {!lecture.file ? (
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-400 transition-colors">
+                    <input
+                      type="file"
+                      accept={getAcceptedFileTypes(lecture.type)}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) handleFileUpload(sectionIndex, lecture.id, file);
+                      }}
+                      className="hidden"
+                      id={`file-${section.id}-${lecture.id}`}
+                    />
+                    <label
+                      htmlFor={`file-${section.id}-${lecture.id}`}
+                      className="cursor-pointer flex flex-col items-center"
+                    >
+                      <Upload className="h-8 w-8 text-gray-400 mb-2" />
+                      <span className="text-sm text-gray-600">
+                        Click to upload {lecture.type} file
+                      </span>
+                      <span className="text-xs text-gray-500 mt-1">
+                        {getAcceptedFileTypes(lecture.type).replace(/\./g, '').toUpperCase()}
+                      </span>
+                    </label>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      {getIconForType(lecture.type)}
+                      <span className="text-sm font-medium text-gray-700">
+                        {lecture.file.name}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        ({(lecture.file.size / 1024 / 1024).toFixed(2)} MB)
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => removeFile(sectionIndex, lecture.id)}
+                      className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                    >
+                      <X className="h-4 w-4 text-gray-500" />
+                    </button>
+                  </div>
+                )}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Module *
-                  </label>
-                  <select
-                    value={courseData.category}
-                    onChange={(e) => handleInputChange("category", e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                  >
-                    <option value="">Select module</option>
-                    {navMenu.map(module => (
-                      
-                      <option key={module.modules} value={module.title}>{module.title}</option>
-                    ))
-                  }
-                  </select>
+              {/* Special message for quiz type */}
+              {lecture.type === 'quiz' && !lecture.file && (
+                <div className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                  <p className="text-sm text-purple-700 mb-2">
+                    <strong>Quiz Options:</strong>
+                  </p>
+                  <ul className="text-sm text-purple-600 space-y-1">
+                    <li>• Upload existing quiz files (PDF or Word documents)</li>
+                    <li>• Or create interactive quizzes using the quiz builder tool</li>
+                  </ul>
                 </div>
+              )}
             </div>
-          </div>
-          </div>
-        )}
-        
+          ))}
 
-        {/* Step 2: Course Content */}
-        {currentStep === 2 && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <FileText className="h-5 w-5 text-gray-600" />
-              <h2 className="text-xl font-semibold">Module Curriculum</h2>
-            </div>
-            
-            <div className="space-y-6 max-h-96 overflow-y-auto pr-2">
-             <LectureInput />
-            </div>
-          </div>
-        )}
-
-        {/* Navigation */}
-        <div className="flex justify-between">
           <button
-            onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
-            disabled={currentStep === 1}
-            className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => addLecture(sectionIndex)}
+            className="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
           >
-            Previous
-          </button>
-          <button
-            onClick={() => setCurrentStep(Math.min(totalSteps, currentStep + 1))}
-            disabled={currentStep === totalSteps}
-            className="flex items-center gap-2 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next
-            <ChevronRight className="h-4 w-4" />
+            + Add Lecture
           </button>
         </div>
+      ))}
 
-        {/* Video Preview  */}
-        {previewVideo && (
-          <Dialog open={!!previewVideo} onOpenChange={() => closeVideoPreview()}>
-            <DialogContent className="max-w-4xl">
-              <DialogHeader>
-                <DialogTitle>{previewVideo.title}</DialogTitle>
-                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                  <X className="h-4 w-4" />
-                  <span className="sr-only">Close</span>
-                </DialogClose>
-              </DialogHeader>
+      <button
+        onClick={addSection}
+        className="w-full px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
+      >
+        + Add Section
+      </button>
 
-              <div className="aspect-video bg-black rounded-lg overflow-hidden mb-4">
-                <video
-                  src={previewVideo.url}
-                  controls
-                  className="w-full h-full"
-                  autoPlay
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-
-              <DialogFooter>
-                <Button variant="secondary" onClick={closeVideoPreview}>
-                  Close
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        )}
+      <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+        <h3 className="font-medium text-gray-800 mb-2">Supported File Formats:</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2">
+            <Video className="h-4 w-4" />
+            Video: MP4, AVI, MOV, WMV
+          </div>
+          <div className="flex items-center gap-2">
+            <FileText className="h-4 w-4 text-red-500" />
+            PDF Documents
+          </div>
+          <div className="flex items-center gap-2">
+            <File className="h-4 w-4 text-blue-500" />
+            Word: DOC, DOCX
+          </div>
+          <div className="flex items-center gap-2">
+            <Table className="h-4 w-4 text-green-500" />
+            Excel: XLS, XLSX, CSV
+          </div>
+          <div className="flex items-center gap-2">
+            <Presentation className="h-4 w-4 text-orange-500" />
+            PowerPoint: PPT, PPTX
+          </div>
+          <div className="flex items-center gap-2">
+            <HelpCircle className="h-4 w-4 text-purple-500" />
+            Quiz: PDF, DOC, DOCX
+          </div>
+        </div>
       </div>
-        
     </div>
-    
-  
-  )
-}
+  );
+};
+
+export default LectureInput;

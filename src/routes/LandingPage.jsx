@@ -26,7 +26,7 @@ export default function LandingPage() {
      subtitle={t(`${baseText}.subtitle`)}
      primaryBtnLink='/courses'
     primaryBtnText={t(`${baseText}.primaryBtn`)}
-    secondaryBtnText={t(`${baseText}.secondaryBtn`)}
+//     secondaryBtnText={t(`${baseText}.secondaryBtn`)}
     image="https://i.imgur.com/YKu5Vrb.png"
       />
       

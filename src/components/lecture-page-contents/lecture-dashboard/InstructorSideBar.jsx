@@ -63,7 +63,7 @@ const menuItems = [
     id: "earnings",
     label: "Q & A",
     icon: BookOpen,
-    path: "/dashboard/earnings",
+    path: "/dashboard/quiz",
   },
   {
     id: "announcements",

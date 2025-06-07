@@ -7,9 +7,14 @@ import { Star, Clock, Users, PlayCircle, CheckCircle, BookOpen, Award, Globe } f
 import CustomVideoPlayer from "./VideoPlayer"
 import { courseSections, learningOutcomes } from "./data"
 import {  useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function CourseDetailsPage() {
+const navigate = useNavigate()
+const handleEnroll = ()=>{
 
+   sessionStorage.getItem("session") === null ?  navigate('/auth/signup') : navigate('/enroll')
+}
   const [videoUrlChange,setVideoUrl] = useState (" https://i.imgur.com/bkz3hIJ.mp4 ")
   return (
     <div className="min-h-screen bg-white">
@@ -129,7 +134,7 @@ export default function CourseDetailsPage() {
                     <Badge className="bg-red-600 text-white mt-2">55% OFF</Badge>
                   </div>
 
-                  <Button className="w-full bg-red-600 hover:bg-red-700 text-white mb-4 h-12 text-lg font-semibold">
+                  <Button onClick = {() => handleEnroll()}  className="w-full bg-red-600 hover:bg-red-700 text-white mb-4 h-12 text-lg font-semibold">
                     Enroll Now
                   </Button>
 

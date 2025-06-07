@@ -30,6 +30,9 @@ import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-
 import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
 import VerifyEmail from "@/components/VerifyEmail";
 import EmailVerification from "@/components/EmailVerification";
+import QuizUploadPage from "@/components/lecture-page-contents/lecture-dashboard/Quiz";
+import InstructorProfile  from "@/components/lecture-page-contents/lecture-dashboard/Setting";
+import CourseEnrollmentPage from "./CourseEnrollmentPage";
 
 const routers = createBrowserRouter([
   {
@@ -45,6 +48,12 @@ const routers = createBrowserRouter([
         path: "courses",
         element: <CoursesPage />
       },
+      
+      {
+        path: "enroll",
+        element: <CourseEnrollmentPage />
+      },
+
       {
         path: "course",
         element: <CourseDetailsPage />
@@ -133,8 +142,8 @@ const routers = createBrowserRouter([
         element: <ManageMessages />
       },
       {
-        path: "earnings",
-        element:<h1>Quiz</h1>
+        path: "quiz",
+        element: <QuizUploadPage />
       },
       {
         path: "announcements",
@@ -142,7 +151,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <h1>Profile</h1>
+        element: <InstructorProfile />
       }
     ]
   }
