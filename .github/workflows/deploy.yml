@@ -32,6 +32,7 @@ jobs:
           username: u890055708
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           source: "dist/*"
-          target: "/domains/ctedu.site/public_html/"  # Full path is more reliable
-          strip_components: 1  # Remove 'dist/' from the path structure
+          target: "public_html"  # Simplified path
+          strip_components: 1
           overwrite: true
+          debug: true
