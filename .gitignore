@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 
+github-action-key
+github-action-key.pub
 
 # Editor directories and files
 .vscode/*
