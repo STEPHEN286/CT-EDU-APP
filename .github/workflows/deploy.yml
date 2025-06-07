@@ -33,6 +33,5 @@ jobs:
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           source: "dist/*"
           target: "public_html"  # Simplified path
-          strip_components: 1
-          overwrite: true
+        
           debug: true
