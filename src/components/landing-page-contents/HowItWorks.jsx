@@ -13,7 +13,7 @@ export function HowItWorks() {
         </p>
       </div>
         
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-4 max-w-6xl mx-auto ">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4  max-w-6xl mx-auto ">
         {stepsData.map((step, index) => {
           // Define grid classes for each step
           const gridClasses = {

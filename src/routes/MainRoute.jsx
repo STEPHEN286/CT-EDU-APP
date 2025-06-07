@@ -16,7 +16,7 @@ import Profile from "./Profile";
 import Roadmap from "@/components/Roadmap";
 import CoursesPage from "@/components/courses/Courses";
 import CourseDetailsPage from "@/components/course-detail/ProductDetails";
-import CategoryPage from "@/components/category/categories";
+import CategoryPage from "@/components/category/Categories";
 // import path from "path";
 
 
@@ -25,7 +25,7 @@ import { ManageCourses } from "@/components/lecture-page-contents/lecture-dashbo
 import CreateCourse  from "@/components/lecture-page-contents/lecture-dashboard/CreateCourse";
 import { ManageStudents } from "@/components/lecture-page-contents/lecture-dashboard/ManageStudents";
 import { ManageMessages } from "@/components/lecture-page-contents/lecture-dashboard/ManageMessages";
-import { ManageIncomes } from "@/components/lecture-page-contents/lecture-dashboard/ManageIncomes";
+
 import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-dashboard/ManageAnnouncement";
 import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
 import VerifyEmail from "@/components/VerifyEmail";
