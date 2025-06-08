@@ -37,6 +37,8 @@ import { StudentOverview } from "@/components/student-dashboard/StudentProfile";
 import { MyCoursesPage } from "@/components/student-dashboard/MyCourses";
 import { ProgressPage } from "@/components/student-dashboard/MyProgress";
 import { SettingsPage } from "@/components/student-dashboard/Settings";
+import { LucideMessageSquareReply } from "lucide-react";
+import { MessagesPage } from "@/components/student-dashboard/messages/MessagePage";
 
 const routers = createBrowserRouter([
   {
@@ -122,6 +124,8 @@ const routers = createBrowserRouter([
       {path: "my-course", element: <MyCoursesPage /> },
       {path: "my-progress", element: <ProgressPage /> },
       {path: "settings", element: <SettingsPage /> },
+      {path: "messages", element: <MessagesPage /> },
+  
     ],
   },
   {

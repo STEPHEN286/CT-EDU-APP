@@ -40,7 +40,7 @@ export default function Sidebar() {
       <div className="bg-white rounded-lg p-2  mx-6  mb-6">
         <div className="flex items-center space-x-3">
           <Avatar className="h-12 w-12">
-            <AvatarImage src="/placeholder.svg?height=48&width=48" />
+            <AvatarImage src="https://res.cloudinary.com/disgj6wx5/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1749112593/wqjzuhigvtueb1ttxfsf.jpg" />
             <AvatarFallback>WA</AvatarFallback>
           </Avatar>
           <div>
