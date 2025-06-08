@@ -24,7 +24,19 @@ jobs:
       - name: Build the app
         run: npm run build
 
-      - name: Deploy to Hostinger via SSH
+      - name: Clean and Deploy to Hostinger
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: 191.101.13.49
+          port: 65002
+          username: u890055708
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          script: |
+            # Clean the website directory
+            rm -rf /home/u890055708/domains/ctedu.site/public_html/*
+            rm -rf /home/u890055708/domains/ctedu.site/public_html/.[!.]*
+
+      - name: Upload built files
         uses: appleboy/scp-action@v0.1.7
         with:
           host: 191.101.13.49
@@ -32,5 +44,6 @@ jobs:
           username: u890055708
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           source: "dist/*"
-          target: "/home/u890055708/public_html"  # Simplified path
+          target: "/home/u890055708/domains/ctedu.site/public_html/"
+          strip_components: 1
           debug: true
