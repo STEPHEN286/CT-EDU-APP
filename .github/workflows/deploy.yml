@@ -32,6 +32,5 @@ jobs:
           username: u890055708
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           source: "dist/*"
-          target: ""/home/u890055708/public_html"  # Simplified path
-        
+          target: "/home/u890055708/public_html"  # Simplified path
           debug: true
