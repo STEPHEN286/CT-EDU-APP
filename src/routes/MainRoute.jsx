@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
 import LandingPage from "./LandingPage";
 
@@ -40,7 +40,7 @@ import { SettingsPage } from "@/components/student-dashboard/Settings";
 import { LucideMessageSquareReply } from "lucide-react";
 import { MessagesPage } from "@/components/student-dashboard/messages/MessagePage";
 
-const routers = createBrowserRouter([
+const routers = createHashRouter([
   {
     path: "/",
     element: <RootLayout />,

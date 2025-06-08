@@ -4,7 +4,7 @@ import Faq from "@/components/lecture-page-contents/Faq";
 import HowItWorks from "@/components/lecture-page-contents/HowItWorks";
 import Requirements from "@/components/lecture-page-contents/Requirements";
 import SuccessStories from "@/components/lecture-page-contents/SuccessStories";
-import hero from '@/assets/lecture.png'
+// import hero from '@/assets/lecture.png'
 import WhyTeach from "@/components/lecture-page-contents/WhyTeach";
 import Tools from "@/components/lecture-page-contents/Tools";
 import { useTranslation } from "react-i18next";
