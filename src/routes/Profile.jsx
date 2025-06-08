@@ -1,6 +1,6 @@
-import { StudentDashboard } from '@/components/student-dashboard/StudentProfile'
-import React from 'react'
+// import { StudentDashboard } from '@/components/student-dashboard/StudentProfile'
+// import React from 'react'
 
-export default function Profile() {
-  return <StudentDashboard />
-}
+// export default function Profile() {
+//   return <StudentDashboard />
+// }

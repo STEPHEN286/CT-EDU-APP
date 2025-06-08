@@ -23,16 +23,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 
-const sidebarItems = [
-  { icon: BarChart3, label: "Overview", active: true },
-  { icon: BookOpen, label: "My Courses", active: false },
-  { icon: TrendingUp, label: "Progress", active: false },
-  { icon: Globe, label: "Browse Courses", active: false },
-  { icon: Users, label: "Community", active: false },
-  { icon: MessageSquare, label: "Messages", active: false },
-  { icon: HelpCircle, label: "Q&A", active: false },
-  { icon: Settings, label: "Settings", active: false },
-]
+
 
 const statsCards = [
   {
@@ -98,40 +89,12 @@ const courses = [
   },
 ]
 
-export function StudentDashboard() {
+export function StudentOverview() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-red-500 min-h-screen p-6">
-          {/* User Profile */}
-          <div className="bg-white rounded-lg p-4 mb-6">
-            <div className="flex items-center space-x-3">
-              <Avatar className="h-12 w-12">
-                <AvatarImage src="/placeholder.svg?height=48&width=48" />
-                <AvatarFallback>WA</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="font-semibold text-gray-900">Wendy Ashley</h3>
-                <p className="text-sm text-gray-600">Student</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <nav className="space-y-2">
-            {sidebarItems.map((item, index) => (
-              <Button
-                key={index}
-                variant={item.active ? "secondary" : "ghost"}
-                className={`w-full justify-start text-white hover:bg-red-400 ${item.active ? "bg-red-600" : ""}`}
-              >
-                <item.icon className="mr-3 h-4 w-4" />
-                {item.label}
-              </Button>
-            ))}
-          </nav>
-        </aside>
+       
 
         {/* Main Content */}
         <main className="flex-1 p-6">

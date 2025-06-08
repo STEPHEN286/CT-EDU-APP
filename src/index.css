@@ -168,8 +168,36 @@
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
+
 .scrollbar-hidden {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
+}
+
+.active-li::before,
+.active-li::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 40px;        
+  height: 40px;      
+  background: transparent;
+  border-radius: 9999px;
+  z-index: 0;
+}
+
+.active-li::before {
+  top: -40px;                         
+  box-shadow: 20px 20px 0 white;     
+}
+
+.active-li::after {
+  bottom: -40px;                     
+  box-shadow: 20px -20px 0 white;    
+}
+
+
+.active-li::before,
+.active-li::after {
+  transition: all 0.3s ease-in-out;
 }

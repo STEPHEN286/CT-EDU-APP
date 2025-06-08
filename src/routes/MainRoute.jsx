@@ -7,32 +7,36 @@ import WishList from "./WishList";
 import CartPage from "./CartPage";
 import LecturePage from "./lecture/LecturePage";
 import LecturesLayout from "./layout/LecturesLayout";
-import LectureAuth from "./lecture/LecturesAuth";
+
 import AuthPage from "./Auth";
 import { SignUpForm } from "@/components/signup-form";
 import { LoginForm } from "@/components/login-form";
 import RegisterInstructor from "./lecture/LecturesAuth";
-import Profile from "./Profile";
+
 import Roadmap from "@/components/Roadmap";
 import CoursesPage from "@/components/courses/Courses";
 import CourseDetailsPage from "@/components/course-detail/ProductDetails";
 import CategoryPage from "@/components/category/Categories";
 // import path from "path";
 
-
 import { InstructorDashboardOverview } from "@/components/lecture-page-contents/lecture-dashboard/InstructorDashboardOverview";
 import { ManageCourses } from "@/components/lecture-page-contents/lecture-dashboard/ManageCourses";
-import CreateCourse  from "@/components/lecture-page-contents/lecture-dashboard/CreateCourse";
+import CreateCourse from "@/components/lecture-page-contents/lecture-dashboard/CreateCourse";
 import { ManageStudents } from "@/components/lecture-page-contents/lecture-dashboard/ManageStudents";
 import { ManageMessages } from "@/components/lecture-page-contents/lecture-dashboard/ManageMessages";
 
 import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-dashboard/ManageAnnouncement";
 import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
-import VerifyEmail from "@/components/VerifyEmail";
+
 import EmailVerification from "@/components/EmailVerification";
 import QuizUploadPage from "@/components/lecture-page-contents/lecture-dashboard/Quiz";
-import InstructorProfile  from "@/components/lecture-page-contents/lecture-dashboard/Setting";
+import InstructorProfile from "@/components/lecture-page-contents/lecture-dashboard/Setting";
 import CourseEnrollmentPage from "./CourseEnrollmentPage";
+import StudentDashboardLayout from "./layout/StudentDashboardLayout";
+import { StudentOverview } from "@/components/student-dashboard/StudentProfile";
+import { MyCoursesPage } from "@/components/student-dashboard/MyCourses";
+import { ProgressPage } from "@/components/student-dashboard/MyProgress";
+import { SettingsPage } from "@/components/student-dashboard/Settings";
 
 const routers = createBrowserRouter([
   {
@@ -43,20 +47,20 @@ const routers = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-     
+
       {
         path: "courses",
-        element: <CoursesPage />
+        element: <CoursesPage />,
       },
-      
+
       {
         path: "enroll",
-        element: <CourseEnrollmentPage />
+        element: <CourseEnrollmentPage />,
       },
 
       {
         path: "course",
-        element: <CourseDetailsPage />
+        element: <CourseDetailsPage />,
       },
       {
         path: "carts",
@@ -69,24 +73,20 @@ const routers = createBrowserRouter([
       {
         path: "categories/:slug",
         element: <CategoryPage />,
-        children:[
-         { path: ":module", element: <CategoryPage />}
-        ]
+        children: [{ path: ":module", element: <CategoryPage /> }],
       },
       {
         path: "contact",
         element: <h1>Contact</h1>,
       },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
+
       {
         path: "wishlist",
-        element: <WishList />
+        element: <WishList />,
       },
-    ]
+    ],
   },
+  // auth student
   {
     path: "auth",
     element: <AuthPage />,
@@ -101,60 +101,72 @@ const routers = createBrowserRouter([
       },
       {
         path: "verify-email",
-        element: <EmailVerification />
-      }
-    ]
+        element: <EmailVerification />,
+      },
+    ],
   },
   {
     path: "teach-on-ct",
     element: <LecturesLayout />,
     children: [
-      {index: true, element:<LecturePage />},
-      {path: "register-instructor", element: <RegisterInstructor />}
-    ]
+      { index: true, element: <LecturePage /> },
+      { path: "register-instructor", element: <RegisterInstructor /> },
+    ],
+  },
+  // student dashboard
+  {
+    path: "profile",
+    element: <StudentDashboardLayout />,
+    children: [
+      { index: true, element: <StudentOverview /> }, 
+      {path: "my-course", element: <MyCoursesPage /> },
+      {path: "my-progress", element: <ProgressPage /> },
+      {path: "settings", element: <SettingsPage /> },
+    ],
   },
   {
     path: "search",
     element: <Search />,
   },
+  // instructor dashboard
   {
     path: "dashboard",
     element: <InstructorDashboardLayout />,
     children: [
       {
         index: true,
-        element: <InstructorDashboardOverview />
+        element: <InstructorDashboardOverview />,
       },
       {
         path: "my-courses",
-        element: <ManageCourses />
+        element: <ManageCourses />,
       },
       {
         path: "create-course",
-        element: <CreateCourse />
+        element: <CreateCourse />,
       },
       {
         path: "students",
-        element: <ManageStudents />
+        element: <ManageStudents />,
       },
       {
         path: "messages",
-        element: <ManageMessages />
+        element: <ManageMessages />,
       },
       {
         path: "quiz",
-        element: <QuizUploadPage />
+        element: <QuizUploadPage />,
       },
       {
         path: "announcements",
-        element: <ManageAnnouncements />
+        element: <ManageAnnouncements />,
       },
       {
         path: "profile",
-        element: <InstructorProfile />
-      }
-    ]
-  }
+        element: <InstructorProfile />,
+      },
+    ],
+  },
 ]);
 
 export default routers;
