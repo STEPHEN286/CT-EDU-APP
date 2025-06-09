@@ -29,7 +29,7 @@ export default function CourseProposal() {
             {...register("course_title", { required: "Course title is required" })}
             placeholder="Enter a clear, descriptive title for your course"
           />
-          {errors.courseTitle && (
+          {errors.course_title && (
             <p className="text-red-500 text-sm">{errors.course_title.message}</p>
           )}
         </div>
@@ -59,16 +59,16 @@ export default function CourseProposal() {
                 </Select>
               )}
             />
-            {errors.courseCategory && (
-              <p className="text-red-500 text-sm">{errors.courseCategory.message}</p>
+            {errors.course_category && (
+              <p className="text-red-500 text-sm">{errors.course_category.message}</p>
             )}
           </div>
 
-          {/* <div className="space-y-2">
+          <div className="space-y-2">
             <Label>Course Level *</Label>
             <Controller
               control={control}
-              name="courseLevel"
+              name="course_level"
               rules={{ required: "Please select a course level" }}
               render={({ field }) => (
                 <RadioGroup value={field.value} onValueChange={field.onChange}>
@@ -93,10 +93,10 @@ export default function CourseProposal() {
                 </RadioGroup>
               )}
             />
-            {errors.courseLevel && (
-              <p className="text-red-500 text-sm">{errors.courseLevel.message}</p>
+            {errors.course_level && (
+              <p className="text-red-500 text-sm">{errors.course_level.message}</p>
             )}
-          </div> */}
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -113,7 +113,7 @@ export default function CourseProposal() {
             placeholder="Provide a comprehensive description of your course..."
             className="min-h-[150px]"
           />
-          {errors.courseDescription && (
+          {errors.course_description && (
             <p className="text-red-500 text-sm">{errors.course_description.message}</p>
           )}
         </div>
@@ -132,7 +132,7 @@ export default function CourseProposal() {
             placeholder="Provide a structured outline of your course..."
             className="min-h-[200px]"
           />
-          {errors.courseOutline && (
+          {errors.course_outline && (
             <p className="text-red-500 text-sm">{errors.course_outline.message}</p>
           )}
           <p className="text-xs text-gray-500">

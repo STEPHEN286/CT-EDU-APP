@@ -97,10 +97,10 @@ export function StudentOverview() {
        
 
         {/* Main Content */}
-        <main className="flex-1 p-6">
-          {/* Welcome Section */}
+        <main className="flex-1">
+          {/* Welcome Section - With View More Button */}
           <div className="bg-white rounded-lg p-6 mb-6">
-            <div className="flex items-center justify-between">
+            <div className=" md:flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back, Wendy!</h2>
                 <p className="text-gray-600">Ready to continue your learning journey?</p>

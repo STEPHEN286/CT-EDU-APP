@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
 import LandingPage from "./LandingPage";
 
@@ -39,6 +39,8 @@ import { ProgressPage } from "@/components/student-dashboard/MyProgress";
 import { SettingsPage } from "@/components/student-dashboard/Settings";
 import { LucideMessageSquareReply } from "lucide-react";
 import { MessagesPage } from "@/components/student-dashboard/messages/MessagePage";
+import Application from "@/components/lecture-page-contents/Application";
+import ApplicationReview from "@/components/lecture-page-contents/auth/ApplicationUnderReview";
 
 const routers = createHashRouter([
   {
@@ -113,6 +115,7 @@ const routers = createHashRouter([
     children: [
       { index: true, element: <LecturePage /> },
       { path: "register-instructor", element: <RegisterInstructor /> },
+      {path: "application-review", element: <ApplicationReview />}
     ],
   },
   // student dashboard

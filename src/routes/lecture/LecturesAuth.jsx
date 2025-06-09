@@ -10,18 +10,27 @@ import HelpSection from "@/components/lecture-page-contents/HelperSection";
 import { usePostInstructors } from "@/hooks/useRegisterInstructors";
 
 export default function RegisterInstructor() {
-  const { mutate, error, isError, isPending } = usePostInstructors();
+  const { mutate, error, isError, isPending, isSuccess, data } = usePostInstructors();
   const methods = useForm({ mode: "onBlur" });
   const [step, setStep] = useState(1);
   const totalSteps = 4;
 
-  // Add effect to handle success/error states
+  // Handle success/error states
   useEffect(() => {
     if (isError) {
       console.error("Form submission error:", error);
-      // You might want to show an error message to the user
+      alert("Error: " + (error?.message || "Unknown error occurred"));
     }
   }, [isError, error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log("Success:", data);
+      alert("Application submitted successfully! We will review it and get back to you soon.");
+      // Optionally reset form or redirect
+      // methods.reset();
+    }
+  }, [isSuccess, data]);
 
   const next = async () => {
     const valid = await methods.trigger();
@@ -30,50 +39,59 @@ export default function RegisterInstructor() {
 
   const back = () => setStep((prev) => prev - 1);
 
-  const onSubmit = methods.handleSubmit(async (data) => {
-    console.log("Form Data before submission:", data);
+  const onSubmit = async (data) => {
+    // console.log("Form data being submitted:", data)
+  // console.log("Sample video in form:", data.sample_video)
+  // console.log("Resume in form:", data.resume)
+  // console.log("Profile photo field:", data.profile_photo);
     
     // Manual validation for required files
-    if (!data.sampleVideo || Object.keys(data.sampleVideo).length === 0) {
+    if (!data.sample_video|| (data.sample_video instanceof FileList && data.sample_video.length === 0)) {
       alert("Please upload a sample video");
       return;
     }
     
-    if (!data.resume || Object.keys(data.resume).length === 0) {
+    if (!data.resume || (data.resume instanceof FileList && data.resume.length === 0)) {
       alert("Please upload your resume");
+      return;
+    }
+
+    if (!data.profile_photo || (data.profile_photo instanceof FileList && data.profile_photo.length === 0)) {
+      alert("Please upload a profile photo");
       return;
     }
     
     // Transform data to match API requirements
     const transformedData = {
-      full_name: data.full_name,
-      email: data.email,
-      phone: data.phone || "", // Add phone field
-      bio: data.bio || "", // Add bio field
-      years_experience: data.years_experience,
-      current_occupation: data.current_occupation,
-      previous_experience: data.previous_experience,
-      // Convert certifications object to array of strings
-      certifications: Object.keys(data.certifications || {}).filter(key => data.certifications[key]),
-      course_title: data.course_title,
-      course_category: data.course_category,
-      course_level: data.course_level || "Beginner", // Add course_level
-      course_description: data.course_description,
-      course_outline: data.course_outline,
-      resume: data.resume,
-      sample_video: data.sampleVideo, // Fix field name
-      // Optional fields
-      additionalComments: data.additionalComments,
-      termsAgreement: data.termsAgreement,
-      instructorGuidelines: data.instructorGuidelines
+      full_name: data.full_name || "",
+      email: data.email || "",
+      professional_title: data.professional_title || "",
+      professional_bio: data.professional_bio || "",
+      years_experience: data.years_experience || "",
+      current_occupation: data.current_occupation || "",
+      previous_experience: data.previous_experience || "",
+      
+      // Handle certifications - convert object to comma-separated string
+      certifications: data.certifications ? 
+        Object.keys(data.certifications).filter(key => data.certifications[key]).join(',') : "",
+      course_title: data.course_title || "",
+      course_category: data.course_category || "",
+      course_level: data.course_level || "Beginner",
+      course_description: data.course_description || "",
+      course_outline: data.course_outline || "",
+      // Handle file uploads - extract File from FileList if needed
+      profile_photo: data.profile_photo instanceof FileList ? data.profile_photo[0] : data.profile_photo,
+      resume: data.resume instanceof FileList ? data.resume[0] : data.resume,
+      sample_video: data.sample_video instanceof FileList ? data.sample_data[0] : data.sample_video,
     };
     
     console.log("Transformed data for API:", transformedData);
     
-    // Validate the final step before submission
+    // Final validation check
     const isValid = await methods.trigger();
     if (!isValid) {
       console.log("Form validation failed");
+      alert("Please fill in all required fields");
       return;
     }
     
@@ -82,7 +100,7 @@ export default function RegisterInstructor() {
     } catch (error) {
       console.error("Submission error:", error);
     }
-  });
+  };
 
   const renderStep = () => {
     switch (step) {
@@ -101,49 +119,57 @@ export default function RegisterInstructor() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit}>
-        <div className="min-h-screen">
-          <div className="container mx-auto px-4 py-8 flex-grow">
-            <Stepper currentStep={step} />
+      <div className="min-h-screen">
+        <div className="container mx-auto px-4 py-8 flex-grow">
+          <Stepper currentStep={step} />
 
-            <div className="flex gap-6 mt-8">
-              <div className="w-full">
-                <div className="bg-white rounded-lg shadow-md p-6 relative">
-                  {/* Show loading state */}
-                  {isPending && (
-                    <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10">
-                      <div className="text-center">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                        <p className="mt-2 text-sm text-gray-600">Submitting application...</p>
-                      </div>
+          <div className="flex gap-6 mt-8">
+            <div className="w-full">
+              <div className="bg-white rounded-lg shadow-md p-6 relative">
+                {/* Show loading state */}
+                {isPending && (
+                  <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto"></div>
+                      <p className="mt-2 text-sm text-gray-600">Submitting application...</p>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Show error message */}
-                  {isError && (
-                    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
-                      <p className="text-red-800 text-sm">
-                        Error submitting application. Please try again.
-                      </p>
-                    </div>
-                  )}
+                {/* Show error message */}
+                {isError && (
+                  <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <p className="text-red-800 text-sm">
+                      {error?.message || "Error submitting application. Please try again."}
+                    </p>
+                  </div>
+                )}
 
-                  <div className="mt-8">{renderStep()}</div>
+                {/* Show success message */}
+                {isSuccess && (
+                  <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
+                    <p className="text-green-800 text-sm">
+                      {data?.success || "Application submitted successfully!"}
+                    </p>
+                  </div>
+                )}
 
-                  <NavigationControls
-                    totalSteps={totalSteps}
-                    onNext={next}
-                    onPrevious={back}
-                    currentStep={step}
-                    isLastStep={step === totalSteps}
-                    isLoading={isPending}
-                  />
-                </div>
+                <div className="mt-8">{renderStep()}</div>
+
+                <NavigationControls
+                  totalSteps={totalSteps}
+                  onNext={next}
+                  onPrevious={back}
+                  currentStep={step}
+                  isLastStep={step === totalSteps}
+                  isLoading={isPending}
+                  onSubmit={onSubmit}
+                />
               </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </FormProvider>
   );
 }

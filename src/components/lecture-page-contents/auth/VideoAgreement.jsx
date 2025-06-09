@@ -19,10 +19,15 @@ export default function VideoAgreement() {
     formState: { errors },
   } = useFormContext()
 
+  // sample_video - File (any video format)
+//  resume
   const handleVideoUpload = (e) => {
     const file = e.target.files?.[0]
     if (file) {
       // Validate file
+      console.log("Video file selected:", file) // Add this line
+
+    console.log("File details:", file.name, file.size, file.type)
       if (file.type !== "video/mp4") {
         alert("Only MP4 videos are allowed");
         return;
@@ -32,7 +37,10 @@ export default function VideoAgreement() {
         return;
       }
       
-      setValue("sample_video", file, { shouldValidate: true })
+    // Keep reference to actual file
+      
+      
+      setValue("sample_video", file)
       setVideoFile(file)
       setVideoUploaded(true)
     }
@@ -44,24 +52,29 @@ export default function VideoAgreement() {
     setVideoFile(null)
   }
 
-  const handleResumeUpload = (e) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // Validate file
-      if (file.type !== "application/pdf") {
-        alert("File must be a PDF");
-        return;
-      }
-      if (file.size > 5000000) { // 5MB
-        alert("File size must be less than 5MB");
-        return;
-      }
-      
-      setValue("resume", file, { shouldValidate: true })
-      setResumeFile(file)
-      setResumeUploaded(true)
+ const handleResumeUpload = (e) => {
+  const file = e.target.files?.[0]
+  console.log("Resume file selected:", file) // Add this line
+  if (file) {
+    console.log("Resume details:", file.name, file.size, file.type) // Add this line
+    
+    // Validate file
+    if (file.type !== "application/pdf") {
+      alert("File must be a PDF");
+      return;
     }
+    if (file.size > 5000000) { // 5MB
+      alert("File size must be less than 5MB");
+      return;
+    }
+    
+    setValue("resume", file, { shouldValidate: true })
+    setResumeFile(file)
+    setResumeUploaded(true)
+    
+    console.log("Resume set in form successfully") // Add this line
   }
+}
 
   const handleReplaceResume = () => {
     setValue("resume", null)
@@ -109,8 +122,8 @@ export default function VideoAgreement() {
                     onChange={handleVideoUpload}
                   />
                 </Button>
-                {errors.sampleVideo && (
-                  <p className="text-red-500 text-sm mt-2">{errors.sampleVideo.message}</p>
+                {errors.sample_video && (
+                  <p className="text-red-500 text-sm mt-2">{errors.sample_video.message}</p>
                 )}
               </div>
             )}

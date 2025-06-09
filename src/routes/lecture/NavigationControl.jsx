@@ -8,19 +8,18 @@ export default function NavigationControls({
   totalSteps,
   onNext,
   onPrevious,
+  isLoading,
+  onSubmit, // Add this prop
 }) {
   const methods = useFormContext();
 
-  const onSubmit = (data) => {
-    // Handle final form submission
-    console.log("All form data:", data);
-  };
   return (
     <div className="flex justify-between mt-10 pt-6 border-t border-gray-200">
       {currentStep > 1 ? (
         <Button
           variant="outline"
           onClick={onPrevious}
+          disabled={isLoading}
           className="border-gray-300 text-gray-700 hover:bg-gray-50"
         >
           Previous
@@ -32,6 +31,7 @@ export default function NavigationControls({
       {currentStep < totalSteps ? (
         <Button
           onClick={onNext}
+          disabled={isLoading}
           className="bg-red-600 hover:bg-red-700 text-white"
         >
           Next
@@ -39,9 +39,10 @@ export default function NavigationControls({
       ) : (
         <Button
           onClick={methods.handleSubmit(onSubmit)}
+          disabled={isLoading}
           className="bg-red-600 hover:bg-red-700 text-white"
         >
-          Submit Application
+          {isLoading ? "Submitting..." : "Submit Application"}
         </Button>
       )}
     </div>

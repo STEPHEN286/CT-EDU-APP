@@ -30,11 +30,9 @@ export default function TeachingExperience() {
           <div className="space-y-2">
             <Label htmlFor="yearsExperience">Years of Experience *</Label>
             <Input
-              type="number"
-              min="0"
+              type="text"
               {...register("years_experience", {
-                required: "This field is required",
-                min: { value: 0, message: "Cannot be negative" },
+                required: "Years of experience is required"
               })}
             />
             {errors.years_experience && (
@@ -46,7 +44,7 @@ export default function TeachingExperience() {
             <Label htmlFor="currentOccupation">Current Occupation *</Label>
             <Input
               {...register("current_occupation", {
-                required: "Current occupation is required",
+                required: "Current occupation is required"
               })}
             />
             {errors.current_occupation && (
@@ -58,11 +56,9 @@ export default function TeachingExperience() {
         <div className="space-y-2">
           <Label htmlFor="teachingExperience">Previous Teaching Experience *</Label>
           <Textarea
-          
             className="min-h-[150px]"
             {...register("previous_experience", {
-              required: "Please describe your teaching experience",
-              minLength: { value: 10, message: "Too short" },
+              required: "Previous teaching experience is required"
             })}
           />
           {errors.previous_experience && (
@@ -73,7 +69,7 @@ export default function TeachingExperience() {
         <div className="space-y-3">
           <Label>Relevant Certifications</Label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {certifications.map((cert, index) => (
+            {certifications.map((cert) => (
               <div key={cert.id} className="flex items-center space-x-2">
                 <Controller
                   name={`certifications.${cert.label}`}

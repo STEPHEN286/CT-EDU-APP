@@ -95,7 +95,7 @@ export function ProgressPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className=" p-6">
+      <main className=" ">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Learning Progress</h1>
           <p className="text-gray-600">Track your learning journey and achievements</p>
@@ -136,18 +136,7 @@ export function ProgressPage() {
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-900">{skill.skill}</span>
                     <div className="flex items-center space-x-2">
-                      <Badge
-                        variant="secondary"
-                        className={`text-xs ${
-                          skill.level === "Advanced"
-                            ? "bg-green-100 text-green-700"
-                            : skill.level === "Intermediate"
-                              ? "bg-blue-100 text-blue-700"
-                              : "bg-orange-100 text-orange-700"
-                        }`}
-                      >
-                        {skill.level}
-                      </Badge>
+                      
                       <span className="text-sm font-medium">{skill.progress}%</span>
                     </div>
                   </div>

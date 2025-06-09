@@ -104,10 +104,10 @@ const allCourses = [
 export function MyCoursesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="flex">
+ 
       
 
-        <main className=" p-6">
+        <main className=" ">
           <div className="mb-6">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">My Courses</h1>
             <p className="text-gray-600">Track your learning progress and continue your courses</p>
@@ -272,6 +272,6 @@ export function MyCoursesPage() {
           </div>
         </main>
       </div>
-    </div>
+    
   )
 }

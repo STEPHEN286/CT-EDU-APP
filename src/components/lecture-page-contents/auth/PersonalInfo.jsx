@@ -9,11 +9,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { navMenu } from "@/data";
-// import { useInstructorForm } from "@/hooks/useInstructorForm";
 import { Upload, X } from "lucide-react";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
-// import { useFormContext } from 'react-hook-form'
 
 export default function PersonalInfo() {
   const [photoPreview, setPhotoPreview] = useState(null);
@@ -30,6 +28,13 @@ export default function PersonalInfo() {
       const reader = new FileReader()
       reader.onload = (e) => {
         setPhotoPreview(e.target?.result)
+
+      
+          setValue("profile_photo", file, { shouldValidate: true });
+          console.log("Profile photo set in form"); // Add this
+          
+          // ... rest of your code
+        
       }
       reader.readAsDataURL(file)
     }
@@ -39,7 +44,7 @@ export default function PersonalInfo() {
       URL.revokeObjectURL(photoPreview);
     }
     setPhotoPreview(null);
-    setValue("profilePhoto", null, { shouldValidate: true });
+    setValue("profile_photo", null, { shouldValidate: true });
   };
 
   return (
@@ -78,7 +83,8 @@ export default function PersonalInfo() {
             )}
             <input
               type="file"
-              id="profilePhoto"
+              id="profile_image"
+              // {...register("profile_image")}
               className={photoPreview ? "hidden" : "absolute inset-0 w-full h-full opacity-0 cursor-pointer"}
               accept="image/*"
               onChange={handlePhotoUpload}
@@ -126,24 +132,20 @@ export default function PersonalInfo() {
               <Input
                 id="professionalTitle"
                 placeholder="e.g. Software Engineer, Data Scientist"
-                // {...register("professionalTitle", {
-                //   required: "Professional title is required",
-                // })}
+                {...register("professional_title", {
+                  required: "Professional title is required",
+                })}
               />
-              {errors.professionalTitle && (
+              {errors.professional_title && (
                 <p className="text-sm text-red-500">
-                  {errors.professionalTitle.message}
+                  {errors.professional_title.message}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="fieldOfExpertise">Field of Expertise *</Label>
-              <Select
-                // onValueChange={(value) =>
-                //   register("fieldOfExpertise").onChange({ target: { value } })
-                // }
-              >
+              <Select>
                 <SelectTrigger>
                   <SelectValue placeholder="Select your field" />
                 </SelectTrigger>
@@ -155,9 +157,6 @@ export default function PersonalInfo() {
                     </SelectItem>
                     ))
                   }
-                 
-                 
-                  
                 </SelectContent>
               </Select>
               {errors.fieldOfExpertise && (
@@ -174,7 +173,7 @@ export default function PersonalInfo() {
               id="bio"
               placeholder="Tell us about your professional background, expertise, and teaching philosophy (200-500 words)"
               className="min-h-[150px]"
-              {...register("bio", {
+              {...register("professional_bio", {
                 required: "Bio is required",
                 minLength: {
                   value: 50,
@@ -186,8 +185,8 @@ export default function PersonalInfo() {
                 },
               })}
             />
-            {errors.bio && (
-              <p className="text-sm text-red-500">{errors.bio.message}</p>
+            {errors.professional_bio && (
+              <p className="text-sm text-red-500">{errors.professional_bio.message}</p>
             )}
             <p className="text-xs text-gray-500">
               This bio will appear on your instructor profile and course pages.
