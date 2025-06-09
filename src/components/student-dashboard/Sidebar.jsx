@@ -1,9 +1,7 @@
 import React from "react";
 
 import {
-  Search,
-  Bell,
-  LogOut,
+
   BarChart3,
   BookOpen,
   TrendingUp,
@@ -12,26 +10,21 @@ import {
   MessageSquare,
   HelpCircle,
   Settings,
-  Clock,
-  Award,
-  Target,
-  Star,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
 import { Link, NavLink } from "react-router-dom";
-//   import { Card, CardContent } from "@/components/ui/card"
-//   import { Progress } from "@/components/ui/progress"
-//   import { Badge } from "@/components/ui/badge"
+
 const sidebarItems = [
   { icon: BarChart3, label: "Overview", to: "/profile" },
   { icon: BookOpen, label: "My Courses", to: "/profile/my-course" },
   { icon: TrendingUp, label: "Progress", to: "/profile/my-progress" },
-  { icon: Globe, label: "Browse Courses", to: "/courses" },
+  { icon: Globe, label: "Browse Courses", to: "/profile/browse-c" },
 //   { icon: Users, label: "Community", to: "/profile/community" },
   { icon: MessageSquare, label: "Messages", to: "/profile/messages" },
-  { icon: HelpCircle, label: "Q&A", to: "/profile/qa" },
+  { icon: HelpCircle, label: "Q&A", to: "/profile/questions-answers" },
   { icon: Settings, label: "Settings", to: "/profile/settings" },
+
 ];
 export default function Sidebar() {
   return (

@@ -41,6 +41,8 @@ import { LucideMessageSquareReply } from "lucide-react";
 import { MessagesPage } from "@/components/student-dashboard/messages/MessagePage";
 import Application from "@/components/lecture-page-contents/Application";
 import ApplicationReview from "@/components/lecture-page-contents/auth/ApplicationUnderReview";
+import QuestionAnswer from "@/components/student-dashboard/QuestionAnswer";
+import BrowseCourse from "@/components/student-dashboard/BrowseCourse";
 
 const routers = createHashRouter([
   {
@@ -128,6 +130,9 @@ const routers = createHashRouter([
       {path: "my-progress", element: <ProgressPage /> },
       {path: "settings", element: <SettingsPage /> },
       {path: "messages", element: <MessagesPage /> },
+      {path: "questions-answers", element: <QuestionAnswer /> },
+      {path: "browse-c", element: <BrowseCourse /> },
+
   
     ],
   },
