@@ -37,8 +37,15 @@ export default function Sidebar() {
             <AvatarFallback>WA</AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="font-semibold text-gray-900">Wendy Ashley</h3>
-            <p className="text-sm text-gray-600">Student</p>
+            <h3 className="font-semibold text-gray-900">
+              {JSON.parse(sessionStorage.getItem('session'))?.name || 
+               JSON.parse(sessionStorage.getItem('session'))?.full_name || 
+               JSON.parse(sessionStorage.getItem('session'))?.username || 
+               'User'}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {JSON.parse(sessionStorage.getItem('session'))?.email || 'Student'}
+            </p>
           </div>
         </div>
       </div>

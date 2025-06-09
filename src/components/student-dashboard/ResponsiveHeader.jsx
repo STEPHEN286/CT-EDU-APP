@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { Search, HelpCircle, Bell, LogOut, Menu, X, User } from "lucide-react"
+import { useState, useEffect } from "react"
+import { useNavigate, NavLink } from "react-router-dom"
+import { Search, HelpCircle, Bell, LogOut, Menu, X, User, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -20,27 +21,74 @@ import {
   Globe,
   Users,
   MessageSquare,
- 
   Settings,
 } from "lucide-react";
-
-
 
 const sidebarItems = [
   { icon: BarChart3, label: "Overview", to: "/profile" },
   { icon: BookOpen, label: "My Courses", to: "/profile/my-course" },
   { icon: TrendingUp, label: "Progress", to: "/profile/my-progress" },
   { icon: Globe, label: "Browse Courses", to: "/profile/browse-c" },
-//   { icon: Users, label: "Community", to: "/profile/community" },
   { icon: MessageSquare, label: "Messages", to: "/profile/messages" },
   { icon: HelpCircle, label: "Q&A", to: "/profile/questions-answers" },
   { icon: Settings, label: "Settings", to: "/profile/settings" },
 ];
-import { NavLink } from "react-router-dom"
+
 export function ResponsiveHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-    const userData = sessionStorage.getItem('session')
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // Check session on component mount
+    checkSession()
+  }, [])
+
+  const checkSession = () => {
+    try {
+      const sessionData = sessionStorage.getItem('session')
+      
+      if (!sessionData) {
+        // No session found, redirect to login
+        navigate('/login')
+        return
+      }
+
+      // Parse session data
+      const userData = JSON.parse(sessionData)
+      setUser(userData)
+      
+    } catch (error) {
+      console.error('Error parsing session data:', error)
+      // Invalid session, redirect to login
+      navigate('/auth/login')
+    }
+  }
+
+  const handleLogout = () => {
+    // Clear session
+    sessionStorage.removeItem('session')
+    // Redirect to login
+    navigate('/auth/login')
+  }
+
+  // Get user initials for avatar
+  const getUserInitials = (name) => {
+    if (!name) return 'U'
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+  }
+
+  // If no user data yet, show loading or return null
+  if (!user) {
+    return (
+      <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-50">
+        <div className="flex items-center justify-center">
+          <div>Loading...</div>
+        </div>
+      </header>
+    )
+  }
 
   return (
     <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-50">
@@ -55,42 +103,61 @@ export function ResponsiveHeader() {
             </SheetTrigger>
             <SheetContent side="left" className="w-64 p-0">
               <SheetHeader className="p-4 border-b">
-                <SheetTitle className="text-red-600">CTI EDU HUB</SheetTitle>
+                <NavLink to="/" className="text-red-600">CTI EDU HUB</NavLink>
                 <SheetDescription>Navigation Menu</SheetDescription>
               </SheetHeader>
-              {/* Mobile navigation content would go here */}
+              {/* Mobile navigation content */}
               <div className="p-4">
-              <nav>
-            <ul className="space-y-2">
-              {sidebarItems.map((item, index) => (
-                <li key={index} className="list-none">
-                  <NavLink
-                    end
-                    to={item.to}
-                    className={({ isActive }) => {
-                      return `flex items-center rounded-s-full relative p-3 ${
-                        isActive 
-                          ? " text-black "
-                          : " hover:text-black"
-                      }`;
-                    }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <item.icon className="mr-3 h-4 w-4" />
-                    {item.label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+                <nav>
+                  <ul className="space-y-2">
+                    {/* Home link in mobile menu */}
+                    <li className="list-none">
+                      <NavLink
+                        to="/"
+                        className="flex items-center rounded-s-full relative p-3 hover:text-black"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Home className="mr-3 h-4 w-4" />
+                        Home
+                      </NavLink>
+                    </li>
+                    {sidebarItems.map((item, index) => (
+                      <li key={index} className="list-none">
+                        <NavLink
+                          end
+                          to={item.to}
+                          className={({ isActive }) => {
+                            return `flex items-center rounded-s-full relative p-3 ${
+                              isActive 
+                                ? " text-black "
+                                : " hover:text-black"
+                            }`;
+                          }}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <item.icon className="mr-3 h-4 w-4" />
+                          {item.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
               </div>
             </SheetContent>
           </Sheet>
         </div>
 
-        {/* Logo */}
-        <div className="flex items-center">
-          <h1 className="text-lg sm:text-xl font-bold text-red-600">CTI EDU HUB</h1>
+        {/* Logo and Home Link */}
+        <div className="flex items-center space-x-4">
+          <NavLink to="/" className="text-lg sm:text-xl font-bold text-red-600">
+            CTI EDU HUB
+          </NavLink>
+          <NavLink 
+            to="/" 
+            className="flex items-center text-gray-600 hover:text-gray-900"
+          >
+            <Home className="h-5 w-5" />
+          </NavLink>
         </div>
 
         {/* Desktop Search Bar - Hidden on mobile */}
@@ -137,20 +204,24 @@ export function ResponsiveHeader() {
             </span>
           </Button>
 
-          {/* User Menu - Responsive */}
-       <div className="lg:hidden">
+          <div className="lg:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" />
-                    <AvatarFallback>WA</AvatarFallback>
+                    <AvatarImage src={user?.profile_picture || "/placeholder.svg?height=32&width=32"} />
+                    <AvatarFallback>{getUserInitials(user?.name || user?.full_name || user?.username)}</AvatarFallback>
                   </Avatar>
-                  {/* Hide name on small screens */}
-                  <span className="hidden lg:block">Wendy Ashley</span>
+                  {/* Show name on larger mobile screens */}
+                  <span className="hidden sm:block lg:hidden text-sm">
+                    {user?.name || user?.full_name || user?.username || 'User'}
+                  </span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
+                <div className="px-2 py-1.5 text-sm text-gray-500 border-b">
+                  {user?.email}
+                </div>
                 <DropdownMenuItem>
                   <User className="h-4 w-4 mr-2" />
                   Profile
@@ -159,21 +230,45 @@ export function ResponsiveHeader() {
                   <HelpCircle className="h-4 w-4 mr-2" />
                   Help & Support
                 </DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Settings
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-red-600">
+                <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Log Out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-       </div>
+          </div>
 
-          {/* Desktop Log Out Button - Hidden on mobile */}
-          <Button variant="outline" className="hidden lg:flex text-red-600 border-red-600 hover:bg-red-50">
-            <LogOut className="h-4 w-4 mr-2" />
-            Log Out
-          </Button>
+          {/* Desktop User Info and Log Out Button */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={user?.profile_picture || "/placeholder.svg?height=32&width=32"} />
+                <AvatarFallback>{getUserInitials(user?.name || user?.full_name || user?.username)}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-gray-900">
+                  {user?.name || user?.full_name || user?.username || 'User'}
+                </span>
+                <span className="text-xs text-gray-500">
+                  {user?.email}
+                </span>
+              </div>
+            </div>
+            
+            <Button 
+              variant="outline" 
+              className="text-red-600 border-red-600 hover:bg-red-50"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Log Out
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -198,4 +293,5 @@ export function ResponsiveHeader() {
       )}
     </header>
   )
+
 }
