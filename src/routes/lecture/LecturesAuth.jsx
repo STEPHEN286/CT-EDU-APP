@@ -8,12 +8,14 @@ import CourseProposal from "@/components/lecture-page-contents/auth/CoursePropos
 import VideoAgreement from "@/components/lecture-page-contents/auth/VideoAgreement";
 import HelpSection from "@/components/lecture-page-contents/HelperSection";
 import { usePostInstructors } from "@/hooks/useRegisterInstructors";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterInstructor() {
   const { mutate, error, isError, isPending, isSuccess, data } = usePostInstructors();
   const methods = useForm({ mode: "onBlur" });
   const [step, setStep] = useState(1);
   const totalSteps = 4;
+  const navigate = useNavigate();
 
   // Handle success/error states
   useEffect(() => {
@@ -25,12 +27,9 @@ export default function RegisterInstructor() {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log("Success:", data);
-      alert("Application submitted successfully! We will review it and get back to you soon.");
-      // Optionally reset form or redirect
-      // methods.reset();
+      navigate("/teach-on-ct/application-review");
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, navigate]);
 
   const next = async () => {
     const valid = await methods.trigger();
@@ -40,11 +39,6 @@ export default function RegisterInstructor() {
   const back = () => setStep((prev) => prev - 1);
 
   const onSubmit = async (data) => {
-    // console.log("Form data being submitted:", data)
-  // console.log("Sample video in form:", data.sample_video)
-  // console.log("Resume in form:", data.resume)
-  // console.log("Profile photo field:", data.profile_photo);
-    
     // Manual validation for required files
     if (!data.sample_video|| (data.sample_video instanceof FileList && data.sample_video.length === 0)) {
       alert("Please upload a sample video");
