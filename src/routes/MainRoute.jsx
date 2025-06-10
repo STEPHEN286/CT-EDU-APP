@@ -43,6 +43,8 @@ import Application from "@/components/lecture-page-contents/Application";
 import ApplicationReview from "@/components/lecture-page-contents/auth/ApplicationUnderReview";
 import QuestionAnswer from "@/components/student-dashboard/QuestionAnswer";
 import BrowseCourse from "@/components/student-dashboard/BrowseCourse";
+import ProtectedRoute from "./ProtectedRoute";
+import LectureLogin from "@/components/lecture-page-contents/lecture-dashboard/lecture-auth/LectureLogin";
 
 const routers = createHashRouter([
   {
@@ -142,43 +144,51 @@ const routers = createHashRouter([
   },
   // instructor dashboard
   {
-    path: "dashboard",
-    element: <InstructorDashboardLayout />,
-    children: [
-      {
-        index: true,
-        element: <InstructorDashboardOverview />,
-      },
-      {
-        path: "my-courses",
-        element: <ManageCourses />,
-      },
-      {
-        path: "create-course",
-        element: <CreateCourse />,
-      },
-      {
-        path: "students",
-        element: <ManageStudents />,
-      },
-      {
-        path: "messages",
-        element: <ManageMessages />,
-      },
-      {
-        path: "quiz",
-        element: <QuizUploadPage />,
-      },
-      {
-        path: "announcements",
-        element: <ManageAnnouncements />,
-      },
-      {
-        path: "profile",
-        element: <InstructorProfile />,
-      },
-    ],
+    path: "/lecture-auth-login",
+    element: <LectureLogin />,
   },
+
+   
+    {
+      path: "/dashboard",
+      element:<ProtectedRoute />,
+      children: [
+        {
+          index: true,
+          element: <InstructorDashboardOverview />,
+        },
+        {
+          path: "my-courses",
+          element: <ManageCourses />,
+        },
+        {
+          path: "create-course",
+          element: <CreateCourse />,
+        },
+        {
+          path: "students",
+          element: <ManageStudents />,
+        },
+        {
+          path: "messages",
+          element: <ManageMessages />,
+        },
+        {
+          path: "quiz",
+          element: <QuizUploadPage />,
+        },
+        {
+          path: "announcements",
+          element: <ManageAnnouncements />,
+        },
+        {
+          path: "profile",
+          element: <InstructorProfile />,
+        },
+      ]
+    }
+    
+  
 ]);
 
 export default routers;
