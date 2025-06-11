@@ -17,28 +17,27 @@ const summaryData = [
     change: "+12.5%",
     icon: Users,
     color: "text-blue-600",
+    bgColor: "bg-blue-100",
+    description: "from last month"
   },
   {
-    title: "Active Courses",
+    title: "Active Courses", 
     value: "8",
     change: "+2",
     icon: BookOpen,
     color: "text-green-600",
+    bgColor: "bg-green-100",
+    description: "from last month"
   },
-  // {
-  //   title: "Total Earnings",
-  //   value: "$12,450",
-  //   change: "+23.1%",
-  //   icon: DollarSign,
-  //   color: "text-yellow-600",
-  // },
   {
     title: "Average Rating",
     value: "4.8",
-    change: "+0.2",
+    change: "+0.2", 
     icon: Star,
     color: "text-purple-600",
-  },
+    bgColor: "bg-purple-100",
+    description: "from last month"
+  }
 ]
 
 // Complete data for different time periods
@@ -87,51 +86,6 @@ const allEnrollmentData = {
     { month: "Jun", enrollments: 67 }
   ]
 }
-
-// const allEarningsData = {
-//   "1-month": [
-//     { month: "Jun", earnings: 2450 }
-//   ],
-//   "3-months": [
-//     { month: "Apr", earnings: 2400 },
-//     { month: "May", earnings: 2200 },
-//     { month: "Jun", earnings: 2450 }
-//   ],
-//   "6-months": [
-//     { month: "Jan", earnings: 1800 },
-//     { month: "Feb", earnings: 2100 },
-//     { month: "Mar", earnings: 1950 },
-//     { month: "Apr", earnings: 2400 },
-//     { month: "May", earnings: 2200 },
-//     { month: "Jun", earnings: 2450 }
-//   ],
-//   "1-year": [
-//     { month: "Jul '23", earnings: 1200 },
-//     { month: "Aug '23", earnings: 1350 },
-//     { month: "Sep '23", earnings: 1100 },
-//     { month: "Oct '23", earnings: 1400 },
-//     { month: "Nov '23", earnings: 1250 },
-//     { month: "Dec '23", earnings: 1600 },
-//     { month: "Jan", earnings: 1800 },
-//     { month: "Feb", earnings: 2100 },
-//     { month: "Mar", earnings: 1950 },
-//     { month: "Apr", earnings: 2400 },
-//     { month: "May", earnings: 2200 },
-//     { month: "Jun", earnings: 2450 }
-//   ],
-//   "all-time": [
-//     { month: "Q1 '22", earnings: 800 },
-//     { month: "Q2 '22", earnings: 1100 },
-//     { month: "Q3 '22", earnings: 1300 },
-//     { month: "Q4 '22", earnings: 1200 },
-//     { month: "Q1 '23", earnings: 1400 },
-//     { month: "Q2 '23", earnings: 1600 },
-//     { month: "Q3 '23", earnings: 1350 },
-//     { month: "Q4 '23", earnings: 1500 },
-//     { month: "Q1 '24", earnings: 1950 },
-//     { month: "Q2 '24", earnings: 2400 }
-//   ]
-// }
 
 const allCourses = [
   {
@@ -267,10 +221,6 @@ export function InstructorDashboardOverview() {
     return allEnrollmentData[timeFilter] || allEnrollmentData["6-months"]
   }, [timeFilter])
 
-  // const currentEarningsData = useMemo(() => {
-  //   return allEarningsData[timeFilter] || allEarningsData["6-months"]
-  // }, [timeFilter])
-
   // Filtered data
   const filteredCourses = useMemo(() => {
     return allCourses.filter(course => {
@@ -346,28 +296,26 @@ export function InstructorDashboardOverview() {
       </Card>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {summaryData.map((item, index) => {
-          const Icon = item.icon
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {summaryData.map((card, index) => {
+          const Icon = card.icon;
           return (
-            <Card key={index}>
+            <Card key={index} className={`${card.bgColor} shadow-none border-0`}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
-                <Icon className={`h-4 w-4 ${item.color}`} />
+                <CardTitle className="text-sm font-medium">{card.title}</CardTitle>
+                <Icon className={`h-4 w-4 ${card.color}`} />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{item.value}</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">{item.change}</span> from last month
-                </p>
+                <div className={`text-2xl font-bold ${card.color}`}>{card.value}</div>
+                <p className={`text-xs ${card.color}`}>{card.description}</p>
               </CardContent>
             </Card>
-          )
+          );
         })}
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1  gap-6">
+      <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -388,27 +336,6 @@ export function InstructorDashboardOverview() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-
-        {/* <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5" />
-              Monthly Earnings
-            </CardTitle>
-            <CardDescription>Your earnings over the {timeFilter}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={currentEarningsData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip formatter={(value) => [`${value}`, "Earnings"]} />
-                <Bar dataKey="earnings" fill="#10b981" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

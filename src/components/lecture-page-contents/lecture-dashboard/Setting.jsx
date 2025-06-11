@@ -68,8 +68,8 @@ export default function InstructorProfile() {
         <p className="text-muted-foreground">Manage your instructor profile and account settings</p>
       </div>
 
-      <Tabs defaultValue="profile" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
+      <Tabs defaultValue="profile" className="space-y-4 ">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 ">
           <TabsTrigger value="profile" className="flex items-center gap-2">
             <User className="h-4 w-4" />
             Profile
@@ -88,7 +88,7 @@ export default function InstructorProfile() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="profile">
+        <TabsContent className="mt-4 md:mt-0" value="profile">
           <div className="space-y-6">
             {/* Instructor Stats */}
             <Card>

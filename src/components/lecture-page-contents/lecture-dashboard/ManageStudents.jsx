@@ -62,6 +62,11 @@ const studentsData = [
   },
 ]
 
+
+
+
+
+
 export function ManageStudents() {
   const [searchTerm, setSearchTerm] = useState("")
   const [students] = useState(studentsData)
@@ -72,12 +77,63 @@ export function ManageStudents() {
       student.email.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
+  // Calculate dynamic values
   const totalStudents = students.length
   const activeStudents = students.filter(
     (student) => student.lastActive.includes("hour") || student.lastActive.includes("day"),
   ).length
   const avgProgress = Math.round(students.reduce((sum, student) => sum + student.totalProgress, 0) / students.length)
+  const totalCompletions = students.reduce((sum, student) => sum + student.completedCourses, 0)
+  
 
+  // Calculate dynamic values
+
+  const summaryCards = [
+    {
+      title: "Total Students",
+      value: totalStudents,
+      description: "Total enrolled students",
+      icon: Users,
+      color: {
+        bg: "bg-blue-100",
+        text: "text-blue-600",
+        textDark: "text-blue-700"
+      }
+    },
+    {
+      title: "Active Students", 
+      value: activeStudents,
+      description: "Students active this week",
+      icon: Clock,
+      color: {
+        bg: "bg-green-100",
+        text: "text-green-600", 
+        textDark: "text-green-700"
+      }
+    },
+    {
+      title: "Avg. Progress",
+      value: `${avgProgress}%`,
+      description: "Average course completion rate",
+      icon: BookOpen,
+      color: {
+        bg: "bg-purple-100",
+        text: "text-purple-600",
+        textDark: "text-purple-700"
+      }
+    },
+    {
+      title: "Completions",
+      value: totalCompletions,
+      description: "Total courses completed",
+      icon: Award,
+      color: {
+        bg: "bg-orange-100", 
+        text: "text-orange-600",
+        textDark: "text-orange-700"
+      }
+    }
+  ]
   return (
     <div className="space-y-6">
       <div>
@@ -86,52 +142,24 @@ export function ManageStudents() {
       </div>
 
       {/* Summary Cards */}
+   
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{totalStudents}</div>
-            <p className="text-xs text-muted-foreground">Across all module</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Students</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{activeStudents}</div>
-            <p className="text-xs text-muted-foreground">Active in last 7 days</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Progress</CardTitle>
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{avgProgress}%</div>
-            <p className="text-xs text-muted-foreground">Module  completion</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completions</CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {students.reduce((sum, student) => sum + student.completedCourses, 0)}
-            </div>
-            <p className="text-xs text-muted-foreground">Total module completions</p>
-          </CardContent>
-        </Card>
+        {summaryCards.map((card, index) => {
+          const Icon = card.icon;
+          return (
+            <Card key={index} className={`${card.color.bg} shadow-none border-0`}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">{card.title}</CardTitle>
+                <Icon className={`h-4 w-4 ${card.color.text}`} />
+              </CardHeader>
+              <CardContent>
+                <div className={`text-2xl font-bold ${card.color.textDark}`}>{card.value}</div>
+                <p className={`text-xs ${card.color.text}`}>{card.description}</p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Students Table */}

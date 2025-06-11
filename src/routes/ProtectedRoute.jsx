@@ -14,12 +14,12 @@ const ProtectedRoute = () => {
   // const isInitialLoading = isLoading && user === undefined;
 
 
-  if (!isAuthenticated ) {
-    return <Navigate to="/lecture-auth-login" replace />;
-  } else {
+  // if (!isAuthenticated ) {
+  //   return <Navigate to="/lecture-auth-login" replace />;
+  // } 
 
     return <Outlet />;
-  }
+  
 
  
 

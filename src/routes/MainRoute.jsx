@@ -29,7 +29,7 @@ import { ManageAnnouncements } from "@/components/lecture-page-contents/lecture-
 import { InstructorDashboardLayout } from "./layout/InstructorDashboardLayout";
 
 import EmailVerification from "@/components/EmailVerification";
-import QuizUploadPage from "@/components/lecture-page-contents/lecture-dashboard/Quiz";
+// import QuizUploadPage from "@/components/lecture-page-contents/lecture-dashboard/Quiz";
 import InstructorProfile from "@/components/lecture-page-contents/lecture-dashboard/Setting";
 import CourseEnrollmentPage from "./CourseEnrollmentPage";
 import StudentDashboardLayout from "./layout/StudentDashboardLayout";
@@ -37,7 +37,7 @@ import { StudentOverview } from "@/components/student-dashboard/StudentProfile";
 import { MyCoursesPage } from "@/components/student-dashboard/MyCourses";
 import { ProgressPage } from "@/components/student-dashboard/MyProgress";
 import { SettingsPage } from "@/components/student-dashboard/Settings";
-import { LucideMessageSquareReply } from "lucide-react";
+// import { LucideMessageSquareReply } from "lucide-react";
 import { MessagesPage } from "@/components/student-dashboard/messages/MessagePage";
 import Application from "@/components/lecture-page-contents/Application";
 import ApplicationReview from "@/components/lecture-page-contents/auth/ApplicationUnderReview";
@@ -45,6 +45,7 @@ import QuestionAnswer from "@/components/student-dashboard/QuestionAnswer";
 import BrowseCourse from "@/components/student-dashboard/BrowseCourse";
 import ProtectedRoute from "./ProtectedRoute";
 import LectureLogin from "@/components/lecture-page-contents/lecture-dashboard/lecture-auth/LectureLogin";
+import QAPage from "@/components/lecture-page-contents/lecture-dashboard/Quiz";
 
 const routers = createHashRouter([
   {
@@ -150,41 +151,47 @@ const routers = createHashRouter([
 
    
     {
-      path: "/dashboard",
+      path: "/instructor-dashboard",
       element:<ProtectedRoute />,
       children: [
         {
-          index: true,
-          element: <InstructorDashboardOverview />,
-        },
-        {
-          path: "my-courses",
-          element: <ManageCourses />,
-        },
-        {
-          path: "create-course",
-          element: <CreateCourse />,
-        },
-        {
-          path: "students",
-          element: <ManageStudents />,
-        },
-        {
-          path: "messages",
-          element: <ManageMessages />,
-        },
-        {
-          path: "quiz",
-          element: <QuizUploadPage />,
-        },
-        {
-          path: "announcements",
-          element: <ManageAnnouncements />,
-        },
-        {
-          path: "profile",
-          element: <InstructorProfile />,
-        },
+          element: <InstructorDashboardLayout />,
+          children:[
+            {
+              index: true,
+              element: <InstructorDashboardOverview />,
+            },
+            {
+              path: "my-courses",
+              element: <ManageCourses />,
+            },
+            {
+              path: "create-course",
+              element: <CreateCourse />,
+            },
+            {
+              path: "students",
+              element: <ManageStudents />,
+            },
+            {
+              path: "messages",
+              element: <ManageMessages />,
+            },
+            {
+              path: "quiz",
+              element: <QAPage />,
+            },
+            {
+              path: "announcements",
+              element: <ManageAnnouncements />,
+            },
+            {
+              path: "profile",
+              element: <InstructorProfile />,
+            },
+          
+          ]
+        }
       ]
     }
     
