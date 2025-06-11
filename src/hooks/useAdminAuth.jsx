@@ -33,7 +33,7 @@ export const useAdminAuth = () => {
 
       if (data.status === "success" && data.user) {
         setUser(data.user);
-        navigate("/dashboard", { replace: true });
+        navigate("/instructor-dashboard", { replace: true });
       } else {
         throw new Error(data.message || "Login failed");
       }
