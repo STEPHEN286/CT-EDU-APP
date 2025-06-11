@@ -14,9 +14,9 @@ const ProtectedRoute = () => {
   // const isInitialLoading = isLoading && user === undefined;
 
 
-  // if (!isAuthenticated ) {
-  //   return <Navigate to="/lecture-auth-login" replace />;
-  // } 
+  if (!isAuthenticated ) {
+    return <Navigate to="/lecture-auth-login" replace />;
+  } 
 
     return <Outlet />;
   
