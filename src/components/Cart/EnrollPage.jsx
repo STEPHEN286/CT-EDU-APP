@@ -8,16 +8,44 @@ import {
 } from "lucide-react";
 import { containerClass } from "@/utils/css-utils";
 import { Link } from "react-router-dom";
+import { Card, CardContent } from "../ui/card";
+import { PAYSTACK } from "@/utils/constants";
+
 
 export default function EnrollPage() {
   const [step, setStep] = useState("payment");
-  const subtotal = 26999;
-  const discount = 2573.5;
+  
+  // Sample course data - this would typically come from props or context
+  const course = {
+    id: 1,
+    title: "AI Tracks",
+    instructor: "Laura Green",
+    image: "/placeholder.svg?height=150&width=250",
+    price: 26999,
+    discount: 2573.5
+  };
+
+  const subtotal = course.price;
+  const discount = course.discount;
   const total = subtotal - discount;
+
+  const componentProps = {
+    email: "user@example.com",
+    amount: 20000 *100,
+    currency: "GHS",
+    publicKey: PAYSTACK,
+    text: "Pay Now",
+    onSuccess: () =>
+ setStep("confirmation"),
+    onClose: () => alert("are you sure ....."),
+  };
+
+ 
+
 
   return (
     <div className={`${containerClass} mx-auto px-4 py-6 bg-white min-h-screen`}>
-      {/* Progress Indicator */}
+    
       <div className="flex justify-center mb-8">
        
         <div className="flex items-center">
@@ -45,149 +73,32 @@ export default function EnrollPage() {
           <div className="p-4 mb-6">
             <div className="flex flex-col items-center mb-6">
               <h3 className="text-lg font-medium text-black">
-                Payment Details
+                Confirm Payment
               </h3>
-              <small>Please select your preferred payment method and enter your details</small>
+              <small>Please review your order details and confirm payment</small>
             </div>
 
-            <div className="space-y-3 grid grid-cols-2 md:grid-cols-4 items-center mb-6">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="payment"
-                  value="mastercard"
-                  defaultChecked
-                  className="mr-2"
+            {/* Course Details */}
+            <div className="mb-8 p-4 border rounded-lg">
+              <div className="flex gap-4">
+                <img 
+                  src={course.image} 
+                  alt={course.title}
+                  className="w-24 h-24 object-cover rounded"
                 />
-                <label className="flex items-center">
-                  <div className="border border-red-600 rounded p-1.5 w-32">
-                    <img
-                      src="https://res.cloudinary.com/disgj6wx5/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1749094693/xq2zev9fpc9gnfbxcvgt.png"
-                      alt="MasterCard"
-                      className="w-full h-auto"
-                    />
-                  </div>
-                </label>
-              </div>
-
-              <div className="flex items-center">
-                <input type="radio" name="payment" value="visa" className="mr-2" />
-                <label className="flex items-center">
-                  <div className="border border-red-600 rounded p-1.5 w-32">
-                    <img
-                      src="https://res.cloudinary.com/disgj6wx5/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1749094693/sytk9xxommprabbnd0vr.png"
-                      alt="Visa"
-                      className="w-full h-auto"
-                    />
-                  </div>
-                </label>
-              </div>
-
-              <div className="flex items-center">
-                <input type="radio" name="payment" value="paypal" className="mr-2" />
-                <label className="flex items-center">
-                  <div className="border border-red-600 rounded p-1.5 w-32">
-                    <img
-                      src="https://res.cloudinary.com/disgj6wx5/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1749094692/pglwn6bbvnvzpw67h7oz.png"
-                      alt="PayPal"
-                      className="w-full h-auto"
-                    />
-                  </div>
-                </label>
-              </div>
-
-              <div className="flex items-center">
-                <input type="radio" name="payment" value="applepay" className="mr-2" />
-                <label className="flex items-center">
-                  <div className="border border-red-600 rounded p-1.5 w-32 flex items-center justify-center">
-                    <span className="text-xs text-gray-500">Apple Pay</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-8">
-              <div className="space-y-6">
                 <div>
-                  <label htmlFor="cardNumber" className="text-black block mb-2">
-                    Card Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    className="w-full p-3 border rounded bg-white text-black"
-                  />
-                </div>
+                  <h4 className="font-medium text-lg">{course.title}</h4>
 
-                <div>
-                  <label htmlFor="cardholderName" className="text-black block mb-2">
-                    Cardholder Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="cardholderName"
-                    placeholder="Jessica Anthony"
-                    className="w-full p-3 border rounded bg-white text-black"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="col-span-2">
-                    <label className="text-black block mb-2">
-                      Expiry Date <span className="text-red-500">*</span>
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <select className="p-3 border rounded bg-white text-black">
-                        <option>Month</option>
-                        {[...Array(12)].map((_, i) => (
-                          <option key={i} value={i + 1}>
-                            {String(i + 1).padStart(2, "0")}
-                          </option>
-                        ))}
-                      </select>
-                      <select className="p-3 border rounded bg-white text-black">
-                        <option>Year</option>
-                        {[...Array(10)].map((_, i) => (
-                          <option key={i} value={new Date().getFullYear() + i}>
-                            {new Date().getFullYear() + i}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="cvv" className="text-black block mb-2">
-                      CVV <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="cvv"
-                      placeholder="123"
-                      className="w-full p-3 border rounded bg-white text-black"
-                      maxLength={4}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="saveDetails"
-                    className="rounded"
-                  />
-                  <label
-                    htmlFor="saveDetails"
-                    className="text-sm text-black cursor-pointer"
-                  >
-                    Save my details for future purchases
-                  </label>
+                  <p className="text-sm text-gray-600">by {course.instructor}</p>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 border-t pt-8">
               <div className="space-y-2">
+                <p className="font-bold text-2xl">Order Summary</p>
                 <div className="flex justify-between text-black">
-                  <span>Subtotal (3 items)</span>
+                  <span>Subtotal </span>
                   <span>€{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-black">
@@ -201,12 +112,7 @@ export default function EnrollPage() {
               </div>
             </div>
 
-            <button 
-              onClick={() => setStep("confirmation")} 
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-4 mt-6 rounded"
-            >
-              Confirm Payment
-            </button>
+            <PaystackButton {...componentProps}  className="w-full bg-red-600 hover:bg-red-700 text-white py-4 mt-6 rounded"/>
 
             <div className="flex justify-center space-x-4 mt-4 text-xs text-gray-800">
               <div className="flex items-center">
@@ -223,13 +129,13 @@ export default function EnrollPage() {
             </div>
 
             <div className="mt-4">
-              <button
+              {/* <button
                 className="text-red-600 hover:text-red-700 flex items-center"
                 onClick={() => setStep("cart")}
               >
                 <ArrowLeft className="h-4 w-4 mr-1" />
                 Back to cart
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

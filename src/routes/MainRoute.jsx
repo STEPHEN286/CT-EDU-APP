@@ -16,7 +16,7 @@ import RegisterInstructor from "./lecture/LecturesAuth";
 import Roadmap from "@/components/Roadmap";
 import CoursesPage from "@/components/courses/Courses";
 import CourseDetailsPage from "@/components/course-detail/ProductDetails";
-import CategoryPage from "@/components/category/Categories";
+import CategoryPage from "@/components/category/CategoryPage";
 // import path from "path";
 
 import { InstructorDashboardOverview } from "@/components/lecture-page-contents/lecture-dashboard/InstructorDashboardOverview";
@@ -44,8 +44,10 @@ import ApplicationReview from "@/components/lecture-page-contents/auth/Applicati
 import QuestionAnswer from "@/components/student-dashboard/QuestionAnswer";
 import BrowseCourse from "@/components/student-dashboard/BrowseCourse";
 import ProtectedRoute from "./ProtectedRoute";
+import StudentProtectedRoute from "./StudentProtectedRoute";
 import LectureLogin from "@/components/lecture-page-contents/lecture-dashboard/lecture-auth/LectureLogin";
 import QAPage from "@/components/lecture-page-contents/lecture-dashboard/Quiz";
+import CategoriesPage from "@/components/category/CategoriesPage";
 
 const routers = createHashRouter([
   {
@@ -71,13 +73,19 @@ const routers = createHashRouter([
         path: "course",
         element: <CourseDetailsPage />,
       },
+      
       {
         path: "carts",
         element: <CartPage />,
       },
+
       {
-        path: "roadmap",
+        path: "roadmaps",
         element: <Roadmap />,
+      },
+      {
+        path: "categories",
+        element : <CategoriesPage />
       },
       {
         path: "categories/:slug",
@@ -88,7 +96,7 @@ const routers = createHashRouter([
         path: "contact",
         element: <h1>Contact</h1>,
       },
-
+      
       {
         path: "wishlist",
         element: <WishList />,
@@ -123,21 +131,24 @@ const routers = createHashRouter([
       {path: "application-review", element: <ApplicationReview />}
     ],
   },
-  // student dashboard
+
   {
     path: "profile",
-    element: <StudentDashboardLayout />,
+    element: <StudentProtectedRoute />,
     children: [
-      { index: true, element: <StudentOverview /> }, 
-      {path: "my-course", element: <MyCoursesPage /> },
-      {path: "my-progress", element: <ProgressPage /> },
-      {path: "settings", element: <SettingsPage /> },
-      {path: "messages", element: <MessagesPage /> },
-      {path: "questions-answers", element: <QuestionAnswer /> },
-      {path: "browse-c", element: <BrowseCourse /> },
-
-  
-    ],
+      {
+        element: <StudentDashboardLayout />,
+        children: [
+          { index: true, element: <StudentOverview /> }, 
+          {path: "my-course", element: <MyCoursesPage /> },
+          {path: "my-progress", element: <ProgressPage /> },
+          {path: "settings", element: <SettingsPage /> },
+          {path: "messages", element: <MessagesPage /> },
+          {path: "questions-answers", element: <QuestionAnswer /> },
+          {path: "browse-c", element: <BrowseCourse /> },
+        ]
+      }
+    ]
   },
   {
     path: "search",
@@ -148,54 +159,50 @@ const routers = createHashRouter([
     path: "/lecture-auth-login",
     element: <LectureLogin />,
   },
-
    
-    {
-      path: "/instructor-dashboard",
-      element:<ProtectedRoute />,
-      children: [
-        {
-          element: <InstructorDashboardLayout />,
-          children:[
-            {
-              index: true,
-              element: <InstructorDashboardOverview />,
-            },
-            {
-              path: "my-courses",
-              element: <ManageCourses />,
-            },
-            {
-              path: "create-course",
-              element: <CreateCourse />,
-            },
-            {
-              path: "students",
-              element: <ManageStudents />,
-            },
-            {
-              path: "messages",
-              element: <ManageMessages />,
-            },
-            {
-              path: "quiz",
-              element: <QAPage />,
-            },
-            {
-              path: "announcements",
-              element: <ManageAnnouncements />,
-            },
-            {
-              path: "profile",
-              element: <InstructorProfile />,
-            },
-          
-          ]
-        }
-      ]
-    }
-    
-  
+  {
+    path: "/instructor-dashboard",
+    element:<ProtectedRoute />,
+    children: [
+      {
+        element: <InstructorDashboardLayout />,
+        children:[
+          {
+            index: true,
+            element: <InstructorDashboardOverview />,
+          },
+          {
+            path: "my-courses",
+            element: <ManageCourses />,
+          },
+          {
+            path: "create-course",
+            element: <CreateCourse />,
+          },
+          {
+            path: "students",
+            element: <ManageStudents />,
+          },
+          {
+            path: "messages",
+            element: <ManageMessages />,
+          },
+          {
+            path: "quiz",
+            element: <QAPage />,
+          },
+          {
+            path: "announcements",
+            element: <ManageAnnouncements />,
+          },
+          {
+            path: "profile",
+            element: <InstructorProfile />,
+          },
+        ]
+      }
+    ]
+  }
 ]);
 
 export default routers;

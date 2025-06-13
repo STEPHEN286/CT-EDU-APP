@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom"
 import { navMenu } from "@/data"
 import CourseCard from "../Cards/CourseCard"
 import { containerClass } from "@/utils/css-utils"
+import Breadcrumbs from "../ui/Breadcrums"
 
 const categoryData = Object.fromEntries(navMenu.map(cat => [cat.slug, cat]))
 
@@ -25,12 +26,13 @@ export default function CategoryPage() {
         <div className={`${containerClass} container mx-auto px-4 py-8`}>
           {/* Breadcrumb */}
           <div className="flex items-center mb-6">
-            <Link to="/courses" className="flex items-center text-gray-600 hover:text-red-600">
+            {/* <Link to="/" className="flex items-center text-gray-600 hover:text-red-600">
               <ChevronLeft className="h-4 w-4 mr-1" />
-              All Courses
-            </Link>
+              BACK
+            </Link> */}
+            <Breadcrumbs />
             <span className="mx-2 text-gray-400">/</span>
-            <span className="text-black font-medium">{category.title}</span>
+            {/* <span className="text-black font-medium">{category.title}</span> */}
           </div>
 
           {/* Category Header */}
@@ -79,16 +81,7 @@ export default function CategoryPage() {
             </div>
           </div>
 
-          {/* Filter Tags */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            <Badge variant="secondary" className="bg-red-100 text-red-700 hover:bg-red-200">
-              All Levels
-            </Badge>
-            <Badge variant="outline">Beginner</Badge>
-            <Badge variant="outline">Intermediate</Badge>
-            <Badge variant="outline">Advanced</Badge>
-            
-          </div>
+         
 
           {/* Module Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 mb-8">

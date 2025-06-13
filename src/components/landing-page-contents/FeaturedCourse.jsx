@@ -60,7 +60,7 @@ function CourseSlider({ courses }) {
     <div className="relative">
   <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scroll-px-0 pb-4 scroll-smooth scrollbar-hidden gap-4">
     {courses.map((course) => (
-      <div key={course.id} className="snap-start  max-w-[270px] md:min-w-[350px] md:max-w-[300px] flex-shrink-0">
+      <div key={course.id} className="snap-start  max-w-[270px] flex-shrink-0">
         <CourseCard course={course} />
       </div>
     ))}

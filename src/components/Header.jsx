@@ -25,11 +25,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Search, ShoppingCart, User, Menu } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, Heart } from "lucide-react";
 import { navMenu } from "@/data";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { containerClass } from "@/utils/css-utils";
 import CategoryDropdown from "./CategoryDropdown";
+import LanguageSelector from "./language-selector/LanguageSelector";
 
 export default function Header() {
   const { t } = useTranslation("navbar");
@@ -95,6 +96,16 @@ export default function Header() {
 
           {/* sheey */}
           <div className="flex items-center space-x-4">
+            {/* Wishlist */}
+            <Link to="/wishlist">
+              <Button variant="ghost" size="sm" className="relative">
+                <Heart className="h-5 w-5" />
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-600 text-xs flex items-center justify-center">
+                  0
+                </Badge>
+              </Button>
+            </Link>
+
             {/* Cart */}
             <Link to="/carts">
               <Button variant="ghost" size="sm" className="relative">
@@ -146,7 +157,8 @@ export default function Header() {
             )}
 
             {/* Language Switcher */}
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
+            <LanguageSelector />
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>

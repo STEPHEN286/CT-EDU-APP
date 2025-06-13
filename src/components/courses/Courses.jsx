@@ -34,8 +34,8 @@ export default function CoursesPage() {
     <div className={`${containerClass} container mx-auto px-4 py-8`}>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold">All Courses</h1>
-          <p className="text-gray-500 mt-1">Browse our extensive collection of courses</p>
+          <h1 className="text-3xl font-bold">Modules</h1>
+          <p className="text-gray-500 mt-1">Browse our extensive collection of modules</p>
         </div>
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           <Select defaultValue="newest">
@@ -78,7 +78,7 @@ export default function CoursesPage() {
             <Input type="search" placeholder="Search courses..." value={searchTerm}
               onChange={(e) => setSearchTerm(prev => ({ ...prev, search: e.target.value }))} className="w-full" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 place-self-center lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 place-self-center lg:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-6">
           {(filteredCourses.length > 0 ? filteredCourses : coursesData).map((course, i) => (
           <CourseCard course={course} key={i} />
 ))}
@@ -109,7 +109,7 @@ function FilterSidebar() {
   return (
     <div className="space-y-6 px-2 md:p-0 ">
       <div>
-        <h3 className="font-medium mb-3">Categories</h3>
+        <h3 className="font-medium mb-3">Courses</h3>
         <div className="space-y-2">
           {navMenu.map((category) => (
             <div key={category.title} className="flex items-center">
@@ -122,48 +122,9 @@ function FilterSidebar() {
         </div>
       </div>
 
-      <div>
-        <h3 className="font-medium mb-3">Level</h3>
-        <div className="space-y-2">
-          {["Beginner", "Intermediate", "Advanced", "All Levels"].map((level) => (
-            <div key={level} className="flex items-center">
-              <Checkbox id={`level-${level}`} />
-              <label htmlFor={`level-${level}`} className="ml-2 text-sm">
-                {level}
-              </label>
-            </div>
-          ))}
-        </div>
-      </div>
+    
 
-      <div>
-        <h3 className="font-medium mb-3">Price</h3>
-        <div className="space-y-2">
-          <div className="flex items-center">
-            <Checkbox id="price-free" />
-            <label htmlFor="price-free" className="ml-2 text-sm">
-              Free
-            </label>
-          </div>
-          <div className="flex items-center">
-            <Checkbox id="price-paid" />
-            <label htmlFor="price-paid" className="ml-2 text-sm">
-              Paid
-            </label>
-          </div>
-        </div>
-        <div className="mt-4">
-          <div className="flex justify-between mb-2">
-            <span className="text-sm">$0</span>
-            <span className="text-sm">$200</span>
-          </div>
-          <Slider defaultValue={[0, 100]} max={200} step={1} />
-          <div className="flex justify-between mt-2">
-            <div className="border rounded px-2 py-1 text-sm w-20 text-center">$0</div>
-            <div className="border rounded px-2 py-1 text-sm w-20 text-center">$100</div>
-          </div>
-        </div>
-      </div>
+     
 
       <div>
         <h3 className="font-medium mb-3">Rating</h3>
@@ -178,7 +139,7 @@ function FilterSidebar() {
                     className={`h-4 w-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
                   />
                 ))}
-                <span className="ml-1">& up</span>
+                {/* <span className="ml-1">& up</span> */}
               </label>
             </div>
           ))}

@@ -1,10 +1,11 @@
 import axios from "axios";
 // import {AUTH_BASE_URL} from "../utils/constants.jsx";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
+import { useStudent } from "./useStudentAuth";
 
 const postData = async (endpoint, loginData) => {
   try {
@@ -23,23 +24,33 @@ const postData = async (endpoint, loginData) => {
   }
 };
 
-const usePostData = (endpoint, navigateTo, isLoginData = false) => {
+const usePostData = (endpoint, navigateTo,) => {
+   const queryClient = useQueryClient();
+const {setStudent} =  useStudent()
   // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: (data) => postData(endpoint, data),
-    onSuccess: (response) => {
-      if (response?.status === 200 && isLoginData) {
-        sessionStorage.setItem("session", JSON.stringify(response.data));
-      }
+    onSuccess: (data) => {
+      console.log("Login Success:", data);
 
-      navigate(navigateTo);
+      if (data.status === "success" && data.user) {
+        setStudent(data.user);
+        navigate(`${navigateTo}`, { replace: true });
+      } else {
+        throw new Error(data.message || "Login failed");
+      }
     },
     onError: (error) => {
-      
-      throw new Error(error.message);
+      console.log(error)
+      queryClient.removeQueries(["user"]);
+      queryClient.removeQueries(["auth"]);
     },
+
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+  
   });
   return { mutate, isPending, isError, error };
 };

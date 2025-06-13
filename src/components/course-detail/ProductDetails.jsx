@@ -8,6 +8,7 @@ import CustomVideoPlayer from "./VideoPlayer"
 import { courseSections, learningOutcomes } from "./data"
 import {  useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Breadcrumbs from "../ui/Breadcrums"
 
 export default function CourseDetailsPage() {
 const navigate = useNavigate()
@@ -18,6 +19,7 @@ const handleEnroll = ()=>{
   const [videoUrlChange,setVideoUrl] = useState (" https://i.imgur.com/bkz3hIJ.mp4 ")
   return (
     <div className="min-h-screen bg-white">
+      {/* <Breadcrumbs /> */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
          

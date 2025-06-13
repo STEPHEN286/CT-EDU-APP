@@ -38,7 +38,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Quick as</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link to="/modules" className="text-gray-400 hover:text-white">
+                <Link to="/categories" className="text-gray-400 hover:text-white">
                   Modules
                 </Link>
               </li>
@@ -48,7 +48,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/instructors" className="text-gray-400 hover:text-white">
+                <Link to="/teach-on-ct" className="text-gray-400 hover:text-white">
                   Instructors
                 </Link>
               </li>

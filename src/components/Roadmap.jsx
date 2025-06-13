@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { navMenu } from "@/data";
+import { ChevronsRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function TrainingProgramDialog() {
   return (
@@ -22,8 +24,10 @@ export default function TrainingProgramDialog() {
             {navMenu.map((program) => (
               <Dialog key={program.title}>
                 <DialogTrigger asChild>
-                  <Button className="w-full bg-red-600 text-white font-bold hover:bg-red-700">
+                  <Button className="w-full bg-red-600 text-white font-bold hover:bg-red-700 flex items-center justify-center gap-2">
+                    {/* <Circle className="h-4 w-4" /> */}
                     {program.title}
+                  <span className="border-2 p-1 rounded-full border-white/70">  <ChevronsRight className="h-4 w-4" /></span>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-white max-w-[95vw] sm:max-w-[90vw] lg:max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -76,25 +80,28 @@ export default function TrainingProgramDialog() {
                             <div className="absolute left-4 top-6 bottom-6 w-0.5 bg-red-500"></div>
 
                             {/* Track Items */}
-                            <div className="space-y-4 lg:space-y-6">
+                            <div className="space-y-2 lg:space-y-3">
                               {program.modules.map((track, index) => (
                                 <div key={index} className="flex items-center gap-4 lg:gap-6 group">
                                   {/* Number Circle */}
-                                  <div className="relative z-10 w-8 h-8 bg-white border-2 border-red-500 rounded-full flex items-center justify-center text-red-500 font-medium text-sm transition-all duration-200 group-hover:bg-red-500 group-hover:text-white flex-shrink-0">
+                                  <div className="relative z-10 w-8 h-8 bg-white border-2 border-red-500 rounded-full flex items-center justify-center  font-medium text-sm transition-all duration-200 group-hover:bg-red-500 group-hover:text-white flex-shrink-0">
                                     {index + 1}
                                   </div>
 
                                   {/* Horizontal Line */}
+                                  <div className="flex items-center">
                                   <div className="w-4 lg:w-8 h-0.5 bg-red-500 flex-shrink-0"></div>
+                                    <div className="w-0 h-0 border-t-4 border-b-4 border-t-transparent border-b-transparent border-l-[6px] border-l-red-500"></div>
+                                  </div>
 
                                   {/* Track Card */}
-                                  <div className="flex-1 bg-gray-50 rounded-xl px-4 lg:px-6 py-3 lg:py-4 shadow-sm border border-gray-200 transition-all duration-200 hover:shadow-md hover:border-red-200 hover:bg-red-50 min-w-0">
+                                  <div className="flex-1 bg-gray-50 rounded-xl px-4 lg:px-6 py-2 lg:py-4  border border-gray-200 transition-all text-center duration-200 hover:border-red-200 hover:bg-red-50 min-w-0">
                                     <h4 className="text-gray-800 font-medium text-sm lg:text-base truncate">
                                       {track.name}
                                     </h4>
-                                    <p className="text-xs lg:text-sm text-gray-500 mt-1">
+                                    {/* <p className="text-xs lg:text-sm text-gray-500 mt-1">
                                       {track.code} • {track.duration}
-                                    </p>
+                                    </p> */}
                                   </div>
                                 </div>
                               ))}
@@ -121,9 +128,9 @@ export default function TrainingProgramDialog() {
               Join thousands of professionals who have transformed their careers through our comprehensive training
               programs.
             </p>
-            <Button className="bg-white text-red-600 hover:bg-gray-100 font-semibold px-4 h-auto text-lg">
-              Enroll Now
-            </Button>
+            <Link to= "/auth/signup" size="lg" className="  p-4 text-red-600 bg-white S">
+            Sign Up Now
+          </Link>
           </div>
         </Card>
       </div>

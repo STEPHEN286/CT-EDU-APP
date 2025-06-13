@@ -59,7 +59,7 @@ export default function Sidebar() {
                   end
                   to={item.to}
                   className={({ isActive }) => {
-                    return `flex items-center rounded-s-full  relative p-3 ${
+                    return `flex items-center rounded-s-full transition-all duration-300 ease-in-out relative p-3 ${
                       isActive 
                         ? "bg-white text-black active-li"
                         : "text-white hover:bg-white hover:text-black"

@@ -14,12 +14,12 @@ export default function BecomeTeacher() {
  
 
   const featuresDataWithLucideIcons = [
-    {
-      id: 1,
-      icon: EuroIcon,
-      title: "Earn competitive revenue",
-      description: "Generate substantial income through our platform"
-    },
+    // {
+    //   id: 1,
+    //   icon: EuroIcon,
+    //   title: "Earn competitive revenue",
+    //   description: "Generate substantial income through our platform"
+    // },
     {
       id: 2,
       icon: TrendingUp,
@@ -32,12 +32,12 @@ export default function BecomeTeacher() {
       title: "Engage with a vibrant community",
       description: "Connect with like-minded professionals and learners"
     },
-    {
-      id: 4,
-      icon: Wrench,
-      title: "Easy course creation tools",
-      description: "Intuitive tools to create engaging educational content"
-    },
+    // {
+    //   id: 4,
+    //   icon: Wrench,
+    //   title: "Easy course creation tools",
+    //   description: "Intuitive tools to create engaging educational content"
+    // },
     {
       id: 5,
       icon: Megaphone,

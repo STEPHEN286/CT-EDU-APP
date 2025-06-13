@@ -14,7 +14,7 @@ export default function CourseEnrollmentPage() {
     }
   
     return (
-      <main className="min-h-screen bg-black">
+      <main className="min-h-screen">
         <EnrollPage  />
       </main>
     )
