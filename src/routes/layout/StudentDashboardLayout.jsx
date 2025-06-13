@@ -6,6 +6,8 @@ import Sidebar from '@/components/student-dashboard/Sidebar'
 
 export default function StudentDashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const isSessionValid = sessionStorage.getItem("session");
+  console.log("session",isSessionValid)
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}

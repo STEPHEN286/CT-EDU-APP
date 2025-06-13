@@ -91,6 +91,7 @@ const courses = [
 ]
 
 export function StudentOverview() {
+  const isSessionValid = sessionStorage.getItem("session");
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
@@ -103,7 +104,10 @@ export function StudentOverview() {
           <div className="bg-white rounded-lg p-6 mb-6">
             <div className=" md:flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back, Wendy!</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back,  {JSON.parse(sessionStorage.getItem('session'))?.name || 
+               JSON.parse(sessionStorage.getItem('session'))?.full_name || 
+               JSON.parse(sessionStorage.getItem('session'))?.username || 
+               'User'}</h2>
                 <p className="text-gray-600">Ready to continue your learning journey?</p>
               </div>
 

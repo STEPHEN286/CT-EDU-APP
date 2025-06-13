@@ -63,7 +63,7 @@ export default function Header() {
 
                 <NavigationMenuItem>
                   <Link
-                    to="/roadmap"
+                    to="/roadmaps"
                     className="text-black hover:text-red-600 font-medium"
                   >
                     Roadmap

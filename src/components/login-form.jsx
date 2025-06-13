@@ -9,8 +9,8 @@ import usePostData from "@/hooks/useAuthOperation";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "./ui/alert";
 
-export function LoginForm({ className, ...props }) {
-  const { mutate, isError, error, isPending } = usePostData("loginapi.php", "/" ,true);
+export function LoginForm() {
+  const { mutate, isError, error, isPending } = usePostData("loginapi.php", "/",true);
 
   const {
     register,

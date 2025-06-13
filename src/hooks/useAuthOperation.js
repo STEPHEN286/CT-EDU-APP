@@ -1,8 +1,5 @@
 import axios from "axios";
-// import {AUTH_BASE_URL} from "../utils/constants.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-// import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "@/utils/constants";
 import { useNavigate } from "react-router-dom";
 import { useStudent } from "./useStudentAuth";
@@ -16,7 +13,7 @@ const postData = async (endpoint, loginData) => {
     });
 
     const { data, status, message } = response;
-    console.log("response on endpoint", response);
+    // console.log("response on endpoint", response);
     return { data, status, message };
   } catch (error) {
     console.log("response on endpoint", error.response);
@@ -24,35 +21,63 @@ const postData = async (endpoint, loginData) => {
   }
 };
 
-const usePostData = (endpoint, navigateTo,) => {
-   const queryClient = useQueryClient();
-const {setStudent} =  useStudent()
-  // const dispatch = useDispatch();
+const usePostData = (endpoint, navigateTo, isLoginData = false) => {
+  const queryClient = useQueryClient();
+  // const { setStudent } = useStudent();
   const navigate = useNavigate();
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: (data) => postData(endpoint, data),
-    onSuccess: (data) => {
-      console.log("Login Success:", data);
+    onSuccess: (res) => {
+      console.log("Success response:", res);
+      
 
-      if (data.status === "success" && data.user) {
-        setStudent(data.user);
-        navigate(`${navigateTo}`, { replace: true });
-      } else {
-        throw new Error(data.message || "Login failed");
-      }
+
+
+      
+      if (res?.status === 200 && isLoginData) {
+        sessionStorage.setItem("session", JSON.stringify(res.data));
+    }
+    
+   
+            
+          
+          
+    navigate(navigateTo)
+      // Adjust this based on your actual API response structure
+      // Option 1: If your API returns { success: true, data: { user: {...} } }
+      // if (res.status === 200 && isLoginData && res.data?.user) {
+      //   console.log("Setting user data:", res.data.user);
+      //   setStudent(res.data.user);
+      // }
+      
+      // Option 2: If your API returns { data: { user: {...} }, status: 200 }
+      // if (res.status === 200 && isLoginData && res.data?.user) {
+      //   console.log("Setting user data:", res.data.user);
+      //   setStudent(res.data.user);
+      // }
+      
+      // Option 3: If the user data is directly in the response
+      // if (isLoginData && res.user) {
+      //   console.log("Setting user data:", res.user);
+      //   setStudent(res.user);
+      // }
+      
+      navigate(navigateTo, { replace: true });
     },
     onError: (error) => {
-      console.log(error)
-      queryClient.removeQueries(["user"]);
-      queryClient.removeQueries(["auth"]);
+      console.log("Mutation error:", error);
+      // queryClient.removeQueries(["student"]);
+      // queryClient.removeQueries(["studentAuth"]);
     },
-
-    retry: 3,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-  
   });
-  return { mutate, isPending, isError, error };
+
+  return {
+    mutate,
+    isPending,
+    isError,
+    error,
+  };
 };
 
 export default usePostData;

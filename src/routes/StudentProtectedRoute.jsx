@@ -15,9 +15,9 @@ const StudentProtectedRoute = () => {
 
 
 
-  if (!isAuthenticated ) {
-    return <Navigate to="/auth/login" replace />;
-  } 
+  // if (!isAuthenticated ) {
+  //   return <Navigate to="/auth/login" replace />;
+  // } 
 
     return <Outlet />;
 
