@@ -39,7 +39,7 @@ import { ProgressPage } from "@/components/student-dashboard/MyProgress";
 import { SettingsPage } from "@/components/student-dashboard/Settings";
 // import { LucideMessageSquareReply } from "lucide-react";
 import { MessagesPage } from "@/components/student-dashboard/messages/MessagePage";
-import Application from "@/components/lecture-page-contents/Application";
+// import Application from "@/components/lecture-page-contents/Application";
 import ApplicationReview from "@/components/lecture-page-contents/auth/ApplicationUnderReview";
 import QuestionAnswer from "@/components/student-dashboard/QuestionAnswer";
 import BrowseCourse from "@/components/student-dashboard/BrowseCourse";
@@ -90,7 +90,19 @@ const routers = createHashRouter([
       {
         path: "categories/:slug",
         element: <CategoryPage />,
-        children: [{ path: ":module", element: <CategoryPage /> }],
+        children: [
+          { 
+            path: ":module", 
+            element: <CategoryPage /> 
+          },
+          {
+            path: "*",
+            element: <div className="flex flex-col items-center justify-center min-h-[60vh]">
+              <h2 className="text-2xl font-bold mb-4">Category Not Found</h2>
+              <p className="text-gray-600">The category or module you're looking for doesn't exist.</p>
+            </div>
+          }
+        ],
       },
       {
         path: "contact",
@@ -154,6 +166,7 @@ const routers = createHashRouter([
     path: "search",
     element: <Search />,
   },
+  
   // instructor dashboard
   {
     path: "/lecture-auth-login",
@@ -162,11 +175,11 @@ const routers = createHashRouter([
    
   {
     path: "/instructor-dashboard",
-    element:<ProtectedRoute />,
+    element: <ProtectedRoute />,
     children: [
       {
         element: <InstructorDashboardLayout />,
-        children:[
+        children: [
           {
             index: true,
             element: <InstructorDashboardOverview />,
@@ -176,7 +189,7 @@ const routers = createHashRouter([
             element: <ManageCourses />,
           },
           {
-            path: "create-course",
+            path: "create-course", 
             element: <CreateCourse />,
           },
           {

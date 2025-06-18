@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { navMenu } from "@/data";
+
 import { Upload, X } from "lucide-react";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -57,6 +57,7 @@ export default function PersonalInfo() {
         </p>
 
         <div className="space-y-6">
+          {/* profile pic */}
         <div className="space-y-2 relative">
           <Label>Profile Photo *</Label>
           <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center">
@@ -91,6 +92,7 @@ export default function PersonalInfo() {
             />
           </div>
         </div>
+        {/* full name */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="fullName">Full Name *</Label>
@@ -126,7 +128,9 @@ export default function PersonalInfo() {
             </div>
           </div>
 
+           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* professinal title */}
             <div className="space-y-2">
               <Label htmlFor="professionalTitle">Professional Title *</Label>
               <Input
@@ -143,25 +147,19 @@ export default function PersonalInfo() {
               )}
             </div>
 
+              {/* field of expertise */}
             <div className="space-y-2">
               <Label htmlFor="fieldOfExpertise">Field of Expertise *</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your field" />
-                </SelectTrigger>
-                <SelectContent>
-                  {
-                    navMenu.map(module =>(
-                      <SelectItem key={module.title} value={module.title}>
-                     {module.title}
-                    </SelectItem>
-                    ))
-                  }
-                </SelectContent>
-              </Select>
-              {errors.fieldOfExpertise && (
+              <Input
+                id="fieldOfExpertise"
+                placeholder="Enter your field of expertise"
+                {...register("field_of_expertise", {
+                  required: "Field of expertise is required"
+                })}
+              />
+              {errors.field_of_expertise && (
                 <p className="text-sm text-red-500">
-                  {errors.fieldOfExpertise.message}
+                  {errors.field_of_expertise.message}
                 </p>
               )}
             </div>

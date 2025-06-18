@@ -2,30 +2,19 @@ import { BASE_URL } from "@/utils/constants";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const postInstructorData = async (data) => {
+const postCourse = async (data) => {
   try {
-    const formData = new FormData();
+    // const formData = new FormData();
     
     // Add all data to FormData
-    Object.entries(data).forEach(([key, value]) => {
-      if (value instanceof File) {
-        formData.append(key, value);
-      } else if (Array.isArray(value)) {
-        // Handle arrays properly for PHP - convert to comma-separated values
-        formData.append(key, value.join(','));
-      } else if (typeof value === 'object' && value !== null) {
-        formData.append(key, JSON.stringify(value));
-      } else if (value != null) {
-        formData.append(key, String(value));
-      }
-    });
+   
 
     const response = await axios.post(
-      `${BASE_URL}/instructor-applications`,
-      formData,
+      `${BASE_URL}/course-upload`,
+      data,
       {
-        headers: { "Content-Type": "multipart/form-data" },
-        timeout: 30000,
+        // headers: { "Content-Type": "multipart/form-data" },
+        // timeout: 30000,
       }
     );
     
@@ -50,9 +39,9 @@ const postInstructorData = async (data) => {
   }
 };
 
-export const usePostInstructors = () => {
+export const usePostCourseUpload = () => {
   const { mutate, isPending, isError, error, isSuccess, data } = useMutation({
-    mutationFn: postInstructorData,
+    mutationFn: postCourse,
     onSuccess: (response) => {
       console.log("✅ Application submitted successfully:", response);
     },

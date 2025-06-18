@@ -39,6 +39,7 @@ export default function RegisterInstructor() {
   const back = () => setStep((prev) => prev - 1);
 
   const onSubmit = async (data) => {
+    console.log(" data for API:", data);
     // Manual validation for required files
     if (!data.sample_video|| (data.sample_video instanceof FileList && data.sample_video.length === 0)) {
       alert("Please upload a sample video");
@@ -60,6 +61,7 @@ export default function RegisterInstructor() {
       full_name: data.full_name || "",
       email: data.email || "",
       professional_title: data.professional_title || "",
+      field_of_expertise: data.field_of_expertise || "",
       professional_bio: data.professional_bio || "",
       years_experience: data.years_experience || "",
       current_occupation: data.current_occupation || "",
@@ -69,7 +71,7 @@ export default function RegisterInstructor() {
       certifications: data.certifications ? 
         Object.keys(data.certifications).filter(key => data.certifications[key]).join(',') : "",
       course_title: data.course_title || "",
-      course_category: data.course_category || "",
+      course_id: data.course_id || "",
       course_level: data.course_level || "Beginner",
       course_description: data.course_description || "",
       course_outline: data.course_outline || "",

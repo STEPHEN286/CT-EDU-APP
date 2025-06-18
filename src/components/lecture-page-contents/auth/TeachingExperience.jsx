@@ -27,6 +27,7 @@ export default function TeachingExperience() {
 
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* year of experience */}
           <div className="space-y-2">
             <Label htmlFor="yearsExperience">Years of Experience *</Label>
             <Input
@@ -40,6 +41,7 @@ export default function TeachingExperience() {
             )}
           </div>
 
+{/* current occupation */}
           <div className="space-y-2">
             <Label htmlFor="currentOccupation">Current Occupation *</Label>
             <Input
@@ -91,7 +93,7 @@ export default function TeachingExperience() {
           </div>
         </div>
 
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <Label htmlFor="linkedinProfile">LinkedIn Profile URL (Optional)</Label>
           <Input
             type="url"
@@ -108,7 +110,7 @@ export default function TeachingExperience() {
           <p className="text-xs text-gray-500">
             Adding your LinkedIn profile helps establish credibility with potential students.
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

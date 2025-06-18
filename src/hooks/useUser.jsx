@@ -7,9 +7,10 @@ export const useUser = () => {
   const navigate = useNavigate();
   
   const { data: user, isLoading, error , isSuccess} = useQuery({
-    queryKey: ['user'],
+    queryKey: ['instructor'],
     queryFn: () => {
-      return null;
+      const cachedData = queryClient.getQueryData(['instructor']);
+      return cachedData || null;
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 30, // 30 minutes (replaces cacheTime)
@@ -27,18 +28,19 @@ export const useUser = () => {
   const isAuthenticated = !!user && !!user.id;
   const isAuthReady = user !== undefined || isSuccess;
   const updateUser = (userData) => {
-    queryClient.setQueryData(['user'], userData);
+    queryClient.setQueryData(['instructor'], userData);
   };
 
   const clearUser = () => {
-    queryClient.removeQueries(['user']);
+    queryClient.removeQueries(['instructor']);
     queryClient.removeQueries(['auth']);
     navigate('/');
   };
 
   // Helper function to set user data (typically called after login)
   const setUser = (userData) => {
-    queryClient.setQueryData(['user'], userData);
+    // console.log("set user", userData)
+    queryClient.setQueryData(['instructor'], userData);
   };
 
   return {

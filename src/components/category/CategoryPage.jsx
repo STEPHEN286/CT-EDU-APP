@@ -17,7 +17,25 @@ export default function CategoryPage() {
   const category = categoryData[slug]
 
   if (!category) {
-    return <div>Category not found</div>
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <svg 
+          className="w-24 h-24 text-gray-400 mb-4"
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+          />
+        </svg>
+        <h2 className="text-3xl font-bold text-gray-700 mb-2">Category Not Found</h2>
+        <p className="text-gray-500 text-lg">The category you're looking for doesn't exist.</p>
+      </div>
+    )
   }
 
   return (

@@ -4,7 +4,7 @@ import { useUser } from "@/hooks/useUser";
 const ProtectedRoute = () => {
   const { user, isAuthenticated, isLoading,  } = useUser();
 
-  console.log("user", isAuthenticated);
+  console.log("user", user);
 
   const isAuthReady = !isLoading && user !== undefined;
 

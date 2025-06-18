@@ -5,9 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useFormContext, Controller } from "react-hook-form";
 import { navMenu } from "@/data";
+// import FeaturedCourse from "@/components/landing-page-contents/FeaturedCourse";
+import { useFetchCourses } from "@/hooks/useModulesActions";
 
 
 export default function CourseProposal() {
+  const {data} = useFetchCourses();
+
   const {
     register,
     control,
@@ -29,7 +33,7 @@ export default function CourseProposal() {
             <Label htmlFor="courseCategory" className="text-lg">Course  Category*</Label>
             <Controller
               control={control}
-              name="course_category"
+              name="course_id"
               rules={{ required: "Course category is required" }}
               render={({ field }) => (
                 <Select    className=" "  onValueChange={field.onChange} value={field.value}>
@@ -37,8 +41,8 @@ export default function CourseProposal() {
                     <SelectValue placeholder="Select a Course" />
                   </SelectTrigger>
                   <SelectContent className="">
-                    {navMenu.map(course => (
-                      <SelectItem value={course.title}>{course.title}</SelectItem>
+                    {data?.map(course => (
+                      <SelectItem value={course.id}>{course.title}</SelectItem>
 
                     ))}
                     

@@ -1,261 +1,195 @@
-import React, { useState } from 'react';
-import { Video, FileText, File, Presentation, Table, Upload, X, HelpCircle } from 'lucide-react';
+"use client"
 
+import { useState } from "react"
+import { useForm, FormProvider } from "react-hook-form"
+import { BookOpen, Settings, CloudUpload, AlertCircle } from "lucide-react"
+
+import CourseDetails from "./modules/CourseDetails"
+import CourseContent from "./modules/courseContent"
+import { usePostCourseUpload } from "@/hooks/useCoursesActions"
+import { useUser } from "@/hooks/useUser"
+
+/**
+ * Main Course Builder Component
+ * Simple React Hook Form implementation with validation
+ */
 const LectureInput = () => {
-  const [sections, setSections] = useState([
-    {
-      id: 1,
-      title: "Section 1",
-      lectures: [
-        { id: 1, title: "", type: "video", file: null }
-      ]
+  const [activeTab, setActiveTab] = useState("details")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const {user} = useUser ()
+
+  // Initialize React Hook Form with simple validation
+  const methods = useForm({
+    mode: "onChange",
+    defaultValues: {
+      // Course details
+      title: "",
+      description: "",
+    
+    
+      // Course sections
+      sections: [
+        {
+          title: "Introduction",
+          lectures: [{ title: "", type: "video", file: null }],
+        },
+      ],
+    },
+  })
+
+  const {
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = methods
+
+  // Watch form data for statistics
+  const formData = watch()
+  const isFormReady = () => {
+    const { title, description,  sections } = formData
+  
+    const hasCourseDetails =
+      title?.trim() &&
+      description?.trim() 
+      
+    
+  
+    const hasCourseContent =
+      sections?.length > 0 &&
+      sections.every(
+        (section) =>
+          section.title?.trim() &&
+          section.lectures?.length > 0 &&
+          section.lectures.every((lecture) => lecture.title?.trim() && lecture.file)
+      )
+  
+    return hasCourseDetails && hasCourseContent
+  }
+  
+  // Get statistics
+  const getTotalFiles = () => {
+    return (
+      formData.sections?.reduce((total, section) => {
+        return total + (section?.lectures?.filter((lecture) => lecture?.file)?.length || 0)
+      }, 0) || 0
+    )
+  }
+
+  const getTotalLectures = () => {
+    return (
+      formData.sections?.reduce((total, section) => {
+        return total + (section?.lectures?.length || 0)
+      }, 0) || 0
+    )
+  }
+
+
+
+  const {mutate} = usePostCourseUpload()
+
+  // Form submission handler
+
+  // console.log("user", user.id)
+  const onSubmit = async (data) => {
+    const formData = {
+      category_id : user.category_id,
+      instructor_id: user.id,
+      ...data
     }
-  ]);
-
-  const getIconForType = (type) => {
-    const icons = {
-      video: <Video className="h-4 w-4 text-gray-500" />,
-      pdf: <FileText className="h-4 w-4 text-red-500" />,
-      word: <File className="h-4 w-4 text-blue-500" />,
-      excel: <Table className="h-4 w-4 text-green-500" />,
-      powerpoint: <Presentation className="h-4 w-4 text-orange-500" />,
-      quiz: <HelpCircle className="h-4 w-4 text-purple-500" />
-    };
-    return icons[type] || <File className="h-4 w-4 text-gray-500" />;
-  };
-
-  const getAcceptedFileTypes = (type) => {
-    const fileTypes = {
-      video: ".mp4,.avi,.mov,.wmv,.flv,.webm",
-      pdf: ".pdf",
-      word: ".doc,.docx",
-      excel: ".xls,.xlsx,.csv",
-      powerpoint: ".ppt,.pptx",
-      quiz: ".pdf,.doc,.docx" // Quiz files can be PDF or Word documents
-    };
-    return fileTypes[type] || "";
-  };
-
-  const updateLecture = (sectionIndex, lectureId, field, value) => {
-    setSections(prev => 
-      prev.map((section, idx) => 
-        idx === sectionIndex 
-          ? {
-              ...section,
-              lectures: section.lectures.map(lecture => 
-                lecture.id === lectureId 
-                  ? { ...lecture, [field]: value }
-                  : lecture
-              )
-            }
-          : section
-      )
-    );
-  };
-
-  const handleFileUpload = (sectionIndex, lectureId, file) => {
-    updateLecture(sectionIndex, lectureId, 'file', file);
-  };
-
-  const removeFile = (sectionIndex, lectureId) => {
-    updateLecture(sectionIndex, lectureId, 'file', null);
-  };
-
-  const addLecture = (sectionIndex) => {
-    setSections(prev => 
-      prev.map((section, idx) => 
-        idx === sectionIndex 
-          ? {
-              ...section,
-              lectures: [
-                ...section.lectures,
-                { 
-                  id: Date.now(), 
-                  title: "", 
-                  type: "video", 
-                  file: null 
-                }
-              ]
-            }
-          : section
-      )
-    );
-  };
-
-  const addSection = () => {
-    setSections(prev => [
-      ...prev,
-      {
-        id: Date.now(),
-        title: `Section ${prev.length + 1}`,
-        lectures: [{ id: Date.now(), title: "", type: "video", file: null }]
-      }
-    ]);
-  };
+    mutate(formData)
+    console.log("course" , formData)
+  }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Course Content</h2>
-        <p className="text-gray-600">Add lectures with various file formats including videos, documents, presentations, and quizzes.</p>
-      </div>
-
-      {sections.map((section, sectionIndex) => (
-        <div key={section.id} className="mb-8 border border-gray-200 rounded-lg p-6">
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Section title"
-              value={section.title}
-              onChange={(e) => {
-                setSections(prev => 
-                  prev.map((s, idx) => 
-                    idx === sectionIndex ? { ...s, title: e.target.value } : s
-                  )
-                );
-              }}
-              className="text-lg font-semibold px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
-            />
-          </div>
-
-          {section.lectures.map((lecture, lectureIndex) => (
-            <div key={lecture.id} className="mb-4 p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center gap-3 mb-3">
-                {getIconForType(lecture.type)}
-                <input
-                  type="text"
-                  placeholder="Lecture title"
-                  value={lecture.title}
-                  onChange={(e) => updateLecture(sectionIndex, lecture.id, 'title', e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <select
-                  value={lecture.type}
-                  onChange={(e) => {
-                    updateLecture(sectionIndex, lecture.id, 'type', e.target.value);
-                    updateLecture(sectionIndex, lecture.id, 'file', null); // Clear file when type changes
-                  }}
-                  className="w-36 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="video">Video</option>
-                  <option value="pdf">PDF</option>
-                  <option value="word">Word Doc</option>
-                  <option value="excel">Excel</option>
-                  <option value="powerpoint">PowerPoint</option>
-                  <option value="quiz">Quiz</option>
-                </select>
+    <FormProvider {...methods}>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="sticky top-0 z-10 bg-white border-b shadow-sm">
+          <div className="max-w-6xl mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Course Builder</h1>
+                <p className="text-sm text-gray-600">
+                  {formData.sections?.length || 0} sections • {getTotalLectures()} lectures • {getTotalFiles()} files
+                </p>
               </div>
 
-              {/* File upload section for all types */}
-              <div className="mt-3">
-                {!lecture.file ? (
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-400 transition-colors">
-                    <input
-                      type="file"
-                      accept={getAcceptedFileTypes(lecture.type)}
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) handleFileUpload(sectionIndex, lecture.id, file);
-                      }}
-                      className="hidden"
-                      id={`file-${section.id}-${lecture.id}`}
-                    />
-                    <label
-                      htmlFor={`file-${section.id}-${lecture.id}`}
-                      className="cursor-pointer flex flex-col items-center"
-                    >
-                      <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                      <span className="text-sm text-gray-600">
-                        Click to upload {lecture.type} file
-                      </span>
-                      <span className="text-xs text-gray-500 mt-1">
-                        {getAcceptedFileTypes(lecture.type).replace(/\./g, '').toUpperCase()}
-                      </span>
-                    </label>
-                  </div>
+              {/* Submit Button */}
+              <button
+                type="button"
+                onClick={handleSubmit(onSubmit)}
+                disabled={!isFormReady() || isSubmitting}
+  className={`px-6 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors ${
+    isFormReady() && !isSubmitting
+      ? "bg-green-600 hover:bg-green-700 text-white"
+      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+  }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Creating...
+                  </>
                 ) : (
-                  <div className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg">
-                    <div className="flex items-center gap-2">
-                      {getIconForType(lecture.type)}
-                      <span className="text-sm font-medium text-gray-700">
-                        {lecture.file.name}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        ({(lecture.file.size / 1024 / 1024).toFixed(2)} MB)
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => removeFile(sectionIndex, lecture.id)}
-                      className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-                    >
-                      <X className="h-4 w-4 text-gray-500" />
-                    </button>
-                  </div>
+                  <>
+                    <CloudUpload className="h-4 w-4" />
+                    Create Course
+                  </>
                 )}
-              </div>
-
-              {/* Special message for quiz type */}
-              {lecture.type === 'quiz' && !lecture.file && (
-                <div className="mt-3 p-3 bg-purple-50 border border-purple-200 rounded-lg">
-                  <p className="text-sm text-purple-700 mb-2">
-                    <strong>Quiz Options:</strong>
-                  </p>
-                  <ul className="text-sm text-purple-600 space-y-1">
-                    <li>• Upload existing quiz files (PDF or Word documents)</li>
-                    <li>• Or create interactive quizzes using the quiz builder tool</li>
-                  </ul>
-                </div>
-              )}
+              </button>
             </div>
-          ))}
 
-          <button
-            onClick={() => addLecture(sectionIndex)}
-            className="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
-          >
-            + Add Lecture
-          </button>
+            {/* Tabs */}
+            <div className="mt-4 border-b">
+              <nav className="-mb-px flex space-x-8">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("details")}
+                  className={`py-3 px-1 border-b-2 font-medium text-sm flex items-center gap-2 ${
+                    activeTab === "details"
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  <Settings className="h-4 w-4" />
+                  Course Details
+                  {errors.title || errors.description || errors.category || errors.level || errors.price ? (
+                    <AlertCircle className="h-4 w-4 text-red-500" />
+                  ) : null}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("content")}
+                  className={`py-3 px-1 border-b-2 font-medium text-sm flex items-center gap-2 ${
+                    activeTab === "content"
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  <BookOpen className="h-4 w-4" />
+                  Course Content
+                  {getTotalFiles() > 0 && (
+                    <span className="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full">
+                      {getTotalFiles()}
+                    </span>
+                  )}
+                  {errors.sections ? <AlertCircle className="h-4 w-4 text-red-500" /> : null}
+                </button>
+              </nav>
+            </div>
+          </div>
         </div>
-      ))}
 
-      <button
-        onClick={addSection}
-        className="w-full px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
-      >
-        + Add Section
-      </button>
-
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-        <h3 className="font-medium text-gray-800 mb-2">Supported File Formats:</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <Video className="h-4 w-4" />
-            Video: MP4, AVI, MOV, WMV
-          </div>
-          <div className="flex items-center gap-2">
-            <FileText className="h-4 w-4 text-red-500" />
-            PDF Documents
-          </div>
-          <div className="flex items-center gap-2">
-            <File className="h-4 w-4 text-blue-500" />
-            Word: DOC, DOCX
-          </div>
-          <div className="flex items-center gap-2">
-            <Table className="h-4 w-4 text-green-500" />
-            Excel: XLS, XLSX, CSV
-          </div>
-          <div className="flex items-center gap-2">
-            <Presentation className="h-4 w-4 text-orange-500" />
-            PowerPoint: PPT, PPTX
-          </div>
-          <div className="flex items-center gap-2">
-            <HelpCircle className="h-4 w-4 text-purple-500" />
-            Quiz: PDF, DOC, DOCX
-          </div>
+        {/* Content */}
+        <div className="max-w-6xl mx-auto px-6 py-6">
+          {activeTab === "details" && <CourseDetails />}
+          {activeTab === "content" && <CourseContent />}
         </div>
       </div>
-    </div>
-  );
-};
+    </FormProvider>
+  )
+}
 
-export default LectureInput;
+export default LectureInput
