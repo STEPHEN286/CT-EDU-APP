@@ -22,14 +22,11 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build the app
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
         run: npm run build
 
-      - name: Build the app
-        env:
-         VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
-        run: npm run build
-        
-      - name: Clean frontend files only (preserve API)
+      - name: Clean frontend files (preserve API folder)
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: 191.101.13.49
@@ -37,19 +34,9 @@ jobs:
           username: u890055708
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           script: |
-            # Go to the public_html directory
             cd /home/u890055708/domains/ctedu.site/public_html/
-            
-            # Remove only frontend files, keep API folder
             find . -maxdepth 1 -type f -delete
             find . -maxdepth 1 -type d ! -name "." ! -name ".." ! -name "api" -exec rm -rf {} +
-            
-            # Alternative safer approach - remove specific files/folders
-            # rm -rf assets/
-            # rm -f index.html
-            # rm -f favicon.ico
-            # rm -f manifest.json
-            # Keep the api/ folder untouched
 
       - name: Upload built files
         uses: appleboy/scp-action@v0.1.7
