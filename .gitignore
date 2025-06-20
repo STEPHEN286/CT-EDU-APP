@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 .env
-.env.prduction
+.env.production
 github-action-key
 github-action-key.pub
 
