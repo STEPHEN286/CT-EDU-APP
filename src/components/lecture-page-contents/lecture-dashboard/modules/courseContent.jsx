@@ -175,7 +175,7 @@ const CourseContent = () => {
                             {...register(`sections.${sectionIndex}.lectures.${lectureIndex}.title`, {
                               required: "Lecture title is required",
                             })}
-                            placeholder="Lecture title"
+                            placeholder="Lecture title."
                             className={`flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white ${
                               lectureError?.title ? "border-red-500" : "border-gray-300"
                             }`}
