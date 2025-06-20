@@ -11,18 +11,18 @@ import { Link } from "react-router-dom";
 
 export default function CourseCard({ course }) {
   return (
-    <Link to={`/course`} className="block w-full md:max-w-[240px] ">
+    <Link to={`/course-details/${course.id}`} className="block w-full md:max-w-[240px] ">
       <Card className="h-full !rounded  shadow-none border-0 p-0 overflow-hidden transition-all  hover:-translate-y-0.5 active:scale-[0.98] flex flex-col group">
         {/* Compact Image Container */}
         <div className="relative aspect-[3/2] w-full overflow-hidden">
           <img
-            src={course.image || "/placeholder.svg?height=140&width=210"}
+            src={course.thumbnail || "https://res.cloudinary.com/disgj6wx5/image/upload/v1750262850/nzfaomx0a1hi8hz3gq6m.jpg"}
             alt={course.title}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
           <Badge className="absolute top-1.5 left-1.5 bg-red-600 text-white text-[10px] px-1.5 py-0.5 font-medium">
-            {course.category}
+            {course.category_name}
           </Badge>
         </div>
 
@@ -31,7 +31,7 @@ export default function CourseCard({ course }) {
           <h3 className="font-semibold text-xs line-clamp-2 text-gray-900 leading-tight mb-1 group-hover:text-red-600 transition-colors">
             {course.title}
           </h3>
-          <p className="text-[10px] text-gray-600 mb-2">by {course.instructor}</p>
+          <p className="text-[10px] text-gray-600 mb-2">by {course.instructor_name}</p>
           
           {/* Compact Stats */}
           <div className="flex items-center justify-between text-[10px] text-gray-500 mb-2">

@@ -10,7 +10,7 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "./ui/alert";
 
 export function LoginForm() {
-  const { mutate, isError, error, isPending } = usePostData("loginapi.php", "/",true);
+  const { mutate, isError, error, isPending } = usePostData("auth/login/student", "/",true);
 
   const {
     register,

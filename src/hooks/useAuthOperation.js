@@ -1,20 +1,21 @@
 import axios from "axios";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { BASE_URL } from "@/utils/constants";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+
+import { BASE_URL } from "@/utils/constants";
 import { useStudent } from "./useStudentAuth";
 
-const postData = async (endpoint, loginData) => {
+const postData = async (endpoint, data) => {
+  
   try {
-    const response = await axios.post(`${BASE_URL}/${endpoint}`, loginData, {
+    const response = await axios.post(`${BASE_URL}/${endpoint}`, data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const { data, status, message } = response;
-    // console.log("response on endpoint", response);
-    return { data, status, message };
+    const { data: responseData, status, message } = response;
+    return { data: responseData, status, message };
   } catch (error) {
     console.log("response on endpoint", error.response);
     throw new Error(error.response.data.message);
@@ -22,8 +23,7 @@ const postData = async (endpoint, loginData) => {
 };
 
 const usePostData = (endpoint, navigateTo, isLoginData = false) => {
-  const queryClient = useQueryClient();
-  // const { setStudent } = useStudent();
+  const {setStudent} = useStudent()
   const navigate = useNavigate();
 
   const { mutate, isPending, isError, error } = useMutation({
@@ -31,53 +31,48 @@ const usePostData = (endpoint, navigateTo, isLoginData = false) => {
     onSuccess: (res) => {
       console.log("Success response:", res);
       
-
-
-
-      
       if (res?.status === 200 && isLoginData) {
-        sessionStorage.setItem("session", JSON.stringify(res.data));
-    }
+        
+        setStudent (res.data.user)
+        localStorage.setItem("sessionIdentifier", res.data.token)
+        navigate(navigateTo, { replace: true });
+      }
     
-   
-            
-          
-          
-    navigate(navigateTo)
-      // Adjust this based on your actual API response structure
-      // Option 1: If your API returns { success: true, data: { user: {...} } }
-      // if (res.status === 200 && isLoginData && res.data?.user) {
-      //   console.log("Setting user data:", res.data.user);
-      //   setStudent(res.data.user);
-      // }
-      
-      // Option 2: If your API returns { data: { user: {...} }, status: 200 }
-      // if (res.status === 200 && isLoginData && res.data?.user) {
-      //   console.log("Setting user data:", res.data.user);
-      //   setStudent(res.data.user);
-      // }
-      
-      // Option 3: If the user data is directly in the response
-      // if (isLoginData && res.user) {
-      //   console.log("Setting user data:", res.user);
-      //   setStudent(res.user);
-      // }
-      
-      navigate(navigateTo, { replace: true });
+      if (res.data.redirectTo && res.status === 200) {
+        sessionStorage.setItem("email", res.data.email);
+        navigate(res.data.redirectTo, { replace: true });
+      }
     },
     onError: (error) => {
       console.log("Mutation error:", error);
-      // queryClient.removeQueries(["student"]);
-      // queryClient.removeQueries(["studentAuth"]);
     },
   });
 
   return {
     mutate,
-    isPending,
+    isPending, 
     isError,
     error,
   };
 };
 
-export default usePostData;
+const useResendEmail = () => {
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: (email) => postData("auth/resend-verification", { email }),
+    onSuccess: () => {
+      console.log("Verification email resent successfully");
+    },
+    onError: (error) => {
+      console.log("Failed to resend verification email:", error);
+    }
+  });
+
+  return {
+    resendEmail: mutate,
+    isResending: isPending,
+    resendError: error,
+    hasResendError: isError
+  };
+};
+
+export { usePostData as default, useResendEmail };

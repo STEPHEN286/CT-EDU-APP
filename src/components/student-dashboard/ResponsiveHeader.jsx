@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState,  } from "react"
 import { useNavigate, NavLink } from "react-router-dom"
 import { Search, HelpCircle, Bell, LogOut, Menu, X, User, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -24,6 +24,8 @@ import {
   Settings,
 } from "lucide-react";
 
+import { useStudent } from "@/hooks/useStudentAuth"
+
 const sidebarItems = [
   { icon: BarChart3, label: "Overview", to: "/profile" },
   { icon: BookOpen, label: "My Courses", to: "/profile/my-course" },
@@ -37,34 +39,35 @@ const sidebarItems = [
 export function ResponsiveHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [user, setUser] = useState(null)
+  // const [user, setUser] = useState(null)
+  const {student} = useStudent()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    // Check session on component mount
-    checkSession()
-  }, [])
+  // useEffect(() => {
+  //   // Check session on component mount
+  //   checkSession()
+  // }, [])
 
-  const checkSession = () => {
-    try {
-      const sessionData = sessionStorage.getItem('session')
+  // const checkSession = () => {
+  //   try {
+  //     const sessionData = sessionStorage.getItem('session')
       
-      if (!sessionData) {
-        // No session found, redirect to login
-        navigate('/login')
-        return
-      }
+  //     if (!sessionData) {
+  //       // No session found, redirect to login
+  //       navigate('/login')
+  //       return
+  //     }
 
-      // Parse session data
-      const userData = JSON.parse(sessionData)
-      setUser(userData)
+  //     // Parse session data
+  //     const userData = JSON.parse(sessionData)
+  //     setUser(userData)
       
-    } catch (error) {
-      console.error('Error parsing session data:', error)
-      // Invalid session, redirect to login
-      navigate('/auth/login')
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error parsing session data:', error)
+  //     // Invalid session, redirect to login
+  //     navigate('/auth/login')
+  //   }
+  // }
 
   const handleLogout = () => {
     // Clear session
@@ -80,24 +83,32 @@ export function ResponsiveHeader() {
   }
 
   // If no user data yet, show loading or return null
-  if (!user) {
-    return (
-      <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-50">
-        <div className="flex items-center justify-center">
-          <div>Loading...</div>
-        </div>
-      </header>
-    )
-  }
+  // if (!user) {
+  //   return (
+  //     <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-50">
+  //       <div className="flex items-center justify-center">
+  //         <div>Loading...</div>
+  //       </div>
+  //     </header>
+  //   )
+  // }
 
   return (
     <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-50">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         {/* Logo and Home Link - Now at the top on mobile */}
         <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
-          <NavLink to="/" className="text-lg sm:text-xl font-bold text-red-600">
-            CTI EDU HUB
-          </NavLink>
+          <div className="flex items-center">
+            <NavLink to="/" className="text-lg sm:text-xl font-bold text-red-600 mr-4">
+              CTI EDU HUB
+            </NavLink>
+            <NavLink 
+              to="/" 
+              className="hidden md:flex items-center text-gray-600 hover:text-gray-900"
+            >
+              <Home className="h-5 w-5" />
+            </NavLink>
+          </div>
           
           {/* Mobile Menu Button - Moved to the right of logo */}
           <div className="flex items-center md:hidden">
@@ -210,18 +221,18 @@ export function ResponsiveHeader() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user?.profile_picture || "/placeholder.svg?height=32&width=32"} />
-                      <AvatarFallback>{getUserInitials(user?.name || user?.full_name || user?.username)}</AvatarFallback>
+                      <AvatarImage src={student?.profile_picture || "/placeholder.svg?height=32&width=32"} />
+                      <AvatarFallback>{getUserInitials(student?.name)}</AvatarFallback>
                     </Avatar>
                     {/* Show name on larger mobile screens */}
                     <span className="hidden sm:block lg:hidden text-sm">
-                      {user?.name || user?.full_name || user?.username || 'User'}
+                      {student?.name }
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <div className="px-2 py-1.5 text-sm text-gray-500 border-b">
-                    {user?.email}
+                    {student?.email}
                   </div>
                   <DropdownMenuItem>
                     <User className="h-4 w-4 mr-2" />
@@ -248,15 +259,15 @@ export function ResponsiveHeader() {
             <div className="hidden lg:flex items-center space-x-3">
               <div className="flex items-center space-x-2">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={user?.profile_picture || "/placeholder.svg?height=32&width=32"} />
-                  <AvatarFallback>{getUserInitials(user?.name || user?.full_name || user?.username)}</AvatarFallback>
+                  <AvatarImage src={student?.profile_picture || "/placeholder.svg?height=32&width=32"} />
+                  <AvatarFallback>{getUserInitials(student?.name)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-gray-900">
-                    {user?.name || user?.full_name || user?.username || 'User'}
+                    {student?.name }
                   </span>
                   <span className="text-xs text-gray-500">
-                    {user?.email}
+                    {student?.email}
                   </span>
                 </div>
               </div>

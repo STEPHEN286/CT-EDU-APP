@@ -70,7 +70,7 @@ const routers = createHashRouter([
       },
 
       {
-        path: "course",
+        path: "course-details/:id",
         element: <CourseDetailsPage />,
       },
       

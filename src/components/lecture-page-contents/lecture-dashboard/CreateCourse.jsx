@@ -15,7 +15,7 @@ import { useUser } from "@/hooks/useUser"
  */
 const LectureInput = () => {
   const [activeTab, setActiveTab] = useState("details")
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  // const [isSubmitting, setIsSubmitting] = useState(false)
 
   const {user} = useUser ()
 
@@ -86,7 +86,7 @@ const LectureInput = () => {
 
 
 
-  const {mutate} = usePostCourseUpload()
+  const {mutate, isPending} = usePostCourseUpload()
 
   // Form submission handler
 
@@ -119,14 +119,14 @@ const LectureInput = () => {
               <button
                 type="button"
                 onClick={handleSubmit(onSubmit)}
-                disabled={!isFormReady() || isSubmitting}
+                disabled={!isFormReady() ||isPending}
   className={`px-6 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors ${
-    isFormReady() && !isSubmitting
+    isFormReady() && !isPending
       ? "bg-green-600 hover:bg-green-700 text-white"
       : "bg-gray-300 text-gray-500 cursor-not-allowed"
   }`}
               >
-                {isSubmitting ? (
+                {isPending? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                     Creating...

@@ -31,9 +31,9 @@ const fetchModules = async () => {
 }
 
 // GET COURSES
-export function useFetchCourses() {
+export function useFetchCoursesCategories() {
     const query = useQuery({
-        queryKey: ["courses"],
+        queryKey: ["courseCategories"],
         queryFn: () => fetchCourses(),
         retry: 1,
         staleTime: 300000,

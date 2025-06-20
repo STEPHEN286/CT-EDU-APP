@@ -4,19 +4,37 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Star, Clock, Users, PlayCircle, CheckCircle, BookOpen, Award, Globe } from "lucide-react"
-import CustomVideoPlayer from "./VideoPlayer"
 import { courseSections, learningOutcomes } from "./data"
 import {  useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Breadcrumbs from "../ui/Breadcrums"
 
-export default function CourseDetailsPage() {
-const navigate = useNavigate()
-const handleEnroll = ()=>{
+import CustomVideoPlayer from "./VideoPlayer"
+import { useFetchCourseDetails } from "@/hooks/useFetchCourseDetails"
 
+
+export default function CourseDetailsPage() {
+  const {id} = useParams ()
+  const navigate = useNavigate()
+
+  const {courseDetails, isLoading} = useFetchCourseDetails(id)
+  console.log('Course Details:', courseDetails)
+  console.log('Loading state:', isLoading)
+
+  // con
+const handleEnroll = ()=>{
    sessionStorage.getItem("session") === null ?  navigate('/auth/signup') : navigate('/enroll')
 }
   const [videoUrlChange,setVideoUrl] = useState (" https://i.imgur.com/bkz3hIJ.mp4 ")
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-600"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* <Breadcrumbs /> */}
@@ -26,8 +44,8 @@ const handleEnroll = ()=>{
           <div className="lg:col-span-2">
             {/* Course Header */}
             <div className="mb-8">
-              <Badge className="mb-3 bg-red-600 hover:bg-red-700 text-white">Web Development</Badge>
-              <h1 className="text-4xl font-bold text-black mb-4">Complete Web Development Bootcamp</h1>
+              <Badge className="mb-3 bg-red-600 hover:bg-red-700 text-white">{courseDetails.category_name}</Badge>
+              <h1 className="text-4xl font-bold text-black mb-4">{courseDetails?.title}</h1>
               <p className="text-gray-600 text-lg mb-6">
                 Master HTML, CSS, JavaScript, React, and Node.js to become a full-stack developer
               </p>
@@ -91,28 +109,28 @@ const handleEnroll = ()=>{
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
-                  {courseSections.map((section) => (
+                  {courseDetails.sections?.map((section) => (
                     <AccordionItem key={section.id} value={`section-${section.id}`}>
                       <AccordionTrigger className="hover:no-underline">
                         <div className="flex justify-between items-center w-full text-left">
                           <span className="font-semibold text-black">{section.title}</span>
                           <span className="text-sm text-gray-500">
-                            {section.lectures} lectures • {section.duration}
+                            {section.lectures.length} lectures • {section.duration}
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-2 pt-2">
-                          {section.lessons.map((lesson) => (
+                          {section?.lectures?.map((lesson) => (
                             <div
                               key={lesson.id}
                               className="flex items-center justify-between py-2 px-3 hover:bg-gray-50 rounded"
                             >
                               <div className="flex items-center">
                                 <PlayCircle className="h-4 w-4 text-gray-400 mr-3" />
-                                <span className="text-gray-700">{lesson.title}</span>
+                                {/* <span className="text-gray-700">{lesson.title}</span> */}
                               </div>
-                              <span className="text-sm text-gray-500">{lesson.duration}</span>
+                              {/* <span className="text-sm text-gray-500">{lesson.duration}</span> */}
                             </div>
                           ))}
                         </div>
@@ -131,9 +149,9 @@ const handleEnroll = ()=>{
               <Card className="border-2 border-red-100">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <div className="text-3xl font-bold text-black mb-2">£89.99</div>
-                    <div className="text-gray-500 line-through">£199.99</div>
-                    <Badge className="bg-red-600 text-white mt-2">55% OFF</Badge>
+                    <div className="text-3xl font-bold text-black mb-2">€ {courseDetails.price}</div>
+                    {/* <div className="text-gray-500 line-through">£199.99</div> */}
+                    {/* <Badge className="bg-red-600 text-white mt-2">55% OFF</Badge> */}
                   </div>
 
                   <Button onClick = {() => handleEnroll()}  className="w-full bg-red-600 hover:bg-red-700 text-white mb-4 h-12 text-lg font-semibold">
@@ -177,7 +195,7 @@ const handleEnroll = ()=>{
                       <AvatarFallback className="bg-red-100 text-red-600">JS</AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-semibold text-black">John Smith</h4>
+                      <h4 className="font-semibold text-black">{courseDetails.instructor_name}</h4>
                       <p className="text-sm text-gray-600 mb-2">Senior Full-Stack Developer</p>
                       <div className="flex items-center mb-2">
                         <Star className="h-4 w-4 fill-red-500 text-red-500" />

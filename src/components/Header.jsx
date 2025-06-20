@@ -31,12 +31,14 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { containerClass } from "@/utils/css-utils";
 import CategoryDropdown from "./CategoryDropdown";
 import LanguageSelector from "./language-selector/LanguageSelector";
+import { useStudent } from "@/hooks/useStudentAuth";
 
 export default function Header() {
   const { t } = useTranslation("navbar");
   const [isOpen, setIsOpen] = useState(false);
 
-  const isSessionValid = sessionStorage.getItem("session");
+  // const isSessionValid = sessionStorage.getItem("session");
+  const {student} = useStudent()
 
   const handleCloseSheet = () => {
     setIsOpen(false);
@@ -117,7 +119,7 @@ export default function Header() {
             </Link>
 
             {/* User Menu */}
-            {isSessionValid ? (
+            {student? (
               <DropdownMenu>
                 <DropdownMenuTrigger className="hidden md:block" asChild>
                   <Button variant="ghost" size="sm">
@@ -173,7 +175,7 @@ export default function Header() {
                     <span>CT EDU HUB</span>
                   </SheetTitle>
                 </SheetHeader>
-                {!isSessionValid ? <div className="border-t pt-6 flex items-center gap-3 px-5">
+                {!student ? <div className="border-t pt-6 flex items-center gap-3 px-5">
                     <Link
                       to="/auth/login"
                       className="block py-3 text-center  w-full bg-red-600 hover:bg-red-700 text-white"

@@ -23,7 +23,7 @@ export function SignUpForm({ className, ...props }) {
     },
   });
 
-  const {mutate, isError, error, isPending} = usePostData("registerapi.php", "/auth/verify-email")
+  const {mutate, isError, error, isPending} = usePostData("auth/register", "/auth/verify-email")
 
   const onSubmit = async (data) => {
     try {

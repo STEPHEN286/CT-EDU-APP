@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 export const useStudent = () => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-  
+    
     const { data: student, isLoading, error, isSuccess } = useQuery({
+      
       queryKey: ['student'],
       queryFn: () => {
         // Return the cached data or null if not available
@@ -19,7 +20,8 @@ export const useStudent = () => {
       retry: false,
       initialData: null, // Set initial data to null
     });
-  
+    
+    console.log("cached data", student)
     const isAuthenticated = !!student && !!student.id;
     const isAuthReady = student !== undefined || isSuccess;
   

@@ -7,12 +7,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toSlug } from "@/utils/actions";
 import { NavigationMenuTrigger } from "./ui/navigation-menu";
-import { useFetchCourses, useFetchModules } from "@/hooks/useModulesActions";
+import {  useFetchCoursesCategories, useFetchModules } from "@/hooks/useModulesActions";
 
 
 
 const CategoryDropdown = () => {
-  const { data: courses } = useFetchCourses();
+  const { data: courses } = useFetchCoursesCategories();
   const { data: modules } = useFetchModules();
   const { t } = useTranslation("navbar");
   const [activeCategory, setActiveCategory] = useState(null);

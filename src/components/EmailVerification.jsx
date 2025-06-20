@@ -1,7 +1,9 @@
+import { useResendEmail } from '@/hooks/useAuthOperation';
 import { Mail } from 'lucide-react';
 import React from 'react'
 
 export default function EmailVerification() {
+    const {resendEmail, isResending} = useResendEmail()
     const handleOpenEmailApp = () => {
         const emailClientUrls = [
             'https://mail.google.com/mail/u/0/#inbox',
@@ -20,6 +22,11 @@ export default function EmailVerification() {
         // Try to open email clients in sequence
        
     };
+
+    const handleResendEmail  =  () =>  {
+       const email = sessionStorage.getItem ("email")
+        resendEmail(email)
+    }
     
     return (
         <div className="max-w-sm w-full mx-auto bg-white rounded-lg shadow-sm border p-6 text-center">
@@ -49,9 +56,10 @@ export default function EmailVerification() {
             </button>
 
             <button
+            onClick={handleResendEmail}
                 className="text-gray-600 hover:text-gray-900 text-sm font-medium mb-4 transition-colors"
             >
-                Resend verification email
+                {isResending ? "Sending..." : "Resend verification email"}
             </button>
 
             <p className="text-gray-500 text-xs">

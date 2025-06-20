@@ -4,13 +4,13 @@ import { Label } from "@/components/ui/label";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useFormContext, Controller } from "react-hook-form";
-import { navMenu } from "@/data";
+
 // import FeaturedCourse from "@/components/landing-page-contents/FeaturedCourse";
-import { useFetchCourses } from "@/hooks/useModulesActions";
+import { useFetchCoursesCategories } from "@/hooks/useModulesActions";
 
 
 export default function CourseProposal() {
-  const {data} = useFetchCourses();
+  const {data} = useFetchCoursesCategories();
 
   const {
     register,

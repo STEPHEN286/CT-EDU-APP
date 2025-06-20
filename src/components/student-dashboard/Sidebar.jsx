@@ -14,6 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
 import { Link, NavLink } from "react-router-dom";
+import { useStudent } from "@/hooks/useStudentAuth";
 
 const sidebarItems = [
   { icon: BarChart3, label: "Overview", to: "/profile" },
@@ -27,8 +28,9 @@ const sidebarItems = [
 
 ];
 export default function Sidebar() {
+  const {student} = useStudent()
   return (
-    <aside className="min-w-60 m-4 rounded-lg bg-red-600 min-h-screen py-6 overflow-hidden ">
+    <aside className="w-60 m-4 rounded-lg bg-red-600 min-h-screen py-6 overflow-hidden ">
       {/* User Profile */}
       <div className="bg-white rounded-lg p-2  mx-6  mb-6">
         <div className="flex items-center space-x-3">
@@ -37,18 +39,16 @@ export default function Sidebar() {
             <AvatarFallback>WA</AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="font-semibold text-gray-900">
-              {JSON.parse(sessionStorage.getItem('session'))?.name || 
-               JSON.parse(sessionStorage.getItem('session'))?.full_name || 
-               JSON.parse(sessionStorage.getItem('session'))?.username || 
-               'User'}
+            <h3 className="font-semibold text-xs text-gray-900 truncate max-w-[150px]">
+              {student.name}
             </h3>
-            <p className="text-sm text-gray-600">
-              {JSON.parse(sessionStorage.getItem('session'))?.email || 'Student'}
+            <p className="text-xs text-gray-600 truncate max-w-[120px]">
+              {student.email}
             </p>
           </div>
         </div>
-      </div>
+        </div>
+      
 
       {/* Navigation */}
       <nav className=" ml-6">

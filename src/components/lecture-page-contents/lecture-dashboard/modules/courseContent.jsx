@@ -65,8 +65,11 @@ const CourseContent = () => {
 
   // Handle file upload for a specific lecture
   const handleFileUpload = (sectionIndex, lectureIndex, file) => {
-    setValue(`sections.${sectionIndex}.lectures.${lectureIndex}.file`, file)
-  }
+    setValue(`sections.${sectionIndex}.lectures.${lectureIndex}.file`, file, {
+      shouldValidate: true, // ✅ trigger validation
+      shouldDirty: true,
+    });
+  };
 
   // Add a new lecture to an existing section
   const addLecture = (sectionIndex) => {
@@ -179,11 +182,16 @@ const CourseContent = () => {
                           />
 
                           <select
-                            {...register(`sections.${sectionIndex}.lectures.${lectureIndex}.type`)}
-                            onChange={() => {
-                              // Clear file when type changes
-                              setValue(`sections.${sectionIndex}.lectures.${lectureIndex}.file`, null)
-                            }}
+                            {...register(`sections.${sectionIndex}.lectures.${lectureIndex}.type`, {
+    onChange: (e) => {
+ 
+      setValue(
+        `sections.${sectionIndex}.lectures.${lectureIndex}.file`,
+        null,
+        { shouldValidate: true }
+      );
+    }
+  })}
                             className="w-32 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white text-sm"
                           >
                             {LECTURE_TYPES.map((type) => (
